@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'package.json'
+
+permissions:
+  contents: write
+
+jobs:
+  check-version-and-tag:
+    name: 🔍 Check version bump and tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Determine version bump
+        id: check_bump
+        run: |
+          version=$(jq -r '.version' package.json)
+          last_tag=$(git tag --list 'v*.*.*' --sort=-v:refname | head -n1)
+          last_tag=${last_tag#v}
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "last_tag=$last_tag" >> $GITHUB_OUTPUT
+          if [ "$version" = "$last_tag" ]; then
+            echo "bumped=false" >> $GITHUB_OUTPUT
+          else
+            echo "bumped=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Exit if version unchanged
+        if: ${{ steps.check_bump.outputs.bumped == 'false' }}
+        run: |
+          echo "❌ Version ${{ steps.check_bump.outputs.version }} matches last tag v${{ steps.check_bump.outputs.last_tag }} — skipping."
+          exit 0
+
+      - name: Create and push tag on tag-commit
+        if: ${{ steps.check_bump.outputs.bumped == 'true' }}
+        run: |
+          echo "🔍 Local tags:"
+          git tag --list
+          echo
+          echo "🔍 Remote tags:"
+          git ls-remote --tags origin
+          echo
+
+          VERSION="${{ steps.check_bump.outputs.version }}"
+          TAG="v$VERSION"
+
+          echo "🔎 Checking remote for $TAG"
+          if git ls-remote --exit-code --tags origin "$TAG" >/dev/null; then
+            echo "❌ Remote tag $TAG already exists, skipping."
+          else
+            echo "✅ Creating and pushing tag $TAG"
+            git config user.name "${{ github.actor }}"
+            git config user.email "${{ github.actor }}@users.noreply.github.com"
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
