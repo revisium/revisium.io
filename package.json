@@ -27,7 +27,7 @@
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^3.8.1",
+    "@chakra-ui/cli": "^3.16.1",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
@@ -43,6 +43,7 @@
     "typescript": "5.8.3",
     "vite": "^6.2.6",
     "vite-plugin-checker": "^0.6.4",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
