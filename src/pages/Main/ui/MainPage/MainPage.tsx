@@ -28,6 +28,7 @@ export const MainPage = () => {
         </Flex>
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
+          alignItems={{ xl: 'flex-start' }}
           p={{ base: '16px', md: '0 32px', xl: '64px' }}
           gap={{ base: '16px', md: '32px' }}
           overflowY="auto"
