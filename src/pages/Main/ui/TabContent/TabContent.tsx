@@ -68,7 +68,7 @@ export const TabContent = () => {
               </Text>
               <Text as="span" color="#FEA554">
                 "postgresql:
-                <br /> //user:pass@host:5432/db"{' '}
+                <br /> {'//user:pass@host:5432/db'}"{' '}
                 <Text as="span" color="#EE6D50">
                   {' '}
                   \
