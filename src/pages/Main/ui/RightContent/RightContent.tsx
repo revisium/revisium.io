@@ -1,5 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
-import { Button } from 'src/shared/ui/components'
+import { Box, Flex, Text } from '@chakra-ui/react'
+import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 
 export const RightContent = () => {
   return (
@@ -10,7 +10,7 @@ export const RightContent = () => {
         fontWeight={{ base: '700' }}
         lineHeight={{ base: '48px', md: '72px' }}
       >
-        The central slogan
+        Design Schemas, Drive Data… Git-Style!
       </Text>
       <Text
         fontSize={{ base: '13px', md: '16px' }}
@@ -18,12 +18,14 @@ export const RightContent = () => {
         fontWeight={{ base: '400' }}
         lineHeight={{ base: '17px', md: '21px' }}
       >
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard text
+        Revisium lets you define flexible JSON-Schema–based content models, generate and manage your data through a
+        simple UI or API, and track every change with Git-style versioning. <br />
+        <br />
+        It’s a low-level, headless CMS designed for developers who want full control over schema design and data flow.
       </Text>
-      <Button display={{ base: 'none', md: 'block' }} w={{ base: '100%', md: '328px' }} visual="PrimaryButton">
-        Try Revisium Cloud (Alpha)
-      </Button>
+      <Box display={{ base: 'none', md: 'block' }}>
+        <CloudButton />
+      </Box>
     </Flex>
   )
 }

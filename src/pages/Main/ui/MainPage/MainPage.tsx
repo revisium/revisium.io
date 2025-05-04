@@ -1,10 +1,15 @@
-import { Flex } from '@chakra-ui/react'
-import { IconGit, IconLogo } from 'src/shared/ui/icons'
-import { Button } from 'src/shared/ui/components'
-import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
+import { Box, Flex } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 import { RightContent } from 'src/pages/Main/ui/RightContent/RightContent.tsx'
+import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
+import { IconGit, IconLogo } from 'src/shared/ui/icons'
 
 export const MainPage = () => {
+  const handleGit = useCallback(() => {
+    window.open('https://github.com/revisium', '_blank', 'noopener')
+  }, [])
+
   return (
     <Flex
       position="relative"
@@ -24,7 +29,9 @@ export const MainPage = () => {
           p={{ base: '16px', md: '16px 32px', xl: '0 24px' }}
         >
           <IconLogo />
-          <IconGit />
+          <Box onClick={handleGit} cursor="pointer">
+            <IconGit />
+          </Box>
         </Flex>
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
@@ -34,8 +41,8 @@ export const MainPage = () => {
           overflowY="auto"
           css={{
             '&::-webkit-scrollbar': { display: 'none' },
-            '-ms-overflow-style': 'none',
-            'scrollbar-width': 'none',
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
           }}
         >
           <RightContent />
@@ -52,9 +59,7 @@ export const MainPage = () => {
         alignItems="center"
         bgColor="#FFFFFF"
       >
-        <Button w="100%" visual="PrimaryButton">
-          Try Revisium Cloud (Alpha)
-        </Button>
+        <CloudButton />
       </Flex>
     </Flex>
   )
