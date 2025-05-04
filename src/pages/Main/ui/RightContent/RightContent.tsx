@@ -19,7 +19,8 @@ export const RightContent = () => {
         lineHeight={{ base: '17px', md: '21px' }}
       >
         Revisium lets you define flexible JSON-Schema–based content models, generate and manage your data through a
-        simple UI or API, and track every change with Git-style versioning. <br /><br />
+        simple UI or API, and track every change with Git-style versioning. <br />
+        <br />
         It’s a low-level, headless CMS designed for developers who want full control over schema design and data flow.
       </Text>
       <Button display={{ base: 'none', md: 'block' }} w={{ base: '100%', md: '328px' }} visual="PrimaryButton">
