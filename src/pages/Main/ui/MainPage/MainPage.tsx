@@ -7,7 +7,7 @@ import { IconGit, IconLogo } from 'src/shared/ui/icons'
 
 export const MainPage = () => {
   const handleGit = useCallback(() => {
-    window.open('https://github.com/revisium', '_blank')
+    window.open('https://github.com/revisium', '_blank', 'noopener')
   }, [])
 
   return (

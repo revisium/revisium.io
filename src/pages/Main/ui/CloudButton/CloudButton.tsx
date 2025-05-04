@@ -3,7 +3,7 @@ import { Button } from 'src/shared/ui/components'
 
 export const CloudButton = () => {
   const handleCloud = useCallback(() => {
-    window.open('https://cloud.revisium.io', '_blank')
+    window.open('https://cloud.revisium.io', '_blank', 'noopener')
   }, [])
 
   return (
