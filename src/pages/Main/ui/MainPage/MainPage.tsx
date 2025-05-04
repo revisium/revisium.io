@@ -1,9 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { useCallback } from 'react'
-import { IconGit, IconLogo } from 'src/shared/ui/icons'
-import { Button } from 'src/shared/ui/components'
-import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
+import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 import { RightContent } from 'src/pages/Main/ui/RightContent/RightContent.tsx'
+import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
+import { IconGit, IconLogo } from 'src/shared/ui/icons'
 
 export const MainPage = () => {
   const handleGit = useCallback(() => {
@@ -59,9 +59,7 @@ export const MainPage = () => {
         alignItems="center"
         bgColor="#FFFFFF"
       >
-        <Button w="100%" visual="PrimaryButton">
-          Try Revisium Cloud (Alpha)
-        </Button>
+        <CloudButton />
       </Flex>
     </Flex>
   )

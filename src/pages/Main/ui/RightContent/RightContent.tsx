@@ -1,5 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
-import { Button } from 'src/shared/ui/components'
+import { Box, Flex, Text } from '@chakra-ui/react'
+import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 
 export const RightContent = () => {
   return (
@@ -23,9 +23,9 @@ export const RightContent = () => {
         <br />
         It’s a low-level, headless CMS designed for developers who want full control over schema design and data flow.
       </Text>
-      <Button display={{ base: 'none', md: 'block' }} w={{ base: '100%', md: '328px' }} visual="PrimaryButton">
-        Try Revisium Cloud (Alpha)
-      </Button>
+      <Box display={{ base: 'none', md: 'block' }}>
+        <CloudButton />
+      </Box>
     </Flex>
   )
 }
