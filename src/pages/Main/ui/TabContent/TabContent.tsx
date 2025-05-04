@@ -1,6 +1,8 @@
 import { Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { github, idea } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { useCallback } from 'react'
-import { DOCKER_CODE, DOCKER_COMPOSE_CODE } from 'src/pages/Main/config/code.constants.ts'
+import { BASE_DOCKER_COMPOSE_CODE, DOCKER_CODE, DOCKER_COMPOSE_CODE } from 'src/pages/Main/config/code.constants.ts'
 import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
 import { toaster } from 'src/shared/ui'
 import { IconCopy } from 'src/shared/ui/icons'
@@ -70,45 +72,21 @@ export const TabContent = () => {
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
               Run Revisium in a single container
             </Text>
-            <Text fontSize="13px" fontStyle="normal" fontWeight={400} lineHeight="normal" as="span">
-              <Text as="span" color="#5E75EA">
-                docker{' '}
-              </Text>
-              run -d{' '}
-              <Text as="span" color="#EE6D50">
-                \
-              </Text>
-              <br />
-              &nbsp; --name revisium{' '}
-              <Text as="span" color="#EE6D50">
-                \
-              </Text>{' '}
-              <br />
-              &nbsp; --env DATABASE_URL
-              <Text as="span" color="#EE6D50">
-                =
-              </Text>
-              <Text as="span" color="#FEA554">
-                "postgresql:
-                <br /> {'//user:pass@host:5432/db'}"{' '}
-                <Text as="span" color="#EE6D50">
-                  {' '}
-                  \
-                </Text>{' '}
-              </Text>
-              <br />
-              &nbsp; -p{' '}
-              <Text as="span" color="#EE6D50">
-                8080
-              </Text>
-              :8080
-              <Text as="span" color="#EE6D50">
-                {' '}
-                \
-              </Text>{' '}
-              <br />
-              &nbsp; revisium/revisium:v0.11.0-rc.1
-            </Text>
+            <SyntaxHighlighter
+              language="bash"
+              style={github}
+              wrapLongLines
+              customStyle={{
+                background: 'none',
+                fontSize: '13px',
+                fontStyle: 'normal',
+                fontWeight: 400,
+                lineHeight: 'normal',
+                fontFamily: 'Atkinson Hyperlegible',
+              }}
+            >
+              {DOCKER_CODE}
+            </SyntaxHighlighter>
             <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDocker} cursor="pointer">
               <IconCopy />
             </Flex>
@@ -119,34 +97,21 @@ export const TabContent = () => {
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
               Use Docker Compose for a full stack (app + database)
             </Text>
-            <Text fontSize="13px" fontStyle="normal" fontWeight={400} lineHeight="normal">
-              version: '3.8'
-              <br /> services:
-              <br />
-              &nbsp; revisium:
-              <br />
-              &nbsp;&nbsp; &nbsp;image: revisium/revisium:v0.11.0-rc.1
-              <br />
-              &nbsp;&nbsp; &nbsp;ports: - "8080:8080" <br />
-              &nbsp;&nbsp; &nbsp;environment:
-              <br />
-              &nbsp;&nbsp;&nbsp; &nbsp; DATABASE_URL: "postgresql://user:pass@db:5432/revisium"
-              <br />
-              &nbsp;&nbsp;&nbsp; &nbsp; depends_on: <br />
-              &nbsp; &nbsp; &nbsp; &nbsp; - db
-              <br />
-              &nbsp; db:
-              <br />
-              &nbsp; &nbsp; image: postgres:15
-              <br />
-              &nbsp; &nbsp; environment:
-              <br />
-              &nbsp; &nbsp; &nbsp; POSTGRES_USER: user
-              <br />
-              &nbsp; &nbsp; &nbsp; POSTGRES_PASSWORD: pass
-              <br />
-              &nbsp; &nbsp; &nbsp; POSTGRES_DB: revisium
-            </Text>
+            <SyntaxHighlighter
+              language="yaml"
+              style={idea}
+              wrapLongLines
+              customStyle={{
+                background: 'none',
+                fontSize: '13px',
+                fontStyle: 'normal',
+                fontWeight: 400,
+                lineHeight: 'normal',
+                fontFamily: 'Atkinson Hyperlegible',
+              }}
+            >
+              {BASE_DOCKER_COMPOSE_CODE}
+            </SyntaxHighlighter>
             <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDockerCompose} cursor="pointer">
               <IconCopy />
             </Flex>
