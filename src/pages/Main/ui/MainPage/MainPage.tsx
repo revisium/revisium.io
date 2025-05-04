@@ -34,8 +34,8 @@ export const MainPage = () => {
           overflowY="auto"
           css={{
             '&::-webkit-scrollbar': { display: 'none' },
-            '-ms-overflow-style': 'none',
-            'scrollbar-width': 'none',
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
           }}
         >
           <RightContent />

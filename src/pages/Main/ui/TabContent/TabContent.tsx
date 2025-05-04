@@ -1,7 +1,29 @@
 import { Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import { DOCKER_CODE, DOCKER_COMPOSE_CODE } from 'src/pages/Main/config/code.constants.ts'
+import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
+import { toaster } from 'src/shared/ui'
 import { IconCopy } from 'src/shared/ui/icons'
 
 export const TabContent = () => {
+  const handleClickDocker = useCallback(async () => {
+    toaster.create({
+      description: 'Copied docker to clipboard',
+      type: 'info',
+    })
+
+    await copyToClipboard(DOCKER_CODE)
+  }, [])
+
+  const handleClickDockerCompose = useCallback(async () => {
+    toaster.create({
+      description: 'Copied docker compose to clipboard',
+      type: 'info',
+    })
+
+    await copyToClipboard(DOCKER_COMPOSE_CODE)
+  }, [])
+
   return (
     <Flex flex={1}>
       <TabsRoot
@@ -85,9 +107,9 @@ export const TabContent = () => {
                 \
               </Text>{' '}
               <br />
-              &nbsp; revisium/revisium:v0.10.0
+              &nbsp; revisium/revisium:v0.11.0-rc.1
             </Text>
-            <Flex borderRadius="8px" p="6px" justify="flex-end">
+            <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDocker} cursor="pointer">
               <IconCopy />
             </Flex>
           </Flex>
@@ -103,7 +125,7 @@ export const TabContent = () => {
               <br />
               &nbsp; revisium:
               <br />
-              &nbsp;&nbsp; &nbsp;image: revisium/revisium:v0.10.0
+              &nbsp;&nbsp; &nbsp;image: revisium/revisium:v0.11.0-rc.1
               <br />
               &nbsp;&nbsp; &nbsp;ports: - "8080:8080" <br />
               &nbsp;&nbsp; &nbsp;environment:
@@ -125,7 +147,7 @@ export const TabContent = () => {
               <br />
               &nbsp; &nbsp; &nbsp; POSTGRES_DB: revisium
             </Text>
-            <Flex borderRadius="8px" p="6px" justify="flex-end">
+            <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDockerCompose} cursor="pointer">
               <IconCopy />
             </Flex>
           </Flex>
