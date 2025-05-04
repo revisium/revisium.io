@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import { useCallback } from 'react'
 import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 import { RightContent } from 'src/pages/Main/ui/RightContent/RightContent.tsx'
@@ -29,9 +29,9 @@ export const MainPage = () => {
           p={{ base: '16px', md: '16px 32px', xl: '0 24px' }}
         >
           <IconLogo />
-          <Box onClick={handleGit} cursor="pointer">
+          <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
             <IconGit />
-          </Box>
+          </Button>
         </Flex>
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
