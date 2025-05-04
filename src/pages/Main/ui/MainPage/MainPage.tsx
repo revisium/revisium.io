@@ -1,10 +1,15 @@
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
+import { useCallback } from 'react'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { Button } from 'src/shared/ui/components'
 import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
 import { RightContent } from 'src/pages/Main/ui/RightContent/RightContent.tsx'
 
 export const MainPage = () => {
+  const handleGit = useCallback(() => {
+    window.open('https://github.com/revisium', '_blank')
+  }, [])
+
   return (
     <Flex
       position="relative"
@@ -24,7 +29,9 @@ export const MainPage = () => {
           p={{ base: '16px', md: '16px 32px', xl: '0 24px' }}
         >
           <IconLogo />
-          <IconGit />
+          <Box onClick={handleGit} cursor="pointer">
+            <IconGit />
+          </Box>
         </Flex>
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
