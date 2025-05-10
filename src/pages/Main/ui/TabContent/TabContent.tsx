@@ -1,4 +1,4 @@
-import { Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
+import { Button, Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { github, idea } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { useCallback } from 'react'
@@ -87,8 +87,10 @@ export const TabContent = () => {
             >
               {DOCKER_CODE}
             </SyntaxHighlighter>
-            <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDocker} cursor="pointer">
-              <IconCopy />
+            <Flex borderRadius="8px" justify="flex-end" cursor="pointer">
+              <Button onClick={handleClickDocker} bgColor="#FFFFFF" borderRadius="100%" p={0}>
+                <IconCopy />
+              </Button>
             </Flex>
           </Flex>
         </TabsContent>
@@ -112,8 +114,10 @@ export const TabContent = () => {
             >
               {BASE_DOCKER_COMPOSE_CODE}
             </SyntaxHighlighter>
-            <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDockerCompose} cursor="pointer">
-              <IconCopy />
+            <Flex borderRadius="8px" justify="flex-end" cursor="pointer">
+              <Button onClick={handleClickDockerCompose} bgColor="#FFFFFF" borderRadius="100%" p={0}>
+                <IconCopy />
+              </Button>
             </Flex>
           </Flex>
         </TabsContent>
