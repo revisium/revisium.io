@@ -114,8 +114,10 @@ export const TabContent = () => {
             >
               {BASE_DOCKER_COMPOSE_CODE}
             </SyntaxHighlighter>
-            <Flex borderRadius="8px" p="6px" justify="flex-end" onClick={handleClickDockerCompose} cursor="pointer">
-              <IconCopy />
+            <Flex borderRadius="8px" justify="flex-end" cursor="pointer">
+              <Button onClick={handleClickDockerCompose} bgColor="#FFFFFF" borderRadius="100%" p={0}>
+                <IconCopy />
+              </Button>
             </Flex>
           </Flex>
         </TabsContent>
