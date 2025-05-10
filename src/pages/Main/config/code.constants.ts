@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 
-export const CURRENT_VERSION = 'v1.0.0'
+export const CURRENT_VERSION = 'v1.0.1'
 
 export const DOCKER_CODE = `docker run -d -p 8080:8080
   --name revisium  
