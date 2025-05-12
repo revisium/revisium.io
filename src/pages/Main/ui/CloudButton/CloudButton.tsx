@@ -7,7 +7,7 @@ export const CloudButton = () => {
   }, [])
 
   return (
-    <Button w={{ base: '100%', md: '328px' }} visual="PrimaryButton" onClick={handleCloud}>
+    <Button w="100%" visual="PrimaryButton" onClick={handleCloud}>
       Try Revisium Cloud (Alpha)
     </Button>
   )
