@@ -1,9 +1,10 @@
 import { Button, Flex } from '@chakra-ui/react'
 import { useCallback } from 'react'
 import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
-import { RightContent } from 'src/pages/Main/ui/RightContent/RightContent.tsx'
-import { TabContent } from 'src/pages/Main/ui/TabContent/TabContent.tsx'
+import { HeaderSection } from 'src/pages/Main/ui/HeaderSection/HeaderSection.tsx'
+import { DeploymentTabs } from 'src/pages/Main/ui/DeploymentTabs/DeploymentTabs.tsx'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
+import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
 
 export const MainPage = () => {
   const handleGit = useCallback(() => {
@@ -11,42 +12,44 @@ export const MainPage = () => {
   }, [])
 
   return (
-    <Flex
-      position="relative"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="space-between"
-      height="100vh"
-      p={{ base: '32px 0 0 0', md: '32px 0', xl: '24px 0 64px 0' }}
-    >
-      <Flex w="100%" maxW="1082px" flexDirection="column" gap="32px">
-        <Flex
-          position="sticky"
-          top={0}
-          bgColor="#FFFFFF"
-          justifyContent="space-between"
-          alignItems="center"
-          p={{ base: '16px', md: '16px 32px', xl: '0 24px' }}
-        >
-          <IconLogo />
-          <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
-            <IconGit />
-          </Button>
-        </Flex>
+    <Flex position="relative" flexDirection="column" h="100%">
+      <Flex
+        position="sticky"
+        top={0}
+        w="100%"
+        bgColor="#FFFFFF"
+        justifyContent="space-between"
+        alignItems="center"
+        p={{ base: '16px', md: '16px 32px', xl: '16px' }}
+      >
+        <IconLogo />
+        <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
+          <IconGit />
+        </Button>
+      </Flex>
+      <Flex
+        w="100%"
+        h="100%"
+        flexDirection="column"
+        gap={{ base: '16px', md: '32px', xl: '48px' }}
+        mt={{ base: '24px', xl: '48px' }}
+        overflowY="auto"
+        css={{
+          '&::-webkit-scrollbar': { display: 'none' },
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
+        <HeaderSection />
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
-          alignItems={{ xl: 'flex-start' }}
-          p={{ base: '16px', md: '0 32px', xl: '64px' }}
-          gap={{ base: '16px', md: '32px' }}
-          overflowY="auto"
-          css={{
-            '&::-webkit-scrollbar': { display: 'none' },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
+          gap={{ base: '16px', md: '32px', xl: '24px' }}
+          justify={{ xl: 'center' }}
+          align="flex-start"
+          p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
         >
-          <RightContent />
-          <TabContent />
+          <SchemaEditorDemo />
+          <DeploymentTabs />
         </Flex>
       </Flex>
       <Flex
@@ -54,8 +57,8 @@ export const MainPage = () => {
         bottom={0}
         w="100%"
         minH="108px"
-        p="0 16px"
-        display={{ base: 'flex', md: 'none' }}
+        p={{ base: '0 16px', md: '0 32px', xl: '0' }}
+        display={{ base: 'flex', xl: 'none' }}
         alignItems="center"
         bgColor="#FFFFFF"
       >
