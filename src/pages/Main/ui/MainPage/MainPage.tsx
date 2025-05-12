@@ -33,6 +33,12 @@ export const MainPage = () => {
         flexDirection="column"
         gap={{ base: '16px', md: '32px', xl: '48px' }}
         mt={{ base: '24px', xl: '48px' }}
+        overflowY="auto"
+        css={{
+          '&::-webkit-scrollbar': { display: 'none' },
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
       >
         <HeaderSection />
         <Flex
@@ -41,12 +47,6 @@ export const MainPage = () => {
           justify={{ xl: 'center' }}
           align="flex-start"
           p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
-          overflowY="auto"
-          css={{
-            '&::-webkit-scrollbar': { display: 'none' },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
         >
           <SchemaEditorDemo />
           <DeploymentTabs />
