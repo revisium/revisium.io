@@ -20,14 +20,14 @@ export const SchemaEditorDemo = () => {
         padding="12px"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="6.5" stroke="#2CA1E3" stroke-width="3" />
+          <circle cx="8" cy="8" r="6.5" stroke="#2CA1E3" strokeWidth="3" />
         </svg>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="6.5" stroke="#66BBEB" stroke-width="3" />
+          <circle cx="8" cy="8" r="6.5" stroke="#66BBEB" strokeWidth="3" />
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="6.5" stroke="#AADAF4" stroke-width="3" />
+          <circle cx="8" cy="8" r="6.5" stroke="#AADAF4" strokeWidth="3" />
         </svg>
       </Flex>
       <Flex borderRadius="0 0 16px 16px" overflow="hidden">
