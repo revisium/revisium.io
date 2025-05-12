@@ -31,7 +31,15 @@ export const SchemaEditorDemo = () => {
         </svg>
       </Flex>
       <Flex borderRadius="0 0 16px 16px" overflow="hidden">
-        <video autoPlay playsInline loop muted>
+        <video
+          autoPlay
+          playsInline
+          loop
+          muted
+          style={{
+            clipPath: 'inset(2px)',
+          }}
+        >
           <source src="./video/revisium-io.mp4" type="video/mp4" />
         </video>
       </Flex>
