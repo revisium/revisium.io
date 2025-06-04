@@ -1,14 +1,19 @@
-import { useCallback } from 'react'
+import { FC, useCallback } from 'react'
 import { Button } from 'src/shared/ui/components'
 
-export const CloudButton = () => {
+interface CloudButtonProps {
+  link: string
+  label: string
+}
+
+export const CloudButton: FC<CloudButtonProps> = ({ link, label }) => {
   const handleCloud = useCallback(() => {
-    window.open('https://cloud.revisium.io', '_blank', 'noopener')
-  }, [])
+    window.open(link, '_blank', 'noopener')
+  }, [link])
 
   return (
     <Button w="100%" visual="PrimaryButton" onClick={handleCloud}>
-      Try Revisium Cloud (Alpha)
+      {label}
     </Button>
   )
 }

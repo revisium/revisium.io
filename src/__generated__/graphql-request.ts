@@ -708,7 +708,27 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
+export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
+
+export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string } } };
+
+
+export const MainPageDocument = gql`
+    query mainPage {
+  mainFlat(id: "main") {
+    texts {
+      title
+      description
+    }
+    github
+    cloud {
+      label
+      link
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 
@@ -717,7 +737,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-
+    mainPage(variables?: MainPageQueryVariables, requestHeaders?: GraphQLClientRequestHeaders, signal?: RequestInit['signal']): Promise<MainPageQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<MainPageQuery>({ document: MainPageDocument, variables, requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders }, signal }), 'mainPage', 'query', variables);
+    }
   };
 }
 export type Sdk = ReturnType<typeof getSdk>;

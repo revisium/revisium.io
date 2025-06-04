@@ -1,0 +1,13 @@
+query mainPage {
+  mainFlat(id: "main") {
+    texts {
+      title
+      description
+    }
+    github
+    cloud {
+      label
+      link
+    }
+  }
+}
