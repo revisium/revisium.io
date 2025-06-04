@@ -5,6 +5,9 @@ import { HeaderSection } from 'src/pages/Main/ui/HeaderSection/HeaderSection.tsx
 import { DeploymentTabs } from 'src/pages/Main/ui/DeploymentTabs/DeploymentTabs.tsx'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
+import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
+import { nanoid } from 'nanoid'
+import { Footer } from 'src/pages/Main/ui/Footer/Footer.tsx'
 
 export const MainPage = () => {
   const handleGit = useCallback(() => {
@@ -12,7 +15,7 @@ export const MainPage = () => {
   }, [])
 
   return (
-    <Flex position="relative" flexDirection="column" h="100%">
+    <Flex position="relative" flexDirection="column" h="100%" pb="48px">
       <Flex
         position="sticky"
         top={0}
@@ -51,18 +54,85 @@ export const MainPage = () => {
           <SchemaEditorDemo />
           <DeploymentTabs />
         </Flex>
-      </Flex>
-      <Flex
-        position="sticky"
-        bottom={0}
-        w="100%"
-        minH="108px"
-        p={{ base: '0 16px', md: '0 32px', xl: '0' }}
-        display={{ base: 'flex', xl: 'none' }}
-        alignItems="center"
-        bgColor="#FFFFFF"
-      >
-        <CloudButton />
+        <Flex
+          w="100%"
+          minH="108px"
+          p={{ base: '0 16px', md: '0 32px', xl: '0' }}
+          display={{ base: 'flex', xl: 'none' }}
+          alignItems="center"
+          bgColor="#FFFFFF"
+        >
+          <CloudButton />
+        </Flex>
+        <Flex direction="column" gap={{ base: '48px', md: '64px', xl: '96px' }}>
+          <FeatureHighlights
+            title="Core features"
+            variations={[
+              {
+                id: nanoid(),
+                isVideo: true,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+              {
+                id: nanoid(),
+                isVideo: true,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+              {
+                id: nanoid(),
+                isVideo: true,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+              {
+                id: nanoid(),
+                isVideo: true,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+            ]}
+          />
+          <FeatureHighlights
+            title="Use cases"
+            variations={[
+              {
+                id: nanoid(),
+                isVideo: false,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+              {
+                id: nanoid(),
+                isVideo: false,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+              {
+                id: nanoid(),
+                isVideo: false,
+                imageUrl: './image/photo-block.png',
+                title: 'title',
+                description:
+                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
+              },
+            ]}
+          />
+          <Footer />
+        </Flex>
       </Flex>
     </Flex>
   )
