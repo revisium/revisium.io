@@ -9,5 +9,8 @@ query mainPage {
       label
       link
     }
+    preview {
+      url
+    }
   }
 }

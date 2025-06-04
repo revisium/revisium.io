@@ -64,7 +64,7 @@ export const MainPage = observer(() => {
           align="flex-start"
           p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
         >
-          <SchemaEditorDemo />
+          <SchemaEditorDemo previewUrl={model.previewUrl} />
           <DeploymentTabs />
         </Flex>
         <Flex

@@ -711,7 +711,7 @@ export type _Service = {
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string } } };
+export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string } } };
 
 
 export const MainPageDocument = gql`
@@ -725,6 +725,9 @@ export const MainPageDocument = gql`
     cloud {
       label
       link
+    }
+    preview {
+      url
     }
   }
 }

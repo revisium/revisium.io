@@ -27,6 +27,10 @@ export class MainPageModel {
     return this.loadedData.texts.description.split('\n').map((text) => ({ id: nanoid(), text }))
   }
 
+  public get previewUrl() {
+    return this.loadedData.preview.url
+  }
+
   public get isLoading() {
     return this.mainPageRequest.isLoading
   }
