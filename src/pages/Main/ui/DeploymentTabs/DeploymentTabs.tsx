@@ -1,13 +1,18 @@
 import { Button, Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { github, idea } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { useCallback } from 'react'
+import { FC, useCallback } from 'react'
 import { BASE_DOCKER_COMPOSE_CODE, DOCKER_CODE, DOCKER_COMPOSE_CODE } from 'src/pages/Main/config/code.constants.ts'
 import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
+import { DeploymentTabsModel } from 'src/pages/Main/model/DeploymentTabsModel.ts'
 import { toaster } from 'src/shared/ui'
 import { IconCopy } from 'src/shared/ui/icons'
 
-export const DeploymentTabs = () => {
+interface DeploymentTabsProps {
+  model: DeploymentTabsModel
+}
+
+export const DeploymentTabs: FC<DeploymentTabsProps> = ({ model }) => {
   const handleClickDocker = useCallback(async () => {
     toaster.create({
       description: 'Copied docker to clipboard',
@@ -70,7 +75,7 @@ export const DeploymentTabs = () => {
         <TabsContent value="Docker">
           <Flex direction="column" gap="16px">
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
-              Run Revisium in a single container
+              {model.dockerTitle}
             </Text>
             <SyntaxHighlighter
               language="bash"
@@ -97,7 +102,7 @@ export const DeploymentTabs = () => {
         <TabsContent value="Compose">
           <Flex direction="column" gap="16px">
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
-              Use Docker Compose for a full stack (app + database)
+              {model.dockerComposeTitle}
             </Text>
             <SyntaxHighlighter
               language="yaml"

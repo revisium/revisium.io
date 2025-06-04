@@ -65,7 +65,7 @@ export const MainPage = observer(() => {
           p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
         >
           <SchemaEditorDemo previewUrl={model.previewUrl} />
-          <DeploymentTabs />
+          <DeploymentTabs model={model.code} />
         </Flex>
         <Flex
           w="100%"

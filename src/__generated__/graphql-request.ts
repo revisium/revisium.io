@@ -708,12 +708,25 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
+export type CodeFragment = { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } };
+
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string } } };
+export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } } } };
 
-
+export const CodeFragmentDoc = gql`
+    fragment Code on LandingMainFlatCode {
+  docker {
+    code
+    title
+  }
+  dockerCompose {
+    title
+    code
+  }
+}
+    `;
 export const MainPageDocument = gql`
     query mainPage {
   mainFlat(id: "main") {
@@ -728,6 +741,16 @@ export const MainPageDocument = gql`
     }
     preview {
       url
+    }
+    code {
+      docker {
+        code
+        title
+      }
+      dockerCompose {
+        title
+        code
+      }
     }
   }
 }

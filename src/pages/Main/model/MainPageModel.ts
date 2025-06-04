@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid'
+import { DeploymentTabsModel } from 'src/pages/Main/model/DeploymentTabsModel.ts'
 import { container, ObservableRequest } from 'src/shared/lib'
 import { client } from 'src/shared/services'
 
@@ -29,6 +30,10 @@ export class MainPageModel {
 
   public get previewUrl() {
     return this.loadedData.preview.url
+  }
+
+  public get code() {
+    return new DeploymentTabsModel(this.loadedData.code)
   }
 
   public get isLoading() {
