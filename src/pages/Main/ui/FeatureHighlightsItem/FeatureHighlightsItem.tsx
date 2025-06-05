@@ -2,17 +2,17 @@ import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import React from 'react'
 
 interface CoreFeaturesItemProps {
-  imageUrl: string
+  url: string
   title: string
   description: string
   isVideo?: boolean
 }
 
-export const FeatureHighlightsItem: React.FC<CoreFeaturesItemProps> = ({ imageUrl, description, title, isVideo }) => {
+export const FeatureHighlightsItem: React.FC<CoreFeaturesItemProps> = ({ url, description, title, isVideo }) => {
   return (
     <Flex w="100%" maxW={{ xl: '600px' }} direction="column" gap="16px">
       <Flex position="relative" borderRadius="16px" border="1px solid #E2E4E5" bgColor="#F3F3F3" overflow="hidden">
-        <Image src={imageUrl} />
+        <Image src={url} />
         {isVideo ? (
           <Button
             position="absolute"
