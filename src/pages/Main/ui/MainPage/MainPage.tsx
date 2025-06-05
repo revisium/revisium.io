@@ -10,7 +10,6 @@ import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
 import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
 import { nanoid } from 'nanoid'
-import { Footer } from 'src/pages/Main/ui/Footer/Footer.tsx'
 
 export const MainPage = observer(() => {
   const model = useViewModel(MainPageModel)
@@ -144,7 +143,6 @@ export const MainPage = observer(() => {
               },
             ]}
           />
-          <Footer />
         </Flex>
       </Flex>
     </Flex>
