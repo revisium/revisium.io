@@ -26,6 +26,7 @@ export type LandingBoolFilter = {
 };
 
 export type LandingCase = {
+  caseId: Scalars['String']['output'];
   description: Scalars['String']['output'];
   file: LandingCaseFile;
   title: Scalars['String']['output'];
@@ -56,6 +57,7 @@ export type LandingCaseFile = {
 };
 
 export type LandingCaseFlat = {
+  caseId: Scalars['String']['output'];
   description: Scalars['String']['output'];
   file: LandingCaseFlatFile;
   title: Scalars['String']['output'];
@@ -219,7 +221,8 @@ export type LandingDateTimeFilter = {
 };
 
 export type LandingFeature = {
-  descripton: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  featureId: Scalars['String']['output'];
   file: LandingFeatureFile;
   title: Scalars['String']['output'];
 };
@@ -249,7 +252,8 @@ export type LandingFeatureFile = {
 };
 
 export type LandingFeatureFlat = {
-  descripton: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  featureId: Scalars['String']['output'];
   file: LandingFeatureFlatFile;
   title: Scalars['String']['output'];
 };
@@ -708,13 +712,63 @@ export type _Service = {
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
+export type FeatureFragment = { featureId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } };
+
+export type CaseFragment = { caseId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } };
+
+export type MainFeaturesFragment = { title: string, items: Array<{ featureId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> };
+
+export type MainCasesFragment = { title: string, items: Array<{ caseId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> };
+
 export type CodeFragment = { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } };
 
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { version: string, mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } } } };
+export type MainPageQuery = { version: string, mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } }, features: { title: string, items: Array<{ featureId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> }, cases: { title: string, items: Array<{ caseId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> } } };
 
+export const FeatureFragmentDoc = gql`
+    fragment Feature on LandingFeatureFlat {
+  featureId
+  title
+  description
+  file {
+    width
+    height
+    url
+    mimeType
+  }
+}
+    `;
+export const MainFeaturesFragmentDoc = gql`
+    fragment MainFeatures on LandingMainFlatFeatures {
+  title
+  items {
+    ...Feature
+  }
+}
+    ${FeatureFragmentDoc}`;
+export const CaseFragmentDoc = gql`
+    fragment Case on LandingCaseFlat {
+  caseId
+  title
+  description
+  file {
+    width
+    height
+    url
+    mimeType
+  }
+}
+    `;
+export const MainCasesFragmentDoc = gql`
+    fragment MainCases on LandingMainFlatCases {
+  title
+  items {
+    ...Case
+  }
+}
+    ${CaseFragmentDoc}`;
 export const CodeFragmentDoc = gql`
     fragment Code on LandingMainFlatCode {
   docker {
@@ -753,9 +807,16 @@ export const MainPageDocument = gql`
         code
       }
     }
+    features {
+      ...MainFeatures
+    }
+    cases {
+      ...MainCases
+    }
   }
 }
-    `;
+    ${MainFeaturesFragmentDoc}
+${MainCasesFragmentDoc}`;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string, variables?: any) => Promise<T>;
 

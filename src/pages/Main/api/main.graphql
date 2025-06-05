@@ -1,3 +1,41 @@
+fragment Feature on LandingFeatureFlat {
+  featureId
+  title
+  description
+  file {
+    width
+    height
+    url
+    mimeType
+  }
+}
+
+fragment Case on LandingCaseFlat {
+  caseId
+  title
+  description
+  file {
+    width
+    height
+    url
+    mimeType
+  }
+}
+
+fragment MainFeatures on LandingMainFlatFeatures {
+  title
+  items {
+    ...Feature
+  }
+}
+
+fragment MainCases on LandingMainFlatCases {
+  title
+  items {
+    ...Case
+  }
+}
+
 fragment Code on LandingMainFlatCode {
   docker {
     code
@@ -33,6 +71,12 @@ query mainPage {
         title
         code
       }
+    }
+    features {
+      ...MainFeatures
+    }
+    cases {
+      ...MainCases
     }
   }
 }

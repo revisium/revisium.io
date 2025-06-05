@@ -9,7 +9,6 @@ import { useViewModel } from 'src/shared/hooks'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
 import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
-import { nanoid } from 'nanoid'
 
 export const MainPage = observer(() => {
   const model = useViewModel(MainPageModel)
@@ -77,72 +76,10 @@ export const MainPage = observer(() => {
           <CloudButton link={model.cloudLink} label={model.cloudLabel} />
         </Flex>
         <Flex direction="column" gap={{ base: '48px', md: '64px', xl: '96px' }}>
-          <FeatureHighlights
-            title="Core features"
-            variations={[
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-            ]}
-          />
-          <FeatureHighlights
-            title="Use cases"
-            variations={[
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-            ]}
-          />
+          {model.features.isAvailable && (
+            <FeatureHighlights title={model.features.title} variations={model.features.items} />
+          )}
+          {model.cases.isAvailable && <FeatureHighlights title={model.cases.title} variations={model.cases.items} />}
         </Flex>
       </Flex>
     </Flex>

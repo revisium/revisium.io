@@ -12,6 +12,7 @@ input LandingBoolFilter {
 }
 
 type LandingCase {
+  caseId: String!
   description: String!
   file: LandingCaseFile!
   title: String!
@@ -42,6 +43,7 @@ type LandingCaseFile {
 }
 
 type LandingCaseFlat {
+  caseId: String!
   description: String!
   file: LandingCaseFlatFile!
   title: String!
@@ -205,7 +207,8 @@ input LandingDateTimeFilter {
 }
 
 type LandingFeature {
-  descripton: String!
+  description: String!
+  featureId: String!
   file: LandingFeatureFile!
   title: String!
 }
@@ -235,7 +238,8 @@ type LandingFeatureFile {
 }
 
 type LandingFeatureFlat {
-  descripton: String!
+  description: String!
+  featureId: String!
   file: LandingFeatureFlatFile!
   title: String!
 }

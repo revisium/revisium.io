@@ -1,5 +1,7 @@
 import { nanoid } from 'nanoid'
+import { CasesModel } from 'src/pages/Main/model/CasesModel.ts'
 import { DeploymentTabsModel } from 'src/pages/Main/model/DeploymentTabsModel.ts'
+import { FeaturesModel } from 'src/pages/Main/model/FeaturesModel.ts'
 import { container, ObservableRequest } from 'src/shared/lib'
 import { client } from 'src/shared/services'
 
@@ -34,6 +36,14 @@ export class MainPageModel {
 
   public get code() {
     return new DeploymentTabsModel(this.loadedData.code, this.version)
+  }
+
+  public get features() {
+    return new FeaturesModel(this.loadedData.features)
+  }
+
+  public get cases() {
+    return new CasesModel(this.loadedData.cases)
   }
 
   public get version() {
