@@ -16,10 +16,10 @@ export class FeatureItemModel {
   }
 
   public get isVideo() {
-    return false
+    return this.data.file.mimeType.startsWith('video/')
   }
 
-  public get imageUrl() {
-    return './image/photo-block.png'
+  public get url() {
+    return this.data.file.url
   }
 }

@@ -6,7 +6,7 @@ interface FeatureHighlightsProps {
   title: string
   variations: {
     id: string
-    imageUrl: string
+    url: string
     title: string
     description: string
     isVideo?: boolean
@@ -31,7 +31,7 @@ export const FeatureHighlights: React.FC<FeatureHighlightsProps> = ({ title, var
             key={variation.id}
             title={variation.title}
             description={variation.description}
-            imageUrl={variation.imageUrl}
+            url={variation.url}
             isVideo={variation.isVideo}
           />
         ))}
