@@ -1,7 +1,13 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
+import { FC, Fragment } from 'react'
+import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
 import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 
-export const HeaderSection = () => {
+interface HeaderSectionProps {
+  model: MainPageModel
+}
+
+export const HeaderSection: FC<HeaderSectionProps> = ({ model }) => {
   return (
     <Flex
       w="100%"
@@ -17,9 +23,7 @@ export const HeaderSection = () => {
         fontWeight={700}
         lineHeight={{ base: '48px', md: '72px' }}
       >
-        Design
-        <br /> Schemas, Drive
-        <br /> Data… Git-Style!
+        {model.title}
       </Text>
       <Text
         display={{ base: 'none', xl: 'block' }}
@@ -30,7 +34,7 @@ export const HeaderSection = () => {
         lineHeight="72px"
         textAlign="center"
       >
-        Design Schemas, Drive Data… Git-Style!
+        {model.title}
       </Text>
       <Text
         maxW={{ base: '600px', xl: '860px' }}
@@ -40,13 +44,15 @@ export const HeaderSection = () => {
         lineHeight={{ base: '17px', md: '20px', xl: '21px' }}
         textAlign={{ base: 'start', xl: 'center' }}
       >
-        Revisium lets you define flexible JSON-Schema–based content models, generate and manage your data through a
-        simple UI or API, and track every change with Git-style versioning. <br />
-        <br />
-        It’s a low-level, headless CMS designed for developers who want full control over schema design and data flow.
+        {model.description.map((item) => (
+          <Fragment key={item.id}>
+            <span>{item.text}</span>
+            <br />
+          </Fragment>
+        ))}
       </Text>
       <Box w="480px" display={{ base: 'none', xl: 'block' }}>
-        <CloudButton />
+        <CloudButton link={model.cloudLink} label={model.cloudLabel} />
       </Box>
     </Flex>
   )

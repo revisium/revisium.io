@@ -1,6 +1,11 @@
 import { Flex } from '@chakra-ui/react'
+import { FC } from 'react'
 
-export const SchemaEditorDemo = () => {
+interface SchemaEditorDemoProps {
+  previewUrl: string
+}
+
+export const SchemaEditorDemo: FC<SchemaEditorDemoProps> = ({ previewUrl }) => {
   return (
     <Flex
       w="100%"
@@ -40,7 +45,7 @@ export const SchemaEditorDemo = () => {
             clipPath: 'inset(2px)',
           }}
         >
-          <source src="./video/revisium-io.mp4" type="video/mp4" />
+          <source width="740px" height="540px" src={previewUrl} type="video/mp4" />
         </video>
       </Flex>
     </Flex>

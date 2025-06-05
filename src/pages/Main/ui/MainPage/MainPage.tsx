@@ -1,18 +1,29 @@
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Center, Flex, Spinner } from '@chakra-ui/react'
+import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
+import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
 import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
 import { HeaderSection } from 'src/pages/Main/ui/HeaderSection/HeaderSection.tsx'
 import { DeploymentTabs } from 'src/pages/Main/ui/DeploymentTabs/DeploymentTabs.tsx'
+import { useViewModel } from 'src/shared/lib'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
 import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
-import { nanoid } from 'nanoid'
-import { Footer } from 'src/pages/Main/ui/Footer/Footer.tsx'
 
-export const MainPage = () => {
+export const MainPage = observer(() => {
+  const model = useViewModel(MainPageModel)
+
   const handleGit = useCallback(() => {
-    window.open('https://github.com/revisium', '_blank', 'noopener')
-  }, [])
+    window.open(model.github, '_blank', 'noopener')
+  }, [model])
+
+  if (model.isLoading || !model.isAvailableData) {
+    return (
+      <Center height="100%">
+        <Spinner />
+      </Center>
+    )
+  }
 
   return (
     <Flex position="relative" flexDirection="column" h="100%" pb="48px">
@@ -43,7 +54,7 @@ export const MainPage = () => {
           scrollbarWidth: 'none',
         }}
       >
-        <HeaderSection />
+        <HeaderSection model={model} />
         <Flex
           flexDirection={{ base: 'column', xl: 'row' }}
           gap={{ base: '16px', md: '32px', xl: '24px' }}
@@ -51,8 +62,8 @@ export const MainPage = () => {
           align="flex-start"
           p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
         >
-          <SchemaEditorDemo />
-          <DeploymentTabs />
+          <SchemaEditorDemo previewUrl={model.previewUrl} />
+          <DeploymentTabs model={model.code} />
         </Flex>
         <Flex
           w="100%"
@@ -62,78 +73,15 @@ export const MainPage = () => {
           alignItems="center"
           bgColor="#FFFFFF"
         >
-          <CloudButton />
+          <CloudButton link={model.cloudLink} label={model.cloudLabel} />
         </Flex>
         <Flex direction="column" gap={{ base: '48px', md: '64px', xl: '96px' }}>
-          <FeatureHighlights
-            title="Core features"
-            variations={[
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: true,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-            ]}
-          />
-          <FeatureHighlights
-            title="Use cases"
-            variations={[
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-              {
-                id: nanoid(),
-                isVideo: false,
-                imageUrl: './image/photo-block.png',
-                title: 'title',
-                description:
-                  'Code faster with relevant keyword and symbol suggestions shown as you type. All suggestions are context and type-aware and work across different languages – i.e. class names from CSS will be completed in your .js files with support from machine learning.',
-              },
-            ]}
-          />
-          <Footer />
+          {model.features.isAvailable && (
+            <FeatureHighlights title={model.features.title} variations={model.features.items} />
+          )}
+          {model.cases.isAvailable && <FeatureHighlights title={model.cases.title} variations={model.cases.items} />}
         </Flex>
       </Flex>
     </Flex>
   )
-}
+})

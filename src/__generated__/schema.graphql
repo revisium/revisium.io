@@ -1,0 +1,599 @@
+schema {
+  query: Query
+}
+
+scalar DataTime
+
+scalar JSON
+
+input LandingBoolFilter {
+  equals: Boolean
+  not: Boolean
+}
+
+type LandingCase {
+  caseId: String!
+  description: String!
+  file: LandingCaseFile!
+  title: String!
+}
+
+type LandingCaseConnection {
+  edges: [LandingCaseEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCaseEdge {
+  cursor: String!
+  node: LandingCaseNode!
+}
+
+type LandingCaseFile {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingCaseFlat {
+  caseId: String!
+  description: String!
+  file: LandingCaseFlatFile!
+  title: String!
+}
+
+type LandingCaseFlatConnection {
+  edges: [LandingCaseFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCaseFlatEdge {
+  cursor: String!
+  node: LandingCaseFlat!
+}
+
+type LandingCaseFlatFile {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingCaseNode {
+  createdAt: DataTime!
+  createdId: String!
+  data: LandingCase!
+  id: String!
+  json: JSON
+  updatedAt: DataTime!
+  versionId: String!
+}
+
+input LandingCasesWhereInput {
+  AND: [LandingCasesWhereInput!]
+  NOT: [LandingCasesWhereInput!]
+  OR: [LandingCasesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingCode {
+  code: String!
+  title: String!
+}
+
+type LandingCodeConnection {
+  edges: [LandingCodeEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCodeEdge {
+  cursor: String!
+  node: LandingCodeNode!
+}
+
+type LandingCodeFlat {
+  code: String!
+  title: String!
+}
+
+type LandingCodeFlatConnection {
+  edges: [LandingCodeFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCodeFlatEdge {
+  cursor: String!
+  node: LandingCodeFlat!
+}
+
+type LandingCodeNode {
+  createdAt: DataTime!
+  createdId: String!
+  data: LandingCode!
+  id: String!
+  json: JSON
+  updatedAt: DataTime!
+  versionId: String!
+}
+
+input LandingCodesWhereInput {
+  AND: [LandingCodesWhereInput!]
+  NOT: [LandingCodesWhereInput!]
+  OR: [LandingCodesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingConstantConnection {
+  edges: [LandingConstantEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingConstantEdge {
+  cursor: String!
+  node: LandingConstantNode!
+}
+
+type LandingConstantFlatConnection {
+  edges: [LandingConstantFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingConstantFlatEdge {
+  cursor: String!
+  node: String!
+}
+
+type LandingConstantNode {
+  createdAt: DataTime!
+  createdId: String!
+  data: String!
+  id: String!
+  json: JSON
+  updatedAt: DataTime!
+  versionId: String!
+}
+
+input LandingConstantsWhereInput {
+  AND: [LandingConstantsWhereInput!]
+  NOT: [LandingConstantsWhereInput!]
+  OR: [LandingConstantsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+input LandingDateTimeFilter {
+  equals: String
+  gt: String
+  gte: String
+  in: [String]
+  lt: String
+  lte: String
+  notIn: [String]
+}
+
+type LandingFeature {
+  description: String!
+  featureId: String!
+  file: LandingFeatureFile!
+  title: String!
+}
+
+type LandingFeatureConnection {
+  edges: [LandingFeatureEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingFeatureEdge {
+  cursor: String!
+  node: LandingFeatureNode!
+}
+
+type LandingFeatureFile {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingFeatureFlat {
+  description: String!
+  featureId: String!
+  file: LandingFeatureFlatFile!
+  title: String!
+}
+
+type LandingFeatureFlatConnection {
+  edges: [LandingFeatureFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingFeatureFlatEdge {
+  cursor: String!
+  node: LandingFeatureFlat!
+}
+
+type LandingFeatureFlatFile {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingFeatureNode {
+  createdAt: DataTime!
+  createdId: String!
+  data: LandingFeature!
+  id: String!
+  json: JSON
+  updatedAt: DataTime!
+  versionId: String!
+}
+
+input LandingFeaturesWhereInput {
+  AND: [LandingFeaturesWhereInput!]
+  NOT: [LandingFeaturesWhereInput!]
+  OR: [LandingFeaturesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+enum LandingFilterStringMode {
+  default
+  insensitive
+}
+
+input LandingGetCasesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetCasesOrderByInput]
+  where: LandingCasesWhereInput
+}
+
+enum LandingGetCasesOrderByField {
+  createdAt
+  id
+  updatedAt
+}
+
+input LandingGetCasesOrderByInput {
+  direction: LandingSortOrder!
+  field: LandingGetCasesOrderByField!
+}
+
+input LandingGetCodesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetCodesOrderByInput]
+  where: LandingCodesWhereInput
+}
+
+enum LandingGetCodesOrderByField {
+  createdAt
+  id
+  updatedAt
+}
+
+input LandingGetCodesOrderByInput {
+  direction: LandingSortOrder!
+  field: LandingGetCodesOrderByField!
+}
+
+input LandingGetConstantsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetConstantsOrderByInput]
+  where: LandingConstantsWhereInput
+}
+
+enum LandingGetConstantsOrderByField {
+  createdAt
+  id
+  updatedAt
+}
+
+input LandingGetConstantsOrderByInput {
+  direction: LandingSortOrder!
+  field: LandingGetConstantsOrderByField!
+}
+
+input LandingGetFeaturesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetFeaturesOrderByInput]
+  where: LandingFeaturesWhereInput
+}
+
+enum LandingGetFeaturesOrderByField {
+  createdAt
+  id
+  updatedAt
+}
+
+input LandingGetFeaturesOrderByInput {
+  direction: LandingSortOrder!
+  field: LandingGetFeaturesOrderByField!
+}
+
+input LandingGetMainsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetMainsOrderByInput]
+  where: LandingMainsWhereInput
+}
+
+enum LandingGetMainsOrderByField {
+  createdAt
+  id
+  updatedAt
+}
+
+input LandingGetMainsOrderByInput {
+  direction: LandingSortOrder!
+  field: LandingGetMainsOrderByField!
+}
+
+input LandingJsonFilter {
+  array_contains: [JSON]
+  array_ends_with: JSON
+  array_starts_with: JSON
+  equals: JSON
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  mode: String
+  path: [String]
+  string_contains: String
+  string_ends_with: String
+  string_starts_with: String
+}
+
+type LandingMain {
+  cases: LandingMainCases!
+  cloud: LandingMainCloud!
+  code: LandingMainCode!
+  features: LandingMainFeatures!
+  github: String!
+  preview: LandingMainPreview!
+  texts: LandingMainTexts!
+}
+
+type LandingMainCases {
+  items: [LandingCaseNode!]!
+  title: String!
+}
+
+type LandingMainCloud {
+  label: String!
+  link: String!
+}
+
+type LandingMainCode {
+  docker: LandingCodeNode!
+  dockerCompose: LandingCodeNode!
+}
+
+type LandingMainConnection {
+  edges: [LandingMainEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingMainEdge {
+  cursor: String!
+  node: LandingMainNode!
+}
+
+type LandingMainFeatures {
+  items: [LandingFeatureNode!]!
+  title: String!
+}
+
+type LandingMainFlat {
+  cases: LandingMainFlatCases!
+  cloud: LandingMainFlatCloud!
+  code: LandingMainFlatCode!
+  features: LandingMainFlatFeatures!
+  github: String!
+  preview: LandingMainFlatPreview!
+  texts: LandingMainFlatTexts!
+}
+
+type LandingMainFlatCases {
+  items: [LandingCaseFlat!]!
+  title: String!
+}
+
+type LandingMainFlatCloud {
+  label: String!
+  link: String!
+}
+
+type LandingMainFlatCode {
+  docker: LandingCodeFlat!
+  dockerCompose: LandingCodeFlat!
+}
+
+type LandingMainFlatConnection {
+  edges: [LandingMainFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingMainFlatEdge {
+  cursor: String!
+  node: LandingMainFlat!
+}
+
+type LandingMainFlatFeatures {
+  items: [LandingFeatureFlat!]!
+  title: String!
+}
+
+type LandingMainFlatPreview {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMainFlatTexts {
+  description: String!
+  title: String!
+}
+
+type LandingMainNode {
+  createdAt: DataTime!
+  createdId: String!
+  data: LandingMain!
+  id: String!
+  json: JSON
+  updatedAt: DataTime!
+  versionId: String!
+}
+
+type LandingMainPreview {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMainTexts {
+  description: String!
+  title: String!
+}
+
+input LandingMainsWhereInput {
+  AND: [LandingMainsWhereInput!]
+  NOT: [LandingMainsWhereInput!]
+  OR: [LandingMainsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingPageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+enum LandingSortOrder {
+  asc
+  desc
+}
+
+input LandingStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String]
+  lt: String
+  lte: String
+  mode: LandingFilterStringMode
+  not: String
+  notIn: [String]
+  startsWith: String
+}
+
+type Query {
+  _service: _Service
+  case(id: String!): LandingCaseNode!
+  caseFlat(id: String!): LandingCaseFlat!
+  cases(data: LandingGetCasesInput): LandingCaseConnection!
+  casesFlat(data: LandingGetCasesInput): LandingCaseFlatConnection!
+  code(id: String!): LandingCodeNode!
+  codeFlat(id: String!): LandingCodeFlat!
+  codes(data: LandingGetCodesInput): LandingCodeConnection!
+  codesFlat(data: LandingGetCodesInput): LandingCodeFlatConnection!
+  constant(id: String!): LandingConstantNode!
+  constantFlat(id: String!): String!
+  constants(data: LandingGetConstantsInput): LandingConstantConnection!
+  constantsFlat(data: LandingGetConstantsInput): LandingConstantFlatConnection!
+  feature(id: String!): LandingFeatureNode!
+  featureFlat(id: String!): LandingFeatureFlat!
+  features(data: LandingGetFeaturesInput): LandingFeatureConnection!
+  featuresFlat(data: LandingGetFeaturesInput): LandingFeatureFlatConnection!
+  main(id: String!): LandingMainNode!
+  mainFlat(id: String!): LandingMainFlat!
+  mains(data: LandingGetMainsInput): LandingMainConnection!
+  mainsFlat(data: LandingGetMainsInput): LandingMainFlatConnection!
+}
+
+type _Service {
+  sdl: String
+}

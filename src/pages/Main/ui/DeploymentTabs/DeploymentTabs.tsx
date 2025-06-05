@@ -1,21 +1,26 @@
 import { Button, Flex, TabsContent, TabsList, TabsRoot, TabsTrigger, Text } from '@chakra-ui/react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { github, idea } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { useCallback } from 'react'
-import { BASE_DOCKER_COMPOSE_CODE, DOCKER_CODE, DOCKER_COMPOSE_CODE } from 'src/pages/Main/config/code.constants.ts'
+import CodeMirror, { EditorView } from '@uiw/react-codemirror'
+import * as themes from '@uiw/codemirror-themes-all'
+import { langs } from '@uiw/codemirror-extensions-langs'
+import { FC, useCallback } from 'react'
 import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
+import { DeploymentTabsModel } from 'src/pages/Main/model/DeploymentTabsModel.ts'
 import { toaster } from 'src/shared/ui'
 import { IconCopy } from 'src/shared/ui/icons'
 
-export const DeploymentTabs = () => {
+interface DeploymentTabsProps {
+  model: DeploymentTabsModel
+}
+
+export const DeploymentTabs: FC<DeploymentTabsProps> = ({ model }) => {
   const handleClickDocker = useCallback(async () => {
     toaster.create({
       description: 'Copied docker to clipboard',
       type: 'info',
     })
 
-    await copyToClipboard(DOCKER_CODE)
-  }, [])
+    await copyToClipboard(model.docker)
+  }, [model.docker])
 
   const handleClickDockerCompose = useCallback(async () => {
     toaster.create({
@@ -23,8 +28,8 @@ export const DeploymentTabs = () => {
       type: 'info',
     })
 
-    await copyToClipboard(DOCKER_COMPOSE_CODE)
-  }, [])
+    await copyToClipboard(model.dockerCompose)
+  }, [model.dockerCompose])
 
   return (
     <Flex w="100%" maxW={{ xl: '512px' }}>
@@ -70,23 +75,20 @@ export const DeploymentTabs = () => {
         <TabsContent value="Docker">
           <Flex direction="column" gap="16px">
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
-              Run Revisium in a single container
+              {model.dockerTitle}
             </Text>
-            <SyntaxHighlighter
-              language="bash"
-              style={github}
-              wrapLongLines
-              customStyle={{
-                background: 'none',
-                fontSize: '13px',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: 'normal',
-                fontFamily: 'Atkinson Hyperlegible',
+            <CodeMirror
+              value={model.docker}
+              extensions={[EditorView.lineWrapping, langs.shell()]}
+              editable={false}
+              theme={themes.githubLight}
+              maxWidth="100%"
+              basicSetup={{
+                lineNumbers: false,
+                foldGutter: false,
+                highlightActiveLine: false,
               }}
-            >
-              {DOCKER_CODE}
-            </SyntaxHighlighter>
+            />
             <Flex borderRadius="8px" justify="flex-end" cursor="pointer">
               <Button onClick={handleClickDocker} bgColor="#FFFFFF" borderRadius="100%" p={0}>
                 <IconCopy />
@@ -97,23 +99,20 @@ export const DeploymentTabs = () => {
         <TabsContent value="Compose">
           <Flex direction="column" gap="16px">
             <Text fontSize="15px" fontStyle="normal" fontWeight={700} lineHeight="normal">
-              Use Docker Compose for a full stack (app + database)
+              {model.dockerComposeTitle}
             </Text>
-            <SyntaxHighlighter
-              language="yaml"
-              style={idea}
-              wrapLongLines
-              customStyle={{
-                background: 'none',
-                fontSize: '13px',
-                fontStyle: 'normal',
-                fontWeight: 400,
-                lineHeight: 'normal',
-                fontFamily: 'Atkinson Hyperlegible',
+            <CodeMirror
+              value={model.dockerCompose}
+              extensions={[EditorView.lineWrapping, langs.yaml()]}
+              editable={false}
+              theme={themes.githubLight}
+              maxWidth="100%"
+              basicSetup={{
+                lineNumbers: false,
+                foldGutter: false,
+                highlightActiveLine: false,
               }}
-            >
-              {BASE_DOCKER_COMPOSE_CODE}
-            </SyntaxHighlighter>
+            />
             <Flex borderRadius="8px" justify="flex-end" cursor="pointer">
               <Button onClick={handleClickDockerCompose} bgColor="#FFFFFF" borderRadius="100%" p={0}>
                 <IconCopy />
