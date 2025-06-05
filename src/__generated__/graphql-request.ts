@@ -713,7 +713,7 @@ export type CodeFragment = { docker: { code: string, title: string }, dockerComp
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } } } };
+export type MainPageQuery = { version: string, mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } } } };
 
 export const CodeFragmentDoc = gql`
     fragment Code on LandingMainFlatCode {
@@ -729,6 +729,7 @@ export const CodeFragmentDoc = gql`
     `;
 export const MainPageDocument = gql`
     query mainPage {
+  version: constantFlat(id: "version")
   mainFlat(id: "main") {
     texts {
       title

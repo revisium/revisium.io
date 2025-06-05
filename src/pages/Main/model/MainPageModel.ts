@@ -33,7 +33,15 @@ export class MainPageModel {
   }
 
   public get code() {
-    return new DeploymentTabsModel(this.loadedData.code)
+    return new DeploymentTabsModel(this.loadedData.code, this.version)
+  }
+
+  public get version() {
+    if (!this.mainPageRequest.data) {
+      throw new Error('No main page found.')
+    }
+
+    return this.mainPageRequest.data.version
   }
 
   public get isLoading() {

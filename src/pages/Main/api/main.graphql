@@ -10,6 +10,7 @@ fragment Code on LandingMainFlatCode {
 }
 
 query mainPage {
+  version: constantFlat(id: "version")
   mainFlat(id: "main") {
     texts {
       title
