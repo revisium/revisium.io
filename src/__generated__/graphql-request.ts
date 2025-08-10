@@ -93,6 +93,7 @@ export type LandingCaseNode = {
   data: LandingCase;
   id: Scalars['String']['output'];
   json?: Maybe<Scalars['JSON']['output']>;
+  publishedAt: Scalars['DataTime']['output'];
   updatedAt: Scalars['DataTime']['output'];
   versionId: Scalars['String']['output'];
 };
@@ -105,6 +106,7 @@ export type LandingCasesWhereInput = {
   createdId?: InputMaybe<LandingStringFilter>;
   data?: InputMaybe<LandingJsonFilter>;
   id?: InputMaybe<LandingStringFilter>;
+  publishedAt?: InputMaybe<LandingDateTimeFilter>;
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
@@ -148,6 +150,7 @@ export type LandingCodeNode = {
   data: LandingCode;
   id: Scalars['String']['output'];
   json?: Maybe<Scalars['JSON']['output']>;
+  publishedAt: Scalars['DataTime']['output'];
   updatedAt: Scalars['DataTime']['output'];
   versionId: Scalars['String']['output'];
 };
@@ -160,6 +163,7 @@ export type LandingCodesWhereInput = {
   createdId?: InputMaybe<LandingStringFilter>;
   data?: InputMaybe<LandingJsonFilter>;
   id?: InputMaybe<LandingStringFilter>;
+  publishedAt?: InputMaybe<LandingDateTimeFilter>;
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
@@ -193,6 +197,7 @@ export type LandingConstantNode = {
   data: Scalars['String']['output'];
   id: Scalars['String']['output'];
   json?: Maybe<Scalars['JSON']['output']>;
+  publishedAt: Scalars['DataTime']['output'];
   updatedAt: Scalars['DataTime']['output'];
   versionId: Scalars['String']['output'];
 };
@@ -205,6 +210,7 @@ export type LandingConstantsWhereInput = {
   createdId?: InputMaybe<LandingStringFilter>;
   data?: InputMaybe<LandingJsonFilter>;
   id?: InputMaybe<LandingStringFilter>;
+  publishedAt?: InputMaybe<LandingDateTimeFilter>;
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
@@ -288,6 +294,7 @@ export type LandingFeatureNode = {
   data: LandingFeature;
   id: Scalars['String']['output'];
   json?: Maybe<Scalars['JSON']['output']>;
+  publishedAt: Scalars['DataTime']['output'];
   updatedAt: Scalars['DataTime']['output'];
   versionId: Scalars['String']['output'];
 };
@@ -300,10 +307,16 @@ export type LandingFeaturesWhereInput = {
   createdId?: InputMaybe<LandingStringFilter>;
   data?: InputMaybe<LandingJsonFilter>;
   id?: InputMaybe<LandingStringFilter>;
+  publishedAt?: InputMaybe<LandingDateTimeFilter>;
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
 };
+
+export enum LandingFilterJsonMode {
+  Default = 'default',
+  Insensitive = 'insensitive'
+}
 
 export enum LandingFilterStringMode {
   Default = 'default',
@@ -320,6 +333,7 @@ export type LandingGetCasesInput = {
 export enum LandingGetCasesOrderByField {
   CreatedAt = 'createdAt',
   Id = 'id',
+  PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
@@ -338,6 +352,7 @@ export type LandingGetCodesInput = {
 export enum LandingGetCodesOrderByField {
   CreatedAt = 'createdAt',
   Id = 'id',
+  PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
@@ -356,6 +371,7 @@ export type LandingGetConstantsInput = {
 export enum LandingGetConstantsOrderByField {
   CreatedAt = 'createdAt',
   Id = 'id',
+  PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
@@ -374,6 +390,7 @@ export type LandingGetFeaturesInput = {
 export enum LandingGetFeaturesOrderByField {
   CreatedAt = 'createdAt',
   Id = 'id',
+  PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
@@ -392,6 +409,7 @@ export type LandingGetMainsInput = {
 export enum LandingGetMainsOrderByField {
   CreatedAt = 'createdAt',
   Id = 'id',
+  PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
@@ -409,7 +427,7 @@ export type LandingJsonFilter = {
   gte?: InputMaybe<Scalars['Float']['input']>;
   lt?: InputMaybe<Scalars['Float']['input']>;
   lte?: InputMaybe<Scalars['Float']['input']>;
-  mode?: InputMaybe<Scalars['String']['input']>;
+  mode?: InputMaybe<LandingFilterJsonMode>;
   path?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   string_contains?: InputMaybe<Scalars['String']['input']>;
   string_ends_with?: InputMaybe<Scalars['String']['input']>;
@@ -420,6 +438,7 @@ export type LandingMain = {
   cases: LandingMainCases;
   cloud: LandingMainCloud;
   code: LandingMainCode;
+  docs: LandingMainDocs;
   features: LandingMainFeatures;
   github: Scalars['String']['output'];
   preview: LandingMainPreview;
@@ -447,6 +466,11 @@ export type LandingMainConnection = {
   totalCount: Scalars['Int']['output'];
 };
 
+export type LandingMainDocs = {
+  label: Scalars['String']['output'];
+  link: Scalars['String']['output'];
+};
+
 export type LandingMainEdge = {
   cursor: Scalars['String']['output'];
   node: LandingMainNode;
@@ -461,6 +485,7 @@ export type LandingMainFlat = {
   cases: LandingMainFlatCases;
   cloud: LandingMainFlatCloud;
   code: LandingMainFlatCode;
+  docs: LandingMainFlatDocs;
   features: LandingMainFlatFeatures;
   github: Scalars['String']['output'];
   preview: LandingMainFlatPreview;
@@ -486,6 +511,11 @@ export type LandingMainFlatConnection = {
   edges: Array<LandingMainFlatEdge>;
   pageInfo: LandingPageInfo;
   totalCount: Scalars['Int']['output'];
+};
+
+export type LandingMainFlatDocs = {
+  label: Scalars['String']['output'];
+  link: Scalars['String']['output'];
 };
 
 export type LandingMainFlatEdge = {
@@ -522,6 +552,7 @@ export type LandingMainNode = {
   data: LandingMain;
   id: Scalars['String']['output'];
   json?: Maybe<Scalars['JSON']['output']>;
+  publishedAt: Scalars['DataTime']['output'];
   updatedAt: Scalars['DataTime']['output'];
   versionId: Scalars['String']['output'];
 };
@@ -552,6 +583,7 @@ export type LandingMainsWhereInput = {
   createdId?: InputMaybe<LandingStringFilter>;
   data?: InputMaybe<LandingJsonFilter>;
   id?: InputMaybe<LandingStringFilter>;
+  publishedAt?: InputMaybe<LandingDateTimeFilter>;
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
@@ -725,7 +757,7 @@ export type CodeFragment = { docker: { code: string, title: string }, dockerComp
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { version: string, mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } }, features: { title: string, items: Array<{ featureId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> }, cases: { title: string, items: Array<{ caseId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> } } };
+export type MainPageQuery = { version: string, mainFlat: { github: string, texts: { title: string, description: string }, cloud: { label: string, link: string }, docs: { link: string, label: string }, preview: { url: string }, code: { docker: { code: string, title: string }, dockerCompose: { title: string, code: string } }, features: { title: string, items: Array<{ featureId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> }, cases: { title: string, items: Array<{ caseId: string, title: string, description: string, file: { width: number, height: number, url: string, mimeType: string } }> } } };
 
 export const FeatureFragmentDoc = gql`
     fragment Feature on LandingFeatureFlat {
@@ -793,6 +825,10 @@ export const MainPageDocument = gql`
     cloud {
       label
       link
+    }
+    docs {
+      link
+      label
     }
     preview {
       url

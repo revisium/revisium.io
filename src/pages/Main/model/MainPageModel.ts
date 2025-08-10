@@ -22,6 +22,14 @@ export class MainPageModel {
     return this.loadedData.cloud.label
   }
 
+  public get docsLink() {
+    return this.loadedData.docs.link
+  }
+
+  public get docsLabel() {
+    return this.loadedData.docs.label
+  }
+
   public get title() {
     return this.loadedData.texts.title
   }

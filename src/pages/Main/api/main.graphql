@@ -59,6 +59,10 @@ query mainPage {
       label
       link
     }
+    docs {
+      link
+      label
+    }
     preview {
       url
     }
