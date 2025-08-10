@@ -79,6 +79,7 @@ type LandingCaseNode {
   data: LandingCase!
   id: String!
   json: JSON
+  publishedAt: DataTime!
   updatedAt: DataTime!
   versionId: String!
 }
@@ -91,6 +92,7 @@ input LandingCasesWhereInput {
   createdId: LandingStringFilter
   data: LandingJsonFilter
   id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter
@@ -134,6 +136,7 @@ type LandingCodeNode {
   data: LandingCode!
   id: String!
   json: JSON
+  publishedAt: DataTime!
   updatedAt: DataTime!
   versionId: String!
 }
@@ -146,6 +149,7 @@ input LandingCodesWhereInput {
   createdId: LandingStringFilter
   data: LandingJsonFilter
   id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter
@@ -179,6 +183,7 @@ type LandingConstantNode {
   data: String!
   id: String!
   json: JSON
+  publishedAt: DataTime!
   updatedAt: DataTime!
   versionId: String!
 }
@@ -191,6 +196,7 @@ input LandingConstantsWhereInput {
   createdId: LandingStringFilter
   data: LandingJsonFilter
   id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter
@@ -274,6 +280,7 @@ type LandingFeatureNode {
   data: LandingFeature!
   id: String!
   json: JSON
+  publishedAt: DataTime!
   updatedAt: DataTime!
   versionId: String!
 }
@@ -286,9 +293,15 @@ input LandingFeaturesWhereInput {
   createdId: LandingStringFilter
   data: LandingJsonFilter
   id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter
+}
+
+enum LandingFilterJsonMode {
+  default
+  insensitive
 }
 
 enum LandingFilterStringMode {
@@ -306,6 +319,7 @@ input LandingGetCasesInput {
 enum LandingGetCasesOrderByField {
   createdAt
   id
+  publishedAt
   updatedAt
 }
 
@@ -324,6 +338,7 @@ input LandingGetCodesInput {
 enum LandingGetCodesOrderByField {
   createdAt
   id
+  publishedAt
   updatedAt
 }
 
@@ -342,6 +357,7 @@ input LandingGetConstantsInput {
 enum LandingGetConstantsOrderByField {
   createdAt
   id
+  publishedAt
   updatedAt
 }
 
@@ -360,6 +376,7 @@ input LandingGetFeaturesInput {
 enum LandingGetFeaturesOrderByField {
   createdAt
   id
+  publishedAt
   updatedAt
 }
 
@@ -378,6 +395,7 @@ input LandingGetMainsInput {
 enum LandingGetMainsOrderByField {
   createdAt
   id
+  publishedAt
   updatedAt
 }
 
@@ -395,7 +413,7 @@ input LandingJsonFilter {
   gte: Float
   lt: Float
   lte: Float
-  mode: String
+  mode: LandingFilterJsonMode
   path: [String]
   string_contains: String
   string_ends_with: String
@@ -406,6 +424,7 @@ type LandingMain {
   cases: LandingMainCases!
   cloud: LandingMainCloud!
   code: LandingMainCode!
+  docs: LandingMainDocs!
   features: LandingMainFeatures!
   github: String!
   preview: LandingMainPreview!
@@ -433,6 +452,11 @@ type LandingMainConnection {
   totalCount: Int!
 }
 
+type LandingMainDocs {
+  label: String!
+  link: String!
+}
+
 type LandingMainEdge {
   cursor: String!
   node: LandingMainNode!
@@ -447,6 +471,7 @@ type LandingMainFlat {
   cases: LandingMainFlatCases!
   cloud: LandingMainFlatCloud!
   code: LandingMainFlatCode!
+  docs: LandingMainFlatDocs!
   features: LandingMainFlatFeatures!
   github: String!
   preview: LandingMainFlatPreview!
@@ -472,6 +497,11 @@ type LandingMainFlatConnection {
   edges: [LandingMainFlatEdge!]!
   pageInfo: LandingPageInfo!
   totalCount: Int!
+}
+
+type LandingMainFlatDocs {
+  label: String!
+  link: String!
 }
 
 type LandingMainFlatEdge {
@@ -508,6 +538,7 @@ type LandingMainNode {
   data: LandingMain!
   id: String!
   json: JSON
+  publishedAt: DataTime!
   updatedAt: DataTime!
   versionId: String!
 }
@@ -538,6 +569,7 @@ input LandingMainsWhereInput {
   createdId: LandingStringFilter
   data: LandingJsonFilter
   id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter

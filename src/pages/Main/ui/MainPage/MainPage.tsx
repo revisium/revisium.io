@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Spinner } from '@chakra-ui/react'
+import { Button, Center, Flex, Link, Spinner } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
@@ -9,6 +9,7 @@ import { useViewModel } from 'src/shared/lib'
 import { IconGit, IconLogo } from 'src/shared/ui/icons'
 import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
 import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
+import { LuExternalLink } from 'react-icons/lu'
 
 export const MainPage = observer(() => {
   const model = useViewModel(MainPageModel)
@@ -37,9 +38,17 @@ export const MainPage = observer(() => {
         p={{ base: '16px', md: '16px 32px', xl: '16px' }}
       >
         <IconLogo />
-        <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
-          <IconGit />
-        </Button>
+        <Flex gap="24px" align="center">
+          <Flex align="center" gap="4px">
+            <Link fontSize="18px" fontStyle="normal" lineHeight="normal" href={model.docsLink} target="_blank">
+              {model.docsLabel}
+              <LuExternalLink />
+            </Link>
+          </Flex>
+          <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
+            <IconGit />
+          </Button>
+        </Flex>
       </Flex>
       <Flex
         w="100%"
