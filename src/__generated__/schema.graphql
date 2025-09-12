@@ -2,9 +2,268 @@ schema {
   query: Query
 }
 
-scalar DataTime
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
 scalar JSON
+
+type LandingArticle {
+  CEO: LandingArticleCeo!
+  articleCategories: [LandingArticlecategoryNode!]!
+  author: LandingAuthorNode!
+  coverImage: LandingArticleCoverimage!
+  createdAt: String!
+  markdown: String!
+  previewImage: LandingArticlePreviewimage!
+  publishedAt: String!
+  title: String!
+  updatedAt: String!
+  visible: Boolean! @deprecated(reason: "To hide the article, use publishedAt with a date from the future.")
+}
+
+type LandingArticleCeo {
+  description: String!
+  title: String!
+}
+
+type LandingArticleConnection {
+  edges: [LandingArticleEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingArticleCoverimage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingArticleEdge {
+  cursor: String!
+  node: LandingArticleNode!
+}
+
+type LandingArticleFlat {
+  CEO: LandingArticleFlatCeo!
+  articleCategories: [LandingArticlecategoryFlat!]!
+  author: LandingAuthorFlat!
+  coverImage: LandingArticleFlatCoverimage!
+  createdAt: String!
+  markdown: String!
+  previewImage: LandingArticleFlatPreviewimage!
+  publishedAt: String!
+  title: String!
+  updatedAt: String!
+  visible: Boolean! @deprecated(reason: "To hide the article, use publishedAt with a date from the future.")
+}
+
+type LandingArticleFlatCeo {
+  description: String!
+  title: String!
+}
+
+type LandingArticleFlatConnection {
+  edges: [LandingArticleFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingArticleFlatCoverimage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingArticleFlatEdge {
+  cursor: String!
+  node: LandingArticleFlat!
+}
+
+type LandingArticleFlatPreviewimage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingArticleNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingArticle!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingArticlePreviewimage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+input LandingArticlecategoriesWhereInput {
+  AND: [LandingArticlecategoriesWhereInput!]
+  NOT: [LandingArticlecategoriesWhereInput!]
+  OR: [LandingArticlecategoriesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingArticlecategory {
+  name: String!
+}
+
+type LandingArticlecategoryConnection {
+  edges: [LandingArticlecategoryEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingArticlecategoryEdge {
+  cursor: String!
+  node: LandingArticlecategoryNode!
+}
+
+type LandingArticlecategoryFlat {
+  name: String!
+}
+
+type LandingArticlecategoryFlatConnection {
+  edges: [LandingArticlecategoryFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingArticlecategoryFlatEdge {
+  cursor: String!
+  node: LandingArticlecategoryFlat!
+}
+
+type LandingArticlecategoryNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingArticlecategory!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+input LandingArticlesWhereInput {
+  AND: [LandingArticlesWhereInput!]
+  NOT: [LandingArticlesWhereInput!]
+  OR: [LandingArticlesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingAuthor {
+  """Фамилия"""
+  firstName: String!
+  """Имя"""
+  lastName: String!
+}
+
+type LandingAuthorConnection {
+  edges: [LandingAuthorEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingAuthorEdge {
+  cursor: String!
+  node: LandingAuthorNode!
+}
+
+type LandingAuthorFlat {
+  """Фамилия"""
+  firstName: String!
+  """Имя"""
+  lastName: String!
+}
+
+type LandingAuthorFlatConnection {
+  edges: [LandingAuthorFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingAuthorFlatEdge {
+  cursor: String!
+  node: LandingAuthorFlat!
+}
+
+type LandingAuthorNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingAuthor!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+input LandingAuthorsWhereInput {
+  AND: [LandingAuthorsWhereInput!]
+  NOT: [LandingAuthorsWhereInput!]
+  OR: [LandingAuthorsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
 
 input LandingBoolFilter {
   equals: Boolean
@@ -74,13 +333,13 @@ type LandingCaseFlatFile {
 }
 
 type LandingCaseNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingCase!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -131,13 +390,13 @@ type LandingCodeFlatEdge {
 }
 
 type LandingCodeNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingCode!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -178,13 +437,13 @@ type LandingConstantFlatEdge {
 }
 
 type LandingConstantNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: String!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -202,14 +461,358 @@ input LandingConstantsWhereInput {
   versionId: LandingStringFilter
 }
 
+input LandingCountriesWhereInput {
+  AND: [LandingCountriesWhereInput!]
+  NOT: [LandingCountriesWhereInput!]
+  OR: [LandingCountriesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingCountry {
+  code: String!
+  icon: LandingCountryIcon!
+  link: Boolean!
+  title: String!
+}
+
+type LandingCountryConnection {
+  edges: [LandingCountryEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCountryEdge {
+  cursor: String!
+  node: LandingCountryNode!
+}
+
+type LandingCountryFlat {
+  code: String!
+  icon: LandingCountryFlatIcon!
+  link: Boolean!
+  title: String!
+}
+
+type LandingCountryFlatConnection {
+  edges: [LandingCountryFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCountryFlatEdge {
+  cursor: String!
+  node: LandingCountryFlat!
+}
+
+type LandingCountryFlatIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingCountryIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingCountryNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingCountry!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingCountrytransfers {
+  FAQ: LandingCountrytransfersFaq!
+  InfoBlock: LandingCountrytransfersInfoblock!
+  SEO: LandingCountrytransfersSeo!
+  agentPaymentBlock: LandingCountrytransfersAgentpaymentblock!
+  contactPromptBlock: LandingCountrytransfersContactpromptblock!
+  infoDescriptionBlock: LandingCountrytransfersInfodescriptionblock!
+  reliableB2BTransfersBlock: LandingCountrytransfersReliableb2btransfersblock!
+  whenVedHelpBlock: LandingCountrytransfersWhenvedhelpblock!
+  whyVedMasterBlock: LandingCountrytransfersWhyvedmasterblock!
+  workProcessBlock: LandingCountrytransfersWorkprocessblock!
+}
+
+type LandingCountrytransfersAgentpaymentblock {
+  agentPlatformScenarios: LandingCountrytransfersAgentpaymentblockAgentplatformscenarios!
+  description: String!
+  documentManagement: LandingCountrytransfersAgentpaymentblockDocumentmanagement!
+  title: String!
+}
+
+type LandingCountrytransfersAgentpaymentblockAgentplatformscenarios {
+  content: [String!]!
+  title: String!
+}
+
+type LandingCountrytransfersAgentpaymentblockDocumentmanagement {
+  description: String!
+  title: String!
+}
+
+type LandingCountrytransfersConnection {
+  edges: [LandingCountrytransfersEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCountrytransfersContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingCountrytransfersEdge {
+  cursor: String!
+  node: LandingCountrytransfersNode!
+}
+
+type LandingCountrytransfersFaq {
+  questions: [LandingCountrytransfersFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingCountrytransfersFlat {
+  FAQ: LandingCountrytransfersFlatFaq!
+  InfoBlock: LandingCountrytransfersFlatInfoblock!
+  SEO: LandingCountrytransfersFlatSeo!
+  agentPaymentBlock: LandingCountrytransfersFlatAgentpaymentblock!
+  contactPromptBlock: LandingCountrytransfersFlatContactpromptblock!
+  infoDescriptionBlock: LandingCountrytransfersFlatInfodescriptionblock!
+  reliableB2BTransfersBlock: LandingCountrytransfersFlatReliableb2btransfersblock!
+  whenVedHelpBlock: LandingCountrytransfersFlatWhenvedhelpblock!
+  whyVedMasterBlock: LandingCountrytransfersFlatWhyvedmasterblock!
+  workProcessBlock: LandingCountrytransfersFlatWorkprocessblock!
+}
+
+type LandingCountrytransfersFlatAgentpaymentblock {
+  agentPlatformScenarios: LandingCountrytransfersFlatAgentpaymentblockAgentplatformscenarios!
+  description: String!
+  documentManagement: LandingCountrytransfersFlatAgentpaymentblockDocumentmanagement!
+  title: String!
+}
+
+type LandingCountrytransfersFlatAgentpaymentblockAgentplatformscenarios {
+  content: [String!]!
+  title: String!
+}
+
+type LandingCountrytransfersFlatAgentpaymentblockDocumentmanagement {
+  description: String!
+  title: String!
+}
+
+type LandingCountrytransfersFlatConnection {
+  edges: [LandingCountrytransfersFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingCountrytransfersFlatContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingCountrytransfersFlatEdge {
+  cursor: String!
+  node: LandingCountrytransfersFlat!
+}
+
+type LandingCountrytransfersFlatFaq {
+  questions: [LandingCountrytransfersFlatFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersFlatFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingCountrytransfersFlatInfoblock {
+  items: [LandingCountrytransfersFlatInfoblockItemsItems!]!
+}
+
+type LandingCountrytransfersFlatInfoblockItemsItems {
+  text: String!
+}
+
+type LandingCountrytransfersFlatInfodescriptionblock {
+  content: String!
+  title: String!
+}
+
+type LandingCountrytransfersFlatReliableb2btransfersblock {
+  description: String!
+  items: LandingCountrytransfersFlatReliableb2btransfersblockItems!
+  title: String!
+}
+
+type LandingCountrytransfersFlatReliableb2btransfersblockItems {
+  title: String!
+}
+
+type LandingCountrytransfersFlatSeo {
+  description: String!
+  h1: String!
+  h1SubTitle: String!
+  title: String!
+}
+
+type LandingCountrytransfersFlatWhenvedhelpblock {
+  items: [LandingCountrytransfersFlatWhenvedhelpblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersFlatWhenvedhelpblockItemsItems {
+  text: String!
+}
+
+type LandingCountrytransfersFlatWhyvedmasterblock {
+  items: [LandingCountrytransfersFlatWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersFlatWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingCountrytransfersFlatWorkprocessblock {
+  items: [LandingCountrytransfersFlatWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersFlatWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingCountrytransfersInfoblock {
+  items: [LandingCountrytransfersInfoblockItemsItems!]!
+}
+
+type LandingCountrytransfersInfoblockItemsItems {
+  text: String!
+}
+
+type LandingCountrytransfersInfodescriptionblock {
+  content: String!
+  title: String!
+}
+
+type LandingCountrytransfersNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingCountrytransfers!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingCountrytransfersReliableb2btransfersblock {
+  description: String!
+  items: LandingCountrytransfersReliableb2btransfersblockItems!
+  title: String!
+}
+
+type LandingCountrytransfersReliableb2btransfersblockItems {
+  title: String!
+}
+
+type LandingCountrytransfersSeo {
+  description: String!
+  h1: String!
+  h1SubTitle: String!
+  title: String!
+}
+
+type LandingCountrytransfersWhenvedhelpblock {
+  items: [LandingCountrytransfersWhenvedhelpblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersWhenvedhelpblockItemsItems {
+  text: String!
+}
+
+type LandingCountrytransfersWhyvedmasterblock {
+  items: [LandingCountrytransfersWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingCountrytransfersWorkprocessblock {
+  items: [LandingCountrytransfersWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingCountrytransfersWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+input LandingCountrytransfersesWhereInput {
+  AND: [LandingCountrytransfersesWhereInput!]
+  NOT: [LandingCountrytransfersesWhereInput!]
+  OR: [LandingCountrytransfersesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
 input LandingDateTimeFilter {
   equals: String
   gt: String
   gte: String
-  in: [String]
+  in: [String!]
   lt: String
   lte: String
-  notIn: [String]
+  notIn: [String!]
 }
 
 type LandingFeature {
@@ -275,13 +878,13 @@ type LandingFeatureFlatFile {
 }
 
 type LandingFeatureNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingFeature!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -309,103 +912,2291 @@ enum LandingFilterStringMode {
   insensitive
 }
 
+type LandingForeignpayment {
+  FAQ: LandingForeignpaymentFaq!
+  SEO: LandingForeignpaymentSeo!
+  contactPromptBlock: LandingForeignpaymentContactpromptblock!
+  helpPaymentBlock: LandingForeignpaymentHelppaymentblock!
+  paymentOptionsBlock: LandingForeignpaymentPaymentoptionsblock!
+  paymentOverviewBlock: LandingForeignpaymentPaymentoverviewblock!
+  paymentSelectionBlock: LandingForeignpaymentPaymentselectionblock!
+  requiredDocumentsBlock: LandingForeignpaymentRequireddocumentsblock!
+  solvingProblemsBlock: [LandingForeignpaymentSolvingproblemsblockItems!]!
+  titleBlock: LandingForeignpaymentTitleblock!
+  whyVedMasterBlock: LandingForeignpaymentWhyvedmasterblock!
+  workProcessBlock: LandingForeignpaymentWorkprocessblock!
+}
+
+type LandingForeignpaymentConnection {
+  edges: [LandingForeignpaymentEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingForeignpaymentContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingForeignpaymentEdge {
+  cursor: String!
+  node: LandingForeignpaymentNode!
+}
+
+type LandingForeignpaymentFaq {
+  questions: [LandingForeignpaymentFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingForeignpaymentFlat {
+  FAQ: LandingForeignpaymentFlatFaq!
+  SEO: LandingForeignpaymentFlatSeo!
+  contactPromptBlock: LandingForeignpaymentFlatContactpromptblock!
+  helpPaymentBlock: LandingForeignpaymentFlatHelppaymentblock!
+  paymentOptionsBlock: LandingForeignpaymentFlatPaymentoptionsblock!
+  paymentOverviewBlock: LandingForeignpaymentFlatPaymentoverviewblock!
+  paymentSelectionBlock: LandingForeignpaymentFlatPaymentselectionblock!
+  requiredDocumentsBlock: LandingForeignpaymentFlatRequireddocumentsblock!
+  solvingProblemsBlock: [LandingForeignpaymentFlatSolvingproblemsblockItems!]!
+  titleBlock: LandingForeignpaymentFlatTitleblock!
+  whyVedMasterBlock: LandingForeignpaymentFlatWhyvedmasterblock!
+  workProcessBlock: LandingForeignpaymentFlatWorkprocessblock!
+}
+
+type LandingForeignpaymentFlatConnection {
+  edges: [LandingForeignpaymentFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingForeignpaymentFlatContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatEdge {
+  cursor: String!
+  node: LandingForeignpaymentFlat!
+}
+
+type LandingForeignpaymentFlatFaq {
+  questions: [LandingForeignpaymentFlatFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentFlatFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingForeignpaymentFlatHelppaymentblock {
+  items: [LandingForeignpaymentFlatHelppaymentblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentFlatHelppaymentblockItemsItems {
+  text: String!
+}
+
+type LandingForeignpaymentFlatPaymentoptionsblock {
+  content: [LandingForeignpaymentFlatPaymentoptionsblockContentItems!]!
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatPaymentoptionsblockContentItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatPaymentoverviewblock {
+  content: String!
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatPaymentselectionblock {
+  items: [LandingForeignpaymentFlatPaymentselectionblockItemsItems!]!
+  subTitle: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatPaymentselectionblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatRequireddocumentsblock {
+  content: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatSolvingproblemsblockItems {
+  content: String!
+  country: LandingCountryFlat!
+}
+
+type LandingForeignpaymentFlatTitleblock {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatWhyvedmasterblock {
+  items: [LandingForeignpaymentFlatWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentFlatWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentFlatWorkprocessblock {
+  items: [LandingForeignpaymentFlatWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentFlatWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentHelppaymentblock {
+  items: [LandingForeignpaymentHelppaymentblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentHelppaymentblockItemsItems {
+  text: String!
+}
+
+type LandingForeignpaymentNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingForeignpayment!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingForeignpaymentPaymentoptionsblock {
+  content: [LandingForeignpaymentPaymentoptionsblockContentItems!]!
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentPaymentoptionsblockContentItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentPaymentoverviewblock {
+  content: String!
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentPaymentselectionblock {
+  items: [LandingForeignpaymentPaymentselectionblockItemsItems!]!
+  subTitle: String!
+  title: String!
+}
+
+type LandingForeignpaymentPaymentselectionblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentRequireddocumentsblock {
+  content: String!
+  title: String!
+}
+
+type LandingForeignpaymentSeo {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentSolvingproblemsblockItems {
+  content: String!
+  country: LandingCountryNode!
+}
+
+type LandingForeignpaymentTitleblock {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentWhyvedmasterblock {
+  items: [LandingForeignpaymentWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingForeignpaymentWorkprocessblock {
+  items: [LandingForeignpaymentWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingForeignpaymentWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+input LandingForeignpaymentsWhereInput {
+  AND: [LandingForeignpaymentsWhereInput!]
+  NOT: [LandingForeignpaymentsWhereInput!]
+  OR: [LandingForeignpaymentsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+input LandingGetArticlecategoriesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetArticlecategoriesOrderByInput!]
+  where: LandingArticlecategoriesWhereInput
+}
+
+enum LandingGetArticlecategoriesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetArticlecategoriesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetArticlecategoriesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetArticlesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetArticlesOrderByInput!]
+  where: LandingArticlesWhereInput
+}
+
+enum LandingGetArticlesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetArticlesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetArticlesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetAuthorsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetAuthorsOrderByInput!]
+  where: LandingAuthorsWhereInput
+}
+
+enum LandingGetAuthorsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetAuthorsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetAuthorsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
 input LandingGetCasesInput {
   after: String
   first: Int
-  orderBy: [LandingGetCasesOrderByInput]
+  orderBy: [LandingGetCasesOrderByInput!]
   where: LandingCasesWhereInput
 }
 
 enum LandingGetCasesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetCasesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetCasesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetCodesInput {
   after: String
   first: Int
-  orderBy: [LandingGetCodesOrderByInput]
+  orderBy: [LandingGetCodesOrderByInput!]
   where: LandingCodesWhereInput
 }
 
 enum LandingGetCodesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetCodesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetCodesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetConstantsInput {
   after: String
   first: Int
-  orderBy: [LandingGetConstantsOrderByInput]
+  orderBy: [LandingGetConstantsOrderByInput!]
   where: LandingConstantsWhereInput
 }
 
 enum LandingGetConstantsOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetConstantsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetConstantsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetCountriesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetCountriesOrderByInput!]
+  where: LandingCountriesWhereInput
+}
+
+enum LandingGetCountriesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetCountriesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetCountriesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetCountrytransfersesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetCountrytransfersesOrderByInput!]
+  where: LandingCountrytransfersesWhereInput
+}
+
+enum LandingGetCountrytransfersesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetCountrytransfersesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetCountrytransfersesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetFeaturesInput {
   after: String
   first: Int
-  orderBy: [LandingGetFeaturesOrderByInput]
+  orderBy: [LandingGetFeaturesOrderByInput!]
   where: LandingFeaturesWhereInput
 }
 
 enum LandingGetFeaturesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetFeaturesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetFeaturesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetForeignpaymentsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetForeignpaymentsOrderByInput!]
+  where: LandingForeignpaymentsWhereInput
+}
+
+enum LandingGetForeignpaymentsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetForeignpaymentsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetForeignpaymentsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetGlossariesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetGlossariesOrderByInput!]
+  where: LandingGlossariesWhereInput
+}
+
+enum LandingGetGlossariesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetGlossariesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetGlossariesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetGlossarytagsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetGlossarytagsOrderByInput!]
+  where: LandingGlossarytagsWhereInput
+}
+
+enum LandingGetGlossarytagsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetGlossarytagsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetGlossarytagsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetGrossarytermsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetGrossarytermsOrderByInput!]
+  where: LandingGrossarytermsWhereInput
+}
+
+enum LandingGetGrossarytermsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetGrossarytermsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetGrossarytermsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetImportpaymentpagesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetImportpaymentpagesOrderByInput!]
+  where: LandingImportpaymentpagesWhereInput
+}
+
+enum LandingGetImportpaymentpagesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetImportpaymentpagesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetImportpaymentpagesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetInvoicepagedeprectedsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetInvoicepagedeprectedsOrderByInput!]
+  where: LandingInvoicepagedeprectedsWhereInput
+}
+
+enum LandingGetInvoicepagedeprectedsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetInvoicepagedeprectedsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetInvoicepagedeprectedsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetInvoicepagesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetInvoicepagesOrderByInput!]
+  where: LandingInvoicepagesWhereInput
+}
+
+enum LandingGetInvoicepagesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetInvoicepagesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetInvoicepagesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetInvoicesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetInvoicesOrderByInput!]
+  where: LandingInvoicesWhereInput
+}
+
+enum LandingGetInvoicesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetInvoicesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetInvoicesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetMainsInput {
   after: String
   first: Int
-  orderBy: [LandingGetMainsOrderByInput]
+  orderBy: [LandingGetMainsOrderByInput!]
   where: LandingMainsWhereInput
 }
 
 enum LandingGetMainsOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetMainsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetMainsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetMentionsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetMentionsOrderByInput!]
+  where: LandingMentionsWhereInput
+}
+
+enum LandingGetMentionsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetMentionsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetMentionsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetPaymentsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetPaymentsOrderByInput!]
+  where: LandingPaymentsWhereInput
+}
+
+enum LandingGetPaymentsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetPaymentsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetPaymentsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetReturnforeignrevenuesInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetReturnforeignrevenuesOrderByInput!]
+  where: LandingReturnforeignrevenuesWhereInput
+}
+
+enum LandingGetReturnforeignrevenuesOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetReturnforeignrevenuesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetReturnforeignrevenuesOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetTransportationpaymentsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetTransportationpaymentsOrderByInput!]
+  where: LandingTransportationpaymentsWhereInput
+}
+
+enum LandingGetTransportationpaymentsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetTransportationpaymentsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetTransportationpaymentsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGetmainsInput {
+  after: String
+  first: Int
+  orderBy: [LandingGetmainsOrderByInput!]
+  where: LandingmainsWhereInput
+}
+
+enum LandingGetmainsOrderByField {
+  createdAt
+  data
+  id
+  publishedAt
+  updatedAt
+}
+
+input LandingGetmainsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
+  direction: LandingSortOrder!
+  field: LandingGetmainsOrderByField!
+  path: String
+  type: LandingOrderFieldType
+}
+
+input LandingGlossariesWhereInput {
+  AND: [LandingGlossariesWhereInput!]
+  NOT: [LandingGlossariesWhereInput!]
+  OR: [LandingGlossariesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingGlossary {
+  SEO: LandingGlossarySeo!
+}
+
+type LandingGlossaryConnection {
+  edges: [LandingGlossaryEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGlossaryEdge {
+  cursor: String!
+  node: LandingGlossaryNode!
+}
+
+type LandingGlossaryFlat {
+  SEO: LandingGlossaryFlatSeo!
+}
+
+type LandingGlossaryFlatConnection {
+  edges: [LandingGlossaryFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGlossaryFlatEdge {
+  cursor: String!
+  node: LandingGlossaryFlat!
+}
+
+type LandingGlossaryFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingGlossaryNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingGlossary!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingGlossarySeo {
+  description: String!
+  title: String!
+}
+
+type LandingGlossarytag {
+  name: String!
+}
+
+type LandingGlossarytagConnection {
+  edges: [LandingGlossarytagEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGlossarytagEdge {
+  cursor: String!
+  node: LandingGlossarytagNode!
+}
+
+type LandingGlossarytagFlat {
+  name: String!
+}
+
+type LandingGlossarytagFlatConnection {
+  edges: [LandingGlossarytagFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGlossarytagFlatEdge {
+  cursor: String!
+  node: LandingGlossarytagFlat!
+}
+
+type LandingGlossarytagNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingGlossarytag!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+input LandingGlossarytagsWhereInput {
+  AND: [LandingGlossarytagsWhereInput!]
+  NOT: [LandingGlossarytagsWhereInput!]
+  OR: [LandingGlossarytagsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingGrossaryterm {
+  SEO: LandingGrossarytermSeo!
+  content: String!
+  description: String!
+  name: String!
+  publishedAt: String!
+  slug: String!
+  tags: [LandingGlossarytagNode!]!
+  updatedAt: String!
+  visible: Boolean!
+}
+
+type LandingGrossarytermConnection {
+  edges: [LandingGrossarytermEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGrossarytermEdge {
+  cursor: String!
+  node: LandingGrossarytermNode!
+}
+
+type LandingGrossarytermFlat {
+  SEO: LandingGrossarytermFlatSeo!
+  content: String!
+  description: String!
+  name: String!
+  publishedAt: String!
+  slug: String!
+  tags: [LandingGlossarytagFlat!]!
+  updatedAt: String!
+  visible: Boolean!
+}
+
+type LandingGrossarytermFlatConnection {
+  edges: [LandingGrossarytermFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingGrossarytermFlatEdge {
+  cursor: String!
+  node: LandingGrossarytermFlat!
+}
+
+type LandingGrossarytermFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingGrossarytermNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingGrossaryterm!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingGrossarytermSeo {
+  description: String!
+  title: String!
+}
+
+input LandingGrossarytermsWhereInput {
+  AND: [LandingGrossarytermsWhereInput!]
+  NOT: [LandingGrossarytermsWhereInput!]
+  OR: [LandingGrossarytermsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingImportpaymentpage {
+  SEO: LandingImportpaymentpageSeo!
+  descriptionBlock: LandingImportpaymentpageDescriptionblock!
+  helpPaymentBlock: LandingImportpaymentpageHelppaymentblock!
+  importPaymentReqBlock: LandingImportpaymentpageImportpaymentreqblock!
+  infoBlock: LandingImportpaymentpageInfoblock!
+  infoDescriptionBlock: LandingImportpaymentpageInfodescriptionblock!
+  questionBlock: LandingImportpaymentpageQuestionblock!
+  solvingProblemsBlock: LandingImportpaymentpageSolvingproblemsblock!
+  titleBlock: LandingImportpaymentpageTitleblock!
+  whenVedHelpBlock: LandingImportpaymentpageWhenvedhelpblock!
+  whyVedBlock: LandingImportpaymentpageWhyvedblock!
+  workingStepsBlock: LandingImportpaymentpageWorkingstepsblock!
+}
+
+type LandingImportpaymentpageConnection {
+  edges: [LandingImportpaymentpageEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingImportpaymentpageDescriptionblock {
+  mainSection: LandingImportpaymentpageDescriptionblockMainsection!
+  titleSection: LandingImportpaymentpageDescriptionblockTitlesection!
+}
+
+type LandingImportpaymentpageDescriptionblockMainsection {
+  content: String!
+}
+
+type LandingImportpaymentpageDescriptionblockTitlesection {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageEdge {
+  cursor: String!
+  node: LandingImportpaymentpageNode!
+}
+
+type LandingImportpaymentpageFlat {
+  SEO: LandingImportpaymentpageFlatSeo!
+  descriptionBlock: LandingImportpaymentpageFlatDescriptionblock!
+  helpPaymentBlock: LandingImportpaymentpageFlatHelppaymentblock!
+  importPaymentReqBlock: LandingImportpaymentpageFlatImportpaymentreqblock!
+  infoBlock: LandingImportpaymentpageFlatInfoblock!
+  infoDescriptionBlock: LandingImportpaymentpageFlatInfodescriptionblock!
+  questionBlock: LandingImportpaymentpageFlatQuestionblock!
+  solvingProblemsBlock: LandingImportpaymentpageFlatSolvingproblemsblock!
+  titleBlock: LandingImportpaymentpageFlatTitleblock!
+  whenVedHelpBlock: LandingImportpaymentpageFlatWhenvedhelpblock!
+  whyVedBlock: LandingImportpaymentpageFlatWhyvedblock!
+  workingStepsBlock: LandingImportpaymentpageFlatWorkingstepsblock!
+}
+
+type LandingImportpaymentpageFlatConnection {
+  edges: [LandingImportpaymentpageFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingImportpaymentpageFlatDescriptionblock {
+  mainSection: LandingImportpaymentpageFlatDescriptionblockMainsection!
+  titleSection: LandingImportpaymentpageFlatDescriptionblockTitlesection!
+}
+
+type LandingImportpaymentpageFlatDescriptionblockMainsection {
+  content: String!
+}
+
+type LandingImportpaymentpageFlatDescriptionblockTitlesection {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatEdge {
+  cursor: String!
+  node: LandingImportpaymentpageFlat!
+}
+
+type LandingImportpaymentpageFlatHelppaymentblock {
+  content: [LandingImportpaymentpageFlatHelppaymentblockContentItems!]!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatHelppaymentblockContentItems {
+  title: String!
+}
+
+type LandingImportpaymentpageFlatImportpaymentreqblock {
+  content: LandingImportpaymentpageFlatImportpaymentreqblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatImportpaymentreqblockContent {
+  items: [LandingImportpaymentpageFlatImportpaymentreqblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageFlatImportpaymentreqblockContentItemsItems {
+  title: String!
+}
+
+type LandingImportpaymentpageFlatInfoblock {
+  content: [LandingImportpaymentpageFlatInfoblockContentItems!]!
+}
+
+type LandingImportpaymentpageFlatInfoblockContentItems {
+  title: String!
+}
+
+type LandingImportpaymentpageFlatInfodescriptionblock {
+  content: LandingImportpaymentpageFlatInfodescriptionblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatInfodescriptionblockContent {
+  infoBlocks: [LandingImportpaymentpageFlatInfodescriptionblockContentInfoblocksItems!]!
+}
+
+type LandingImportpaymentpageFlatInfodescriptionblockContentInfoblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatQuestionblock {
+  questions: [LandingImportpaymentpageFlatQuestionblockQuestionsItems!]!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatQuestionblockQuestionsItems {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatSolvingproblemsblock {
+  content: LandingImportpaymentpageFlatSolvingproblemsblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatSolvingproblemsblockContent {
+  solvingProblemsItems: [LandingImportpaymentpageFlatSolvingproblemsblockContentSolvingproblemsitemsItems!]!
+}
+
+type LandingImportpaymentpageFlatSolvingproblemsblockContentSolvingproblemsitemsItems {
+  content: String!
+  country: LandingCountryFlat!
+}
+
+type LandingImportpaymentpageFlatTitleblock {
+  description: String!
+  image: LandingImportpaymentpageFlatTitleblockImage!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatTitleblockImage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingImportpaymentpageFlatWhenvedhelpblock {
+  content: LandingImportpaymentpageFlatWhenvedhelpblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatWhenvedhelpblockContent {
+  items: [LandingImportpaymentpageFlatWhenvedhelpblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageFlatWhenvedhelpblockContentItemsItems {
+  title: String!
+}
+
+type LandingImportpaymentpageFlatWhyvedblock {
+  content: LandingImportpaymentpageFlatWhyvedblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatWhyvedblockContent {
+  items: [LandingImportpaymentpageFlatWhyvedblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageFlatWhyvedblockContentItemsItems {
+  description: String!
+  icon: String!
+  title: String!
+}
+
+type LandingImportpaymentpageFlatWorkingstepsblock {
+  steps: [LandingImportpaymentpageFlatWorkingstepsblockStepsItems!]!
+}
+
+type LandingImportpaymentpageFlatWorkingstepsblockStepsItems {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageHelppaymentblock {
+  content: [LandingImportpaymentpageHelppaymentblockContentItems!]!
+  title: String!
+}
+
+type LandingImportpaymentpageHelppaymentblockContentItems {
+  title: String!
+}
+
+type LandingImportpaymentpageImportpaymentreqblock {
+  content: LandingImportpaymentpageImportpaymentreqblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageImportpaymentreqblockContent {
+  items: [LandingImportpaymentpageImportpaymentreqblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageImportpaymentreqblockContentItemsItems {
+  title: String!
+}
+
+type LandingImportpaymentpageInfoblock {
+  content: [LandingImportpaymentpageInfoblockContentItems!]!
+}
+
+type LandingImportpaymentpageInfoblockContentItems {
+  title: String!
+}
+
+type LandingImportpaymentpageInfodescriptionblock {
+  content: LandingImportpaymentpageInfodescriptionblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageInfodescriptionblockContent {
+  infoBlocks: [LandingImportpaymentpageInfodescriptionblockContentInfoblocksItems!]!
+}
+
+type LandingImportpaymentpageInfodescriptionblockContentInfoblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingImportpaymentpageNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingImportpaymentpage!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingImportpaymentpageQuestionblock {
+  questions: [LandingImportpaymentpageQuestionblockQuestionsItems!]!
+  title: String!
+}
+
+type LandingImportpaymentpageQuestionblockQuestionsItems {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageSeo {
+  description: String!
+  title: String!
+}
+
+type LandingImportpaymentpageSolvingproblemsblock {
+  content: LandingImportpaymentpageSolvingproblemsblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageSolvingproblemsblockContent {
+  solvingProblemsItems: [LandingImportpaymentpageSolvingproblemsblockContentSolvingproblemsitemsItems!]!
+}
+
+type LandingImportpaymentpageSolvingproblemsblockContentSolvingproblemsitemsItems {
+  content: String!
+  country: LandingCountryNode!
+}
+
+type LandingImportpaymentpageTitleblock {
+  description: String!
+  image: LandingImportpaymentpageTitleblockImage!
+  title: String!
+}
+
+type LandingImportpaymentpageTitleblockImage {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingImportpaymentpageWhenvedhelpblock {
+  content: LandingImportpaymentpageWhenvedhelpblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageWhenvedhelpblockContent {
+  items: [LandingImportpaymentpageWhenvedhelpblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageWhenvedhelpblockContentItemsItems {
+  title: String!
+}
+
+type LandingImportpaymentpageWhyvedblock {
+  content: LandingImportpaymentpageWhyvedblockContent!
+  title: String!
+}
+
+type LandingImportpaymentpageWhyvedblockContent {
+  items: [LandingImportpaymentpageWhyvedblockContentItemsItems!]!
+}
+
+type LandingImportpaymentpageWhyvedblockContentItemsItems {
+  description: String!
+  icon: String!
+  title: String!
+}
+
+type LandingImportpaymentpageWorkingstepsblock {
+  steps: [LandingImportpaymentpageWorkingstepsblockStepsItems!]!
+}
+
+type LandingImportpaymentpageWorkingstepsblockStepsItems {
+  description: String!
+  title: String!
+}
+
+input LandingImportpaymentpagesWhereInput {
+  AND: [LandingImportpaymentpagesWhereInput!]
+  NOT: [LandingImportpaymentpagesWhereInput!]
+  OR: [LandingImportpaymentpagesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingInvoice {
+  SEO: LandingInvoiceSeo!
+  country: LandingCountryNode!
+  description: String!
+  help: LandingInvoiceHelp!
+  infoBlock: [String!]!
+  infoDescription: LandingInvoiceInfodescription!
+  payment: LandingInvoicePayment!
+  paymentProcedure: LandingInvoicePaymentprocedure!
+  questions: [LandingInvoiceQuestionsItems!]!
+  questionsInfo: String!
+  registration: LandingInvoiceRegistration!
+  title: String!
+  userInputFields: LandingInvoiceUserinputfields!
+}
+
+type LandingInvoiceConnection {
+  edges: [LandingInvoiceEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoiceEdge {
+  cursor: String!
+  node: LandingInvoiceNode!
+}
+
+type LandingInvoiceFlat {
+  SEO: LandingInvoiceFlatSeo!
+  country: LandingCountryFlat!
+  description: String!
+  help: LandingInvoiceFlatHelp!
+  infoBlock: [String!]!
+  infoDescription: LandingInvoiceFlatInfodescription!
+  payment: LandingInvoiceFlatPayment!
+  paymentProcedure: LandingInvoiceFlatPaymentprocedure!
+  questions: [LandingInvoiceFlatQuestionsItems!]!
+  questionsInfo: String!
+  registration: LandingInvoiceFlatRegistration!
+  title: String!
+  userInputFields: LandingInvoiceFlatUserinputfields!
+}
+
+type LandingInvoiceFlatConnection {
+  edges: [LandingInvoiceFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoiceFlatEdge {
+  cursor: String!
+  node: LandingInvoiceFlat!
+}
+
+type LandingInvoiceFlatHelp {
+  text: String!
+  texts: [String!]!
+  title: String!
+}
+
+type LandingInvoiceFlatInfodescription {
+  content: String!
+  title: String!
+}
+
+type LandingInvoiceFlatPayment {
+  description: String!
+  texts: [String!]!
+  title: String!
+  titleTexts: [String!]!
+}
+
+type LandingInvoiceFlatPaymentprocedure {
+  texts: [String!]!
+}
+
+type LandingInvoiceFlatQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoiceFlatRegistration {
+  title: String!
+}
+
+type LandingInvoiceFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoiceFlatUserinputfields {
+  text: String!
+  title: String!
+}
+
+type LandingInvoiceHelp {
+  text: String!
+  texts: [String!]!
+  title: String!
+}
+
+type LandingInvoiceInfodescription {
+  content: String!
+  title: String!
+}
+
+type LandingInvoiceNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingInvoice!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingInvoicePayment {
+  description: String!
+  texts: [String!]!
+  title: String!
+  titleTexts: [String!]!
+}
+
+type LandingInvoicePaymentprocedure {
+  texts: [String!]!
+}
+
+type LandingInvoiceQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoiceRegistration {
+  title: String!
+}
+
+type LandingInvoiceSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoiceUserinputfields {
+  text: String!
+  title: String!
+}
+
+type LandingInvoicepage {
+  ChoosingCountryBlock: LandingInvoicepageChoosingcountryblock!
+  SEO: LandingInvoicepageSeo!
+  helpPaymentBlock: LandingInvoicepageHelppaymentblock!
+  infoBlock: LandingInvoicepageInfoblock!
+  infoDescriptionBlock: LandingInvoicepageInfodescriptionblock!
+  invoiceFormBlock: LandingInvoicepageInvoiceformblock!
+  notAnswerBlock: LandingInvoicepageNotanswerblock!
+  paymentProcedureBlock: LandingInvoicepagePaymentprocedureblock!
+  paymentViaAgentBlock: LandingInvoicepagePaymentviaagentblock!
+  questionsBlock: LandingInvoicepageQuestionsblock!
+  registrationBlock: LandingInvoicepageRegistrationblock!
+  solvingProblemsBlock: LandingInvoicepageSolvingproblemsblock!
+  titleBlock: LandingInvoicepageTitleblock!
+}
+
+type LandingInvoicepageChoosingcountryblock {
+  invoices: [LandingInvoiceNode!]!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepageConnection {
+  edges: [LandingInvoicepageEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoicepageEdge {
+  cursor: String!
+  node: LandingInvoicepageNode!
+}
+
+type LandingInvoicepageFlat {
+  ChoosingCountryBlock: LandingInvoicepageFlatChoosingcountryblock!
+  SEO: LandingInvoicepageFlatSeo!
+  helpPaymentBlock: LandingInvoicepageFlatHelppaymentblock!
+  infoBlock: LandingInvoicepageFlatInfoblock!
+  infoDescriptionBlock: LandingInvoicepageFlatInfodescriptionblock!
+  invoiceFormBlock: LandingInvoicepageFlatInvoiceformblock!
+  notAnswerBlock: LandingInvoicepageFlatNotanswerblock!
+  paymentProcedureBlock: LandingInvoicepageFlatPaymentprocedureblock!
+  paymentViaAgentBlock: LandingInvoicepageFlatPaymentviaagentblock!
+  questionsBlock: LandingInvoicepageFlatQuestionsblock!
+  registrationBlock: LandingInvoicepageFlatRegistrationblock!
+  solvingProblemsBlock: LandingInvoicepageFlatSolvingproblemsblock!
+  titleBlock: LandingInvoicepageFlatTitleblock!
+}
+
+type LandingInvoicepageFlatChoosingcountryblock {
+  invoices: [LandingInvoiceFlat!]!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatConnection {
+  edges: [LandingInvoicepageFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoicepageFlatEdge {
+  cursor: String!
+  node: LandingInvoicepageFlat!
+}
+
+type LandingInvoicepageFlatHelppaymentblock {
+  content: LandingInvoicepageFlatHelppaymentblockContent!
+  title: String!
+}
+
+type LandingInvoicepageFlatHelppaymentblockContent {
+  helpPaymentItems: [LandingInvoicepageFlatHelppaymentblockContentHelppaymentitemsItems!]!
+}
+
+type LandingInvoicepageFlatHelppaymentblockContentHelppaymentitemsItems {
+  title: String!
+}
+
+type LandingInvoicepageFlatInfoblock {
+  content: LandingInvoicepageFlatInfoblockContent!
+}
+
+type LandingInvoicepageFlatInfoblockContent {
+  infoItem: [LandingInvoicepageFlatInfoblockContentInfoitemItems!]!
+}
+
+type LandingInvoicepageFlatInfoblockContentInfoitemItems {
+  icon: LandingInvoicepageFlatInfoblockContentInfoitemItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepageFlatInfoblockContentInfoitemItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepageFlatInfodescriptionblock {
+  descriptions: [LandingInvoicepageFlatInfodescriptionblockDescriptionsItems!]!
+  title: String!
+}
+
+type LandingInvoicepageFlatInfodescriptionblockDescriptionsItems {
+  content: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatInvoiceformblock {
+  text: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatNotanswerblock {
+  description: String!
+}
+
+type LandingInvoicepageFlatPaymentprocedureblock {
+  paymentSteps: [LandingInvoicepageFlatPaymentprocedureblockPaymentstepsItems!]!
+  title: String!
+}
+
+type LandingInvoicepageFlatPaymentprocedureblockPaymentstepsItems {
+  img: LandingInvoicepageFlatPaymentprocedureblockPaymentstepsItemsImg!
+  title: String!
+}
+
+type LandingInvoicepageFlatPaymentprocedureblockPaymentstepsItemsImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepageFlatPaymentviaagentblock {
+  content: LandingInvoicepageFlatPaymentviaagentblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatPaymentviaagentblockContent {
+  paymentItems: [LandingInvoicepageFlatPaymentviaagentblockContentPaymentitemsItems!]!
+}
+
+type LandingInvoicepageFlatPaymentviaagentblockContentPaymentitemsItems {
+  description: String!
+  icon: LandingInvoicepageFlatPaymentviaagentblockContentPaymentitemsItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepageFlatPaymentviaagentblockContentPaymentitemsItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepageFlatQuestionsblock {
+  questions: [LandingInvoicepageFlatQuestionsblockQuestionsItems!]!
+}
+
+type LandingInvoicepageFlatQuestionsblockQuestionsItems {
+  content: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoicepageFlatRegistrationblock {
+  title: String!
+}
+
+type LandingInvoicepageFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatSolvingproblemsblock {
+  solvingProblems: [LandingInvoicepageFlatSolvingproblemsblockSolvingproblemsItems!]!
+  title: String!
+}
+
+type LandingInvoicepageFlatSolvingproblemsblockSolvingproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingInvoicepageFlatTitleblock {
+  description: String!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepageHelppaymentblock {
+  content: LandingInvoicepageHelppaymentblockContent!
+  title: String!
+}
+
+type LandingInvoicepageHelppaymentblockContent {
+  helpPaymentItems: [LandingInvoicepageHelppaymentblockContentHelppaymentitemsItems!]!
+}
+
+type LandingInvoicepageHelppaymentblockContentHelppaymentitemsItems {
+  title: String!
+}
+
+type LandingInvoicepageInfoblock {
+  content: LandingInvoicepageInfoblockContent!
+}
+
+type LandingInvoicepageInfoblockContent {
+  infoItem: [LandingInvoicepageInfoblockContentInfoitemItems!]!
+}
+
+type LandingInvoicepageInfoblockContentInfoitemItems {
+  icon: LandingInvoicepageInfoblockContentInfoitemItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepageInfoblockContentInfoitemItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepageInfodescriptionblock {
+  descriptions: [LandingInvoicepageInfodescriptionblockDescriptionsItems!]!
+  title: String!
+}
+
+type LandingInvoicepageInfodescriptionblockDescriptionsItems {
+  content: String!
+  title: String!
+}
+
+type LandingInvoicepageInvoiceformblock {
+  text: String!
+  title: String!
+}
+
+type LandingInvoicepageNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingInvoicepage!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingInvoicepageNotanswerblock {
+  description: String!
+}
+
+type LandingInvoicepagePaymentprocedureblock {
+  paymentSteps: [LandingInvoicepagePaymentprocedureblockPaymentstepsItems!]!
+  title: String!
+}
+
+type LandingInvoicepagePaymentprocedureblockPaymentstepsItems {
+  img: LandingInvoicepagePaymentprocedureblockPaymentstepsItemsImg!
+  title: String!
+}
+
+type LandingInvoicepagePaymentprocedureblockPaymentstepsItemsImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagePaymentviaagentblock {
+  content: LandingInvoicepagePaymentviaagentblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepagePaymentviaagentblockContent {
+  paymentItems: [LandingInvoicepagePaymentviaagentblockContentPaymentitemsItems!]!
+}
+
+type LandingInvoicepagePaymentviaagentblockContentPaymentitemsItems {
+  description: String!
+  icon: LandingInvoicepagePaymentviaagentblockContentPaymentitemsItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepagePaymentviaagentblockContentPaymentitemsItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepageQuestionsblock {
+  questions: [LandingInvoicepageQuestionsblockQuestionsItems!]!
+}
+
+type LandingInvoicepageQuestionsblockQuestionsItems {
+  content: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoicepageRegistrationblock {
+  title: String!
+}
+
+type LandingInvoicepageSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepageSolvingproblemsblock {
+  solvingProblems: [LandingInvoicepageSolvingproblemsblockSolvingproblemsItems!]!
+  title: String!
+}
+
+type LandingInvoicepageSolvingproblemsblockSolvingproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingInvoicepageTitleblock {
+  description: String!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprected {
+  ChoosingCountryBlock: LandingInvoicepagedeprectedChoosingcountryblock!
+  SEO: LandingInvoicepagedeprectedSeo!
+  helpPaymentBlock: LandingInvoicepagedeprectedHelppaymentblock!
+  infoBlock: LandingInvoicepagedeprectedInfoblock!
+  infoDescriptionBlock: LandingInvoicepagedeprectedInfodescriptionblock!
+  invoiceFormBlock: LandingInvoicepagedeprectedInvoiceformblock!
+  notAnswerBlock: LandingInvoicepagedeprectedNotanswerblock!
+  paymentProcedureBlock: LandingInvoicepagedeprectedPaymentprocedureblock!
+  paymentViaAgentBlock: LandingInvoicepagedeprectedPaymentviaagentblock!
+  questionsBlock: LandingInvoicepagedeprectedQuestionsblock!
+  registrationBlock: LandingInvoicepagedeprectedRegistrationblock!
+  solvingProblemsBlock: LandingInvoicepagedeprectedSolvingproblemsblock!
+  titleBlock: LandingInvoicepagedeprectedTitleblock!
+}
+
+type LandingInvoicepagedeprectedChoosingcountryblock {
+  invoices: [LandingInvoiceNode!]!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedConnection {
+  edges: [LandingInvoicepagedeprectedEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoicepagedeprectedEdge {
+  cursor: String!
+  node: LandingInvoicepagedeprectedNode!
+}
+
+type LandingInvoicepagedeprectedFlat {
+  ChoosingCountryBlock: LandingInvoicepagedeprectedFlatChoosingcountryblock!
+  SEO: LandingInvoicepagedeprectedFlatSeo!
+  helpPaymentBlock: LandingInvoicepagedeprectedFlatHelppaymentblock!
+  infoBlock: LandingInvoicepagedeprectedFlatInfoblock!
+  infoDescriptionBlock: LandingInvoicepagedeprectedFlatInfodescriptionblock!
+  invoiceFormBlock: LandingInvoicepagedeprectedFlatInvoiceformblock!
+  notAnswerBlock: LandingInvoicepagedeprectedFlatNotanswerblock!
+  paymentProcedureBlock: LandingInvoicepagedeprectedFlatPaymentprocedureblock!
+  paymentViaAgentBlock: LandingInvoicepagedeprectedFlatPaymentviaagentblock!
+  questionsBlock: LandingInvoicepagedeprectedFlatQuestionsblock!
+  registrationBlock: LandingInvoicepagedeprectedFlatRegistrationblock!
+  solvingProblemsBlock: LandingInvoicepagedeprectedFlatSolvingproblemsblock!
+  titleBlock: LandingInvoicepagedeprectedFlatTitleblock!
+}
+
+type LandingInvoicepagedeprectedFlatChoosingcountryblock {
+  invoices: [LandingInvoiceFlat!]!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatConnection {
+  edges: [LandingInvoicepagedeprectedFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingInvoicepagedeprectedFlatEdge {
+  cursor: String!
+  node: LandingInvoicepagedeprectedFlat!
+}
+
+type LandingInvoicepagedeprectedFlatHelppaymentblock {
+  content: LandingInvoicepagedeprectedFlatHelppaymentblockContent!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatHelppaymentblockContent {
+  helpPaymentItems: [LandingInvoicepagedeprectedFlatHelppaymentblockContentHelppaymentitemsItems!]!
+}
+
+type LandingInvoicepagedeprectedFlatHelppaymentblockContentHelppaymentitemsItems {
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatInfoblock {
+  content: LandingInvoicepagedeprectedFlatInfoblockContent!
+}
+
+type LandingInvoicepagedeprectedFlatInfoblockContent {
+  infoItem: [LandingInvoicepagedeprectedFlatInfoblockContentInfoitemItems!]!
+}
+
+type LandingInvoicepagedeprectedFlatInfoblockContentInfoitemItems {
+  icon: LandingInvoicepagedeprectedFlatInfoblockContentInfoitemItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatInfoblockContentInfoitemItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedFlatInfodescriptionblock {
+  descriptions: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatInvoiceformblock {
+  text: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatNotanswerblock {
+  description: String!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentprocedureblock {
+  paymentSteps: [LandingInvoicepagedeprectedFlatPaymentprocedureblockPaymentstepsItems!]!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentprocedureblockPaymentstepsItems {
+  img: LandingInvoicepagedeprectedFlatPaymentprocedureblockPaymentstepsItemsImg!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentprocedureblockPaymentstepsItemsImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentviaagentblock {
+  content: LandingInvoicepagedeprectedFlatPaymentviaagentblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentviaagentblockContent {
+  paymentItems: [LandingInvoicepagedeprectedFlatPaymentviaagentblockContentPaymentitemsItems!]!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentviaagentblockContentPaymentitemsItems {
+  description: String!
+  icon: LandingInvoicepagedeprectedFlatPaymentviaagentblockContentPaymentitemsItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatPaymentviaagentblockContentPaymentitemsItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedFlatQuestionsblock {
+  questions: [LandingInvoicepagedeprectedFlatQuestionsblockQuestionsItems!]!
+}
+
+type LandingInvoicepagedeprectedFlatQuestionsblockQuestionsItems {
+  content: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoicepagedeprectedFlatRegistrationblock {
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatSolvingproblemsblock {
+  solvingProblems: [LandingInvoicepagedeprectedFlatSolvingproblemsblockSolvingproblemsItems!]!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatSolvingproblemsblockSolvingproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedFlatTitleblock {
+  description: String!
+  subtitle: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedHelppaymentblock {
+  content: LandingInvoicepagedeprectedHelppaymentblockContent!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedHelppaymentblockContent {
+  helpPaymentItems: [LandingInvoicepagedeprectedHelppaymentblockContentHelppaymentitemsItems!]!
+}
+
+type LandingInvoicepagedeprectedHelppaymentblockContentHelppaymentitemsItems {
+  title: String!
+}
+
+type LandingInvoicepagedeprectedInfoblock {
+  content: LandingInvoicepagedeprectedInfoblockContent!
+}
+
+type LandingInvoicepagedeprectedInfoblockContent {
+  infoItem: [LandingInvoicepagedeprectedInfoblockContentInfoitemItems!]!
+}
+
+type LandingInvoicepagedeprectedInfoblockContentInfoitemItems {
+  icon: LandingInvoicepagedeprectedInfoblockContentInfoitemItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedInfoblockContentInfoitemItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedInfodescriptionblock {
+  descriptions: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedInvoiceformblock {
+  text: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingInvoicepagedeprected!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingInvoicepagedeprectedNotanswerblock {
+  description: String!
+}
+
+type LandingInvoicepagedeprectedPaymentprocedureblock {
+  paymentSteps: [LandingInvoicepagedeprectedPaymentprocedureblockPaymentstepsItems!]!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedPaymentprocedureblockPaymentstepsItems {
+  img: LandingInvoicepagedeprectedPaymentprocedureblockPaymentstepsItemsImg!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedPaymentprocedureblockPaymentstepsItemsImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedPaymentviaagentblock {
+  content: LandingInvoicepagedeprectedPaymentviaagentblockContent!
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedPaymentviaagentblockContent {
+  paymentItems: [LandingInvoicepagedeprectedPaymentviaagentblockContentPaymentitemsItems!]!
+}
+
+type LandingInvoicepagedeprectedPaymentviaagentblockContentPaymentitemsItems {
+  description: String!
+  icon: LandingInvoicepagedeprectedPaymentviaagentblockContentPaymentitemsItemsIcon!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedPaymentviaagentblockContentPaymentitemsItemsIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingInvoicepagedeprectedQuestionsblock {
+  questions: [LandingInvoicepagedeprectedQuestionsblockQuestionsItems!]!
+}
+
+type LandingInvoicepagedeprectedQuestionsblockQuestionsItems {
+  content: String!
+  title: String!
+  value: String!
+}
+
+type LandingInvoicepagedeprectedRegistrationblock {
+  title: String!
+}
+
+type LandingInvoicepagedeprectedSeo {
+  description: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedSolvingproblemsblock {
+  solvingProblems: [LandingInvoicepagedeprectedSolvingproblemsblockSolvingproblemsItems!]!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedSolvingproblemsblockSolvingproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingInvoicepagedeprectedTitleblock {
+  description: String!
+  subtitle: String!
+  title: String!
+}
+
+input LandingInvoicepagedeprectedsWhereInput {
+  AND: [LandingInvoicepagedeprectedsWhereInput!]
+  NOT: [LandingInvoicepagedeprectedsWhereInput!]
+  OR: [LandingInvoicepagedeprectedsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+input LandingInvoicepagesWhereInput {
+  AND: [LandingInvoicepagesWhereInput!]
+  NOT: [LandingInvoicepagesWhereInput!]
+  OR: [LandingInvoicepagesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+input LandingInvoicesWhereInput {
+  AND: [LandingInvoicesWhereInput!]
+  NOT: [LandingInvoicesWhereInput!]
+  OR: [LandingInvoicesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
 }
 
 input LandingJsonFilter {
-  array_contains: [JSON]
+  array_contains: [JSON!]
   array_ends_with: JSON
   array_starts_with: JSON
   equals: JSON
@@ -414,36 +3205,19 @@ input LandingJsonFilter {
   lt: Float
   lte: Float
   mode: LandingFilterJsonMode
-  path: [String]
+  path: [String!]
   string_contains: String
   string_ends_with: String
   string_starts_with: String
 }
 
 type LandingMain {
-  cases: LandingMainCases!
-  cloud: LandingMainCloud!
-  code: LandingMainCode!
-  docs: LandingMainDocs!
-  features: LandingMainFeatures!
-  github: String!
-  preview: LandingMainPreview!
-  texts: LandingMainTexts!
-}
-
-type LandingMainCases {
-  items: [LandingCaseNode!]!
-  title: String!
-}
-
-type LandingMainCloud {
-  label: String!
-  link: String!
-}
-
-type LandingMainCode {
-  docker: LandingCodeNode!
-  dockerCompose: LandingCodeNode!
+  buttonText: String! @deprecated(reason: "use in offersItem")
+  hint: String! @deprecated(reason: "use in offersItem")
+  media: LandingMainMedia!
+  offers: [LandingMainOffersItems!]!
+  title: String! @deprecated(reason: "use in offersItem")
+  video: LandingMainVideo!
 }
 
 type LandingMainConnection {
@@ -452,45 +3226,18 @@ type LandingMainConnection {
   totalCount: Int!
 }
 
-type LandingMainDocs {
-  label: String!
-  link: String!
-}
-
 type LandingMainEdge {
   cursor: String!
   node: LandingMainNode!
 }
 
-type LandingMainFeatures {
-  items: [LandingFeatureNode!]!
-  title: String!
-}
-
 type LandingMainFlat {
-  cases: LandingMainFlatCases!
-  cloud: LandingMainFlatCloud!
-  code: LandingMainFlatCode!
-  docs: LandingMainFlatDocs!
-  features: LandingMainFlatFeatures!
-  github: String!
-  preview: LandingMainFlatPreview!
-  texts: LandingMainFlatTexts!
-}
-
-type LandingMainFlatCases {
-  items: [LandingCaseFlat!]!
-  title: String!
-}
-
-type LandingMainFlatCloud {
-  label: String!
-  link: String!
-}
-
-type LandingMainFlatCode {
-  docker: LandingCodeFlat!
-  dockerCompose: LandingCodeFlat!
+  buttonText: String! @deprecated(reason: "use in offersItem")
+  hint: String! @deprecated(reason: "use in offersItem")
+  media: LandingMainFlatMedia!
+  offers: [LandingMainFlatOffersItems!]!
+  title: String! @deprecated(reason: "use in offersItem")
+  video: LandingMainFlatVideo!
 }
 
 type LandingMainFlatConnection {
@@ -499,22 +3246,12 @@ type LandingMainFlatConnection {
   totalCount: Int!
 }
 
-type LandingMainFlatDocs {
-  label: String!
-  link: String!
-}
-
 type LandingMainFlatEdge {
   cursor: String!
   node: LandingMainFlat!
 }
 
-type LandingMainFlatFeatures {
-  items: [LandingFeatureFlat!]!
-  title: String!
-}
-
-type LandingMainFlatPreview {
+type LandingMainFlatMedia {
   extension: String!
   fileId: String!
   fileName: String!
@@ -527,23 +3264,75 @@ type LandingMainFlatPreview {
   width: Float!
 }
 
-type LandingMainFlatTexts {
-  description: String!
+type LandingMainFlatOffersItems {
+  additionalInfo: String!
+  buttonText: String!
+  hint: String!
+  media: LandingMainFlatOffersItemsMedia!
+  source: String!
   title: String!
+}
+
+type LandingMainFlatOffersItemsMedia {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMainFlatVideo {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMainMedia {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
 }
 
 type LandingMainNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingMain!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
-type LandingMainPreview {
+type LandingMainOffersItems {
+  additionalInfo: String!
+  buttonText: String!
+  hint: String!
+  media: LandingMainOffersItemsMedia!
+  source: String!
+  title: String!
+}
+
+type LandingMainOffersItemsMedia {
   extension: String!
   fileId: String!
   fileName: String!
@@ -556,9 +3345,17 @@ type LandingMainPreview {
   width: Float!
 }
 
-type LandingMainTexts {
-  description: String!
-  title: String!
+type LandingMainVideo {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
 }
 
 input LandingMainsWhereInput {
@@ -575,11 +3372,662 @@ input LandingMainsWhereInput {
   versionId: LandingStringFilter
 }
 
+type LandingMention {
+  createdAt: String!
+  icon: LandingMentionIcon!
+  id: String!
+  link: String!
+  name: String! @deprecated(reason: "Не актуально, использовать icon")
+  publishedAt: String!
+}
+
+type LandingMentionConnection {
+  edges: [LandingMentionEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingMentionEdge {
+  cursor: String!
+  node: LandingMentionNode!
+}
+
+type LandingMentionFlat {
+  createdAt: String!
+  icon: LandingMentionFlatIcon!
+  id: String!
+  link: String!
+  name: String! @deprecated(reason: "Не актуально, использовать icon")
+  publishedAt: String!
+}
+
+type LandingMentionFlatConnection {
+  edges: [LandingMentionFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingMentionFlatEdge {
+  cursor: String!
+  node: LandingMentionFlat!
+}
+
+type LandingMentionFlatIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMentionIcon {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingMentionNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingMention!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+input LandingMentionsWhereInput {
+  AND: [LandingMentionsWhereInput!]
+  NOT: [LandingMentionsWhereInput!]
+  OR: [LandingMentionsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+enum LandingOrderFieldAggregation {
+  avg
+  first
+  last
+  max
+  min
+}
+
+enum LandingOrderFieldType {
+  boolean
+  float
+  int
+  text
+  timestamp
+}
+
 type LandingPageInfo {
   endCursor: String
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
   startCursor: String
+}
+
+type LandingPayment {
+  SEO: LandingPaymentSeo!
+  agentPlatformSection: LandingPaymentAgentplatformsection!
+  applicationScenarios: LandingPaymentApplicationscenarios!
+  description: String!
+  implementWays: LandingPaymentImplementways!
+  infoDescription: LandingPaymentInfodescription!
+  infoDescriptionSection: LandingPaymentInfodescriptionsection!
+  paymentProcedure: LandingPaymentPaymentprocedure!
+  questions: [LandingPaymentQuestionsItems!]!
+  questionsInfo: String!
+  registration: LandingPaymentRegistration!
+  solvingInvoiceProblem: [LandingPaymentSolvinginvoiceproblemItems!]!
+  title: String!
+  userInputFields: LandingPaymentUserinputfields!
+}
+
+type LandingPaymentAgentplatformsection {
+  agentPlatformScenarios: LandingPaymentAgentplatformsectionAgentplatformscenarios!
+  description: String!
+  documentManagement: LandingPaymentAgentplatformsectionDocumentmanagement!
+  title: String!
+}
+
+type LandingPaymentAgentplatformsectionAgentplatformscenarios {
+  content: [String!]!
+  title: String!
+}
+
+type LandingPaymentAgentplatformsectionDocumentmanagement {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentApplicationscenarios {
+  texts: [String!]!
+  title: String!
+}
+
+type LandingPaymentConnection {
+  edges: [LandingPaymentEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingPaymentEdge {
+  cursor: String!
+  node: LandingPaymentNode!
+}
+
+type LandingPaymentFlat {
+  SEO: LandingPaymentFlatSeo!
+  agentPlatformSection: LandingPaymentFlatAgentplatformsection!
+  applicationScenarios: LandingPaymentFlatApplicationscenarios!
+  description: String!
+  implementWays: LandingPaymentFlatImplementways!
+  infoDescription: LandingPaymentFlatInfodescription!
+  infoDescriptionSection: LandingPaymentFlatInfodescriptionsection!
+  paymentProcedure: LandingPaymentFlatPaymentprocedure!
+  questions: [LandingPaymentFlatQuestionsItems!]!
+  questionsInfo: String!
+  registration: LandingPaymentFlatRegistration!
+  solvingInvoiceProblem: [LandingPaymentFlatSolvinginvoiceproblemItems!]!
+  title: String!
+  userInputFields: LandingPaymentFlatUserinputfields!
+}
+
+type LandingPaymentFlatAgentplatformsection {
+  agentPlatformScenarios: LandingPaymentFlatAgentplatformsectionAgentplatformscenarios!
+  description: String!
+  documentManagement: LandingPaymentFlatAgentplatformsectionDocumentmanagement!
+  title: String!
+}
+
+type LandingPaymentFlatAgentplatformsectionAgentplatformscenarios {
+  content: [String!]!
+  title: String!
+}
+
+type LandingPaymentFlatAgentplatformsectionDocumentmanagement {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentFlatApplicationscenarios {
+  texts: [String!]!
+  title: String!
+}
+
+type LandingPaymentFlatConnection {
+  edges: [LandingPaymentFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingPaymentFlatEdge {
+  cursor: String!
+  node: LandingPaymentFlat!
+}
+
+type LandingPaymentFlatImplementways {
+  content: [LandingPaymentFlatImplementwaysContentItems!]!
+  title: String!
+}
+
+type LandingPaymentFlatImplementwaysContentItems {
+  subText: String!
+  subTextBgColor: String!
+  text: String!
+}
+
+type LandingPaymentFlatInfodescription {
+  content: String!
+  title: String!
+}
+
+type LandingPaymentFlatInfodescriptionsection {
+  descriptionBlocks: [LandingPaymentFlatInfodescriptionsectionDescriptionblocksItems!]!
+  title: String!
+}
+
+type LandingPaymentFlatInfodescriptionsectionDescriptionblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingPaymentFlatPaymentprocedure {
+  paymentProcedureItems: [LandingPaymentFlatPaymentprocedurePaymentprocedureitemsItems!]!
+  texts: [String!]! @deprecated(reason: "необходимо добавить title и description. Используйте поле 'paymentProcedureItem'")
+}
+
+type LandingPaymentFlatPaymentprocedurePaymentprocedureitemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentFlatQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingPaymentFlatRegistration {
+  title: String!
+}
+
+type LandingPaymentFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentFlatSolvinginvoiceproblemItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingPaymentFlatUserinputfields {
+  text: String!
+  title: String!
+}
+
+type LandingPaymentImplementways {
+  content: [LandingPaymentImplementwaysContentItems!]!
+  title: String!
+}
+
+type LandingPaymentImplementwaysContentItems {
+  subText: String!
+  subTextBgColor: String!
+  text: String!
+}
+
+type LandingPaymentInfodescription {
+  content: String!
+  title: String!
+}
+
+type LandingPaymentInfodescriptionsection {
+  descriptionBlocks: [LandingPaymentInfodescriptionsectionDescriptionblocksItems!]!
+  title: String!
+}
+
+type LandingPaymentInfodescriptionsectionDescriptionblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingPaymentNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingPayment!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingPaymentPaymentprocedure {
+  paymentProcedureItems: [LandingPaymentPaymentprocedurePaymentprocedureitemsItems!]!
+  texts: [String!]! @deprecated(reason: "необходимо добавить title и description. Используйте поле 'paymentProcedureItem'")
+}
+
+type LandingPaymentPaymentprocedurePaymentprocedureitemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingPaymentRegistration {
+  title: String!
+}
+
+type LandingPaymentSeo {
+  description: String!
+  title: String!
+}
+
+type LandingPaymentSolvinginvoiceproblemItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingPaymentUserinputfields {
+  text: String!
+  title: String!
+}
+
+input LandingPaymentsWhereInput {
+  AND: [LandingPaymentsWhereInput!]
+  NOT: [LandingPaymentsWhereInput!]
+  OR: [LandingPaymentsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type LandingReturnforeignrevenue {
+  SEO: LandingReturnforeignrevenueSeo!
+  applicationScenariosSection: LandingReturnforeignrevenueApplicationscenariossection!
+  currencyRevenueIntro: LandingReturnforeignrevenueCurrencyrevenueintro!
+  headerSection: LandingReturnforeignrevenueHeadersection!
+  infoDescriptionSection: LandingReturnforeignrevenueInfodescriptionsection!
+  questionSection: LandingReturnforeignrevenueQuestionsection!
+  registrationSection: LandingReturnforeignrevenueRegistrationsection!
+  solvingInvoiceProblemSection: LandingReturnforeignrevenueSolvinginvoiceproblemsection!
+  userFormSection: LandingReturnforeignrevenueUserformsection!
+  workingProcessSection: LandingReturnforeignrevenueWorkingprocesssection!
+  workingStepsSection: LandingReturnforeignrevenueWorkingstepssection!
+}
+
+type LandingReturnforeignrevenueApplicationscenariossection {
+  scenarios: [LandingReturnforeignrevenueApplicationscenariossectionScenariosItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueApplicationscenariossectionScenariosItems {
+  title: String!
+}
+
+type LandingReturnforeignrevenueConnection {
+  edges: [LandingReturnforeignrevenueEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingReturnforeignrevenueCurrencyrevenueintro {
+  description: String!
+}
+
+type LandingReturnforeignrevenueEdge {
+  cursor: String!
+  node: LandingReturnforeignrevenueNode!
+}
+
+type LandingReturnforeignrevenueFlat {
+  SEO: LandingReturnforeignrevenueFlatSeo!
+  applicationScenariosSection: LandingReturnforeignrevenueFlatApplicationscenariossection!
+  currencyRevenueIntro: LandingReturnforeignrevenueFlatCurrencyrevenueintro!
+  headerSection: LandingReturnforeignrevenueFlatHeadersection!
+  infoDescriptionSection: LandingReturnforeignrevenueFlatInfodescriptionsection!
+  questionSection: LandingReturnforeignrevenueFlatQuestionsection!
+  registrationSection: LandingReturnforeignrevenueFlatRegistrationsection!
+  solvingInvoiceProblemSection: LandingReturnforeignrevenueFlatSolvinginvoiceproblemsection!
+  userFormSection: LandingReturnforeignrevenueFlatUserformsection!
+  workingProcessSection: LandingReturnforeignrevenueFlatWorkingprocesssection!
+  workingStepsSection: LandingReturnforeignrevenueFlatWorkingstepssection!
+}
+
+type LandingReturnforeignrevenueFlatApplicationscenariossection {
+  scenarios: [LandingReturnforeignrevenueFlatApplicationscenariossectionScenariosItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatApplicationscenariossectionScenariosItems {
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatConnection {
+  edges: [LandingReturnforeignrevenueFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingReturnforeignrevenueFlatCurrencyrevenueintro {
+  description: String!
+}
+
+type LandingReturnforeignrevenueFlatEdge {
+  cursor: String!
+  node: LandingReturnforeignrevenueFlat!
+}
+
+type LandingReturnforeignrevenueFlatHeadersection {
+  description: String!
+  img: LandingReturnforeignrevenueFlatHeadersectionImg!
+  subTitle: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatHeadersectionImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingReturnforeignrevenueFlatInfodescriptionsection {
+  descriptionBlocks: [LandingReturnforeignrevenueFlatInfodescriptionsectionDescriptionblocksItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatInfodescriptionsectionDescriptionblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatQuestionsection {
+  answerNotFound: String!
+  questions: [LandingReturnforeignrevenueFlatQuestionsectionQuestionsItems!]!
+}
+
+type LandingReturnforeignrevenueFlatQuestionsectionQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingReturnforeignrevenueFlatRegistrationsection {
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatSolvinginvoiceproblemsection {
+  solvingInvoiceProblems: [LandingReturnforeignrevenueFlatSolvinginvoiceproblemsectionSolvinginvoiceproblemsItems!]!
+  solvingProblemsBlock: [LandingReturnforeignrevenueFlatSolvinginvoiceproblemsectionSolvingproblemsblockItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatSolvinginvoiceproblemsectionSolvinginvoiceproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatSolvinginvoiceproblemsectionSolvingproblemsblockItems {
+  completionTime: String!
+  content: String!
+  country: LandingCountryFlat!
+  currency: String!
+  summa: String!
+}
+
+type LandingReturnforeignrevenueFlatUserformsection {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatWorkingprocesssection {
+  title: String!
+  workingProcess: [LandingReturnforeignrevenueFlatWorkingprocesssectionWorkingprocessItems!]!
+}
+
+type LandingReturnforeignrevenueFlatWorkingprocesssectionWorkingprocessItems {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueFlatWorkingstepssection {
+  title: String!
+  workingSteps: [LandingReturnforeignrevenueFlatWorkingstepssectionWorkingstepsItems!]!
+}
+
+type LandingReturnforeignrevenueFlatWorkingstepssectionWorkingstepsItems {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueHeadersection {
+  description: String!
+  img: LandingReturnforeignrevenueHeadersectionImg!
+  subTitle: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueHeadersectionImg {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingReturnforeignrevenueInfodescriptionsection {
+  descriptionBlocks: [LandingReturnforeignrevenueInfodescriptionsectionDescriptionblocksItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueInfodescriptionsectionDescriptionblocksItems {
+  content: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingReturnforeignrevenue!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingReturnforeignrevenueQuestionsection {
+  answerNotFound: String!
+  questions: [LandingReturnforeignrevenueQuestionsectionQuestionsItems!]!
+}
+
+type LandingReturnforeignrevenueQuestionsectionQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingReturnforeignrevenueRegistrationsection {
+  title: String!
+}
+
+type LandingReturnforeignrevenueSeo {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueSolvinginvoiceproblemsection {
+  solvingInvoiceProblems: [LandingReturnforeignrevenueSolvinginvoiceproblemsectionSolvinginvoiceproblemsItems!]!
+  solvingProblemsBlock: [LandingReturnforeignrevenueSolvinginvoiceproblemsectionSolvingproblemsblockItems!]!
+  title: String!
+}
+
+type LandingReturnforeignrevenueSolvinginvoiceproblemsectionSolvinginvoiceproblemsItems {
+  client: String!
+  description: String!
+  summa: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueSolvinginvoiceproblemsectionSolvingproblemsblockItems {
+  completionTime: String!
+  content: String!
+  country: LandingCountryNode!
+  currency: String!
+  summa: String!
+}
+
+type LandingReturnforeignrevenueUserformsection {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueWorkingprocesssection {
+  title: String!
+  workingProcess: [LandingReturnforeignrevenueWorkingprocesssectionWorkingprocessItems!]!
+}
+
+type LandingReturnforeignrevenueWorkingprocesssectionWorkingprocessItems {
+  description: String!
+  title: String!
+}
+
+type LandingReturnforeignrevenueWorkingstepssection {
+  title: String!
+  workingSteps: [LandingReturnforeignrevenueWorkingstepssectionWorkingstepsItems!]!
+}
+
+type LandingReturnforeignrevenueWorkingstepssectionWorkingstepsItems {
+  description: String!
+  title: String!
+}
+
+input LandingReturnforeignrevenuesWhereInput {
+  AND: [LandingReturnforeignrevenuesWhereInput!]
+  NOT: [LandingReturnforeignrevenuesWhereInput!]
+  OR: [LandingReturnforeignrevenuesWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
 }
 
 enum LandingSortOrder {
@@ -593,17 +4041,402 @@ input LandingStringFilter {
   equals: String
   gt: String
   gte: String
-  in: [String]
+  in: [String!]
   lt: String
   lte: String
   mode: LandingFilterStringMode
   not: String
-  notIn: [String]
+  notIn: [String!]
   startsWith: String
 }
 
+type LandingTransportationpayment {
+  FAQ: LandingTransportationpaymentFaq!
+  SEO: LandingTransportationpaymentSeo!
+  contactPromptBlock: LandingTransportationpaymentContactpromptblock!
+  helpPaymentBlock: LandingTransportationpaymentHelppaymentblock!
+  paymentOptionsBlock: LandingTransportationpaymentPaymentoptionsblock!
+  solvingProblemsBlock: [LandingTransportationpaymentSolvingproblemsblockItems!]!
+  titleBlock: LandingTransportationpaymentTitleblock!
+  whyVedMasterBlock: LandingTransportationpaymentWhyvedmasterblock!
+  workProcessBlock: LandingTransportationpaymentWorkprocessblock!
+}
+
+type LandingTransportationpaymentConnection {
+  edges: [LandingTransportationpaymentEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingTransportationpaymentContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingTransportationpaymentEdge {
+  cursor: String!
+  node: LandingTransportationpaymentNode!
+}
+
+type LandingTransportationpaymentFaq {
+  questions: [LandingTransportationpaymentFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingTransportationpaymentFlat {
+  FAQ: LandingTransportationpaymentFlatFaq!
+  SEO: LandingTransportationpaymentFlatSeo!
+  contactPromptBlock: LandingTransportationpaymentFlatContactpromptblock!
+  helpPaymentBlock: LandingTransportationpaymentFlatHelppaymentblock!
+  paymentOptionsBlock: LandingTransportationpaymentFlatPaymentoptionsblock!
+  solvingProblemsBlock: [LandingTransportationpaymentFlatSolvingproblemsblockItems!]!
+  titleBlock: LandingTransportationpaymentFlatTitleblock!
+  whyVedMasterBlock: LandingTransportationpaymentFlatWhyvedmasterblock!
+  workProcessBlock: LandingTransportationpaymentFlatWorkprocessblock!
+}
+
+type LandingTransportationpaymentFlatConnection {
+  edges: [LandingTransportationpaymentFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingTransportationpaymentFlatContactpromptblock {
+  text: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatEdge {
+  cursor: String!
+  node: LandingTransportationpaymentFlat!
+}
+
+type LandingTransportationpaymentFlatFaq {
+  questions: [LandingTransportationpaymentFlatFaqQuestionsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatFaqQuestionsItems {
+  text: String!
+  title: String!
+  value: String!
+}
+
+type LandingTransportationpaymentFlatHelppaymentblock {
+  items: [LandingTransportationpaymentFlatHelppaymentblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatHelppaymentblockItemsItems {
+  text: String!
+}
+
+type LandingTransportationpaymentFlatPaymentoptionsblock {
+  content: [LandingTransportationpaymentFlatPaymentoptionsblockContentItems!]!
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatPaymentoptionsblockContentItems {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatSeo {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatSolvingproblemsblockItems {
+  content: String!
+  country: LandingCountryFlat!
+}
+
+type LandingTransportationpaymentFlatTitleblock {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatWhyvedmasterblock {
+  items: [LandingTransportationpaymentFlatWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatWorkprocessblock {
+  items: [LandingTransportationpaymentFlatWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentFlatWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentHelppaymentblock {
+  items: [LandingTransportationpaymentHelppaymentblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentHelppaymentblockItemsItems {
+  text: String!
+}
+
+type LandingTransportationpaymentNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: LandingTransportationpayment!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingTransportationpaymentPaymentoptionsblock {
+  content: [LandingTransportationpaymentPaymentoptionsblockContentItems!]!
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentPaymentoptionsblockContentItems {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentSeo {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentSolvingproblemsblockItems {
+  content: String!
+  country: LandingCountryNode!
+}
+
+type LandingTransportationpaymentTitleblock {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentWhyvedmasterblock {
+  items: [LandingTransportationpaymentWhyvedmasterblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentWhyvedmasterblockItemsItems {
+  description: String!
+  title: String!
+}
+
+type LandingTransportationpaymentWorkprocessblock {
+  items: [LandingTransportationpaymentWorkprocessblockItemsItems!]!
+  title: String!
+}
+
+type LandingTransportationpaymentWorkprocessblockItemsItems {
+  description: String!
+  title: String!
+}
+
+input LandingTransportationpaymentsWhereInput {
+  AND: [LandingTransportationpaymentsWhereInput!]
+  NOT: [LandingTransportationpaymentsWhereInput!]
+  OR: [LandingTransportationpaymentsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
+type Landingmain {
+  cases: LandingmainCases!
+  cloud: LandingmainCloud!
+  code: LandingmainCode!
+  docs: LandingmainDocs!
+  features: LandingmainFeatures!
+  github: String!
+  preview: LandingmainPreview!
+  texts: LandingmainTexts!
+}
+
+type LandingmainCases {
+  items: [LandingCaseNode!]!
+  title: String!
+}
+
+type LandingmainCloud {
+  label: String!
+  link: String!
+}
+
+type LandingmainCode {
+  docker: LandingCodeNode!
+  dockerCompose: LandingCodeNode!
+}
+
+type LandingmainConnection {
+  edges: [LandingmainEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingmainDocs {
+  label: String!
+  link: String!
+}
+
+type LandingmainEdge {
+  cursor: String!
+  node: LandingmainNode!
+}
+
+type LandingmainFeatures {
+  items: [LandingFeatureNode!]!
+  title: String!
+}
+
+type LandingmainFlat {
+  cases: LandingmainFlatCases!
+  cloud: LandingmainFlatCloud!
+  code: LandingmainFlatCode!
+  docs: LandingmainFlatDocs!
+  features: LandingmainFlatFeatures!
+  github: String!
+  preview: LandingmainFlatPreview!
+  texts: LandingmainFlatTexts!
+}
+
+type LandingmainFlatCases {
+  items: [LandingCaseFlat!]!
+  title: String!
+}
+
+type LandingmainFlatCloud {
+  label: String!
+  link: String!
+}
+
+type LandingmainFlatCode {
+  docker: LandingCodeFlat!
+  dockerCompose: LandingCodeFlat!
+}
+
+type LandingmainFlatConnection {
+  edges: [LandingmainFlatEdge!]!
+  pageInfo: LandingPageInfo!
+  totalCount: Int!
+}
+
+type LandingmainFlatDocs {
+  label: String!
+  link: String!
+}
+
+type LandingmainFlatEdge {
+  cursor: String!
+  node: LandingmainFlat!
+}
+
+type LandingmainFlatFeatures {
+  items: [LandingFeatureFlat!]!
+  title: String!
+}
+
+type LandingmainFlatPreview {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingmainFlatTexts {
+  description: String!
+  title: String!
+}
+
+type LandingmainNode {
+  createdAt: DateTime!
+  createdId: String!
+  data: Landingmain!
+  id: String!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
+  versionId: String!
+}
+
+type LandingmainPreview {
+  extension: String!
+  fileId: String!
+  fileName: String!
+  hash: String!
+  height: Float!
+  mimeType: String!
+  size: Float!
+  status: String!
+  url: String!
+  width: Float!
+}
+
+type LandingmainTexts {
+  description: String!
+  title: String!
+}
+
+input LandingmainsWhereInput {
+  AND: [LandingmainsWhereInput!]
+  NOT: [LandingmainsWhereInput!]
+  OR: [LandingmainsWhereInput!]
+  createdAt: LandingDateTimeFilter
+  createdId: LandingStringFilter
+  data: LandingJsonFilter
+  id: LandingStringFilter
+  publishedAt: LandingDateTimeFilter
+  readonly: LandingBoolFilter
+  updatedAt: LandingDateTimeFilter
+  versionId: LandingStringFilter
+}
+
 type Query {
-  _service: _Service
+  Main(id: String!): LandingMainNode!
+  MainFlat(id: String!): LandingMainFlat!
+  Mains(data: LandingGetMainsInput): LandingMainConnection!
+  MainsFlat(data: LandingGetMainsInput): LandingMainFlatConnection!
+  _entities(representations: [_Any!]!): [_Entity]!
+  _service: _Service!
+  article(id: String!): LandingArticleNode!
+  articleFlat(id: String!): LandingArticleFlat!
+  articlecategories(data: LandingGetArticlecategoriesInput): LandingArticlecategoryConnection!
+  articlecategoriesFlat(data: LandingGetArticlecategoriesInput): LandingArticlecategoryFlatConnection!
+  articlecategory(id: String!): LandingArticlecategoryNode!
+  articlecategoryFlat(id: String!): LandingArticlecategoryFlat!
+  articles(data: LandingGetArticlesInput): LandingArticleConnection!
+  articlesFlat(data: LandingGetArticlesInput): LandingArticleFlatConnection!
+  author(id: String!): LandingAuthorNode!
+  authorFlat(id: String!): LandingAuthorFlat!
+  authors(data: LandingGetAuthorsInput): LandingAuthorConnection!
+  authorsFlat(data: LandingGetAuthorsInput): LandingAuthorFlatConnection!
   case(id: String!): LandingCaseNode!
   caseFlat(id: String!): LandingCaseFlat!
   cases(data: LandingGetCasesInput): LandingCaseConnection!
@@ -616,16 +4449,79 @@ type Query {
   constantFlat(id: String!): String!
   constants(data: LandingGetConstantsInput): LandingConstantConnection!
   constantsFlat(data: LandingGetConstantsInput): LandingConstantFlatConnection!
+  countries(data: LandingGetCountriesInput): LandingCountryConnection!
+  countriesFlat(data: LandingGetCountriesInput): LandingCountryFlatConnection!
+  country(id: String!): LandingCountryNode!
+  countryFlat(id: String!): LandingCountryFlat!
+  countrytransfers(id: String!): LandingCountrytransfersNode!
+  countrytransfersFlat(id: String!): LandingCountrytransfersFlat!
+  countrytransferses(data: LandingGetCountrytransfersesInput): LandingCountrytransfersConnection!
+  countrytransfersesFlat(data: LandingGetCountrytransfersesInput): LandingCountrytransfersFlatConnection!
   feature(id: String!): LandingFeatureNode!
   featureFlat(id: String!): LandingFeatureFlat!
   features(data: LandingGetFeaturesInput): LandingFeatureConnection!
   featuresFlat(data: LandingGetFeaturesInput): LandingFeatureFlatConnection!
-  main(id: String!): LandingMainNode!
-  mainFlat(id: String!): LandingMainFlat!
-  mains(data: LandingGetMainsInput): LandingMainConnection!
-  mainsFlat(data: LandingGetMainsInput): LandingMainFlatConnection!
+  foreignpayment(id: String!): LandingForeignpaymentNode!
+  foreignpaymentFlat(id: String!): LandingForeignpaymentFlat!
+  foreignpayments(data: LandingGetForeignpaymentsInput): LandingForeignpaymentConnection!
+  foreignpaymentsFlat(data: LandingGetForeignpaymentsInput): LandingForeignpaymentFlatConnection!
+  glossaries(data: LandingGetGlossariesInput): LandingGlossaryConnection!
+  glossariesFlat(data: LandingGetGlossariesInput): LandingGlossaryFlatConnection!
+  glossary(id: String!): LandingGlossaryNode!
+  glossaryFlat(id: String!): LandingGlossaryFlat!
+  glossarytag(id: String!): LandingGlossarytagNode!
+  glossarytagFlat(id: String!): LandingGlossarytagFlat!
+  glossarytags(data: LandingGetGlossarytagsInput): LandingGlossarytagConnection!
+  glossarytagsFlat(data: LandingGetGlossarytagsInput): LandingGlossarytagFlatConnection!
+  grossaryterm(id: String!): LandingGrossarytermNode!
+  grossarytermFlat(id: String!): LandingGrossarytermFlat!
+  grossaryterms(data: LandingGetGrossarytermsInput): LandingGrossarytermConnection!
+  grossarytermsFlat(data: LandingGetGrossarytermsInput): LandingGrossarytermFlatConnection!
+  importpaymentpage(id: String!): LandingImportpaymentpageNode!
+  importpaymentpageFlat(id: String!): LandingImportpaymentpageFlat!
+  importpaymentpages(data: LandingGetImportpaymentpagesInput): LandingImportpaymentpageConnection!
+  importpaymentpagesFlat(data: LandingGetImportpaymentpagesInput): LandingImportpaymentpageFlatConnection!
+  invoice(id: String!): LandingInvoiceNode!
+  invoiceFlat(id: String!): LandingInvoiceFlat!
+  invoicepage(id: String!): LandingInvoicepageNode!
+  invoicepageFlat(id: String!): LandingInvoicepageFlat!
+  invoicepagedeprected(id: String!): LandingInvoicepagedeprectedNode!
+  invoicepagedeprectedFlat(id: String!): LandingInvoicepagedeprectedFlat!
+  invoicepagedeprecteds(data: LandingGetInvoicepagedeprectedsInput): LandingInvoicepagedeprectedConnection!
+  invoicepagedeprectedsFlat(data: LandingGetInvoicepagedeprectedsInput): LandingInvoicepagedeprectedFlatConnection!
+  invoicepages(data: LandingGetInvoicepagesInput): LandingInvoicepageConnection!
+  invoicepagesFlat(data: LandingGetInvoicepagesInput): LandingInvoicepageFlatConnection!
+  invoices(data: LandingGetInvoicesInput): LandingInvoiceConnection!
+  invoicesFlat(data: LandingGetInvoicesInput): LandingInvoiceFlatConnection!
+  main(id: String!): LandingmainNode!
+  mainFlat(id: String!): LandingmainFlat!
+  mains(data: LandingGetmainsInput): LandingmainConnection!
+  mainsFlat(data: LandingGetmainsInput): LandingmainFlatConnection!
+  mention(id: String!): LandingMentionNode!
+  mentionFlat(id: String!): LandingMentionFlat!
+  mentions(data: LandingGetMentionsInput): LandingMentionConnection!
+  mentionsFlat(data: LandingGetMentionsInput): LandingMentionFlatConnection!
+  payment(id: String!): LandingPaymentNode!
+  paymentFlat(id: String!): LandingPaymentFlat!
+  payments(data: LandingGetPaymentsInput): LandingPaymentConnection!
+  paymentsFlat(data: LandingGetPaymentsInput): LandingPaymentFlatConnection!
+  returnforeignrevenue(id: String!): LandingReturnforeignrevenueNode!
+  returnforeignrevenueFlat(id: String!): LandingReturnforeignrevenueFlat!
+  returnforeignrevenues(data: LandingGetReturnforeignrevenuesInput): LandingReturnforeignrevenueConnection!
+  returnforeignrevenuesFlat(data: LandingGetReturnforeignrevenuesInput): LandingReturnforeignrevenueFlatConnection!
+  transportationpayment(id: String!): LandingTransportationpaymentNode!
+  transportationpaymentFlat(id: String!): LandingTransportationpaymentFlat!
+  transportationpayments(data: LandingGetTransportationpaymentsInput): LandingTransportationpaymentConnection!
+  transportationpaymentsFlat(data: LandingGetTransportationpaymentsInput): LandingTransportationpaymentFlatConnection!
 }
 
+scalar _Any
+
+union _Entity = LandingArticleNode | LandingArticlecategoryNode | LandingAuthorNode | LandingCaseFlat | LandingCaseNode | LandingCodeNode | LandingConstantNode | LandingCountryNode | LandingCountrytransfersNode | LandingFeatureFlat | LandingFeatureNode | LandingForeignpaymentNode | LandingGlossaryNode | LandingGlossarytagNode | LandingGrossarytermFlat | LandingGrossarytermNode | LandingImportpaymentpageNode | LandingInvoiceNode | LandingInvoicepageNode | LandingInvoicepagedeprectedNode | LandingMainNode | LandingMentionFlat | LandingMentionNode | LandingPaymentNode | LandingReturnforeignrevenueNode | LandingTransportationpaymentNode | LandingmainNode
+
 type _Service {
+  """
+  The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied
+  """
   sdl: String
 }

@@ -22,21 +22,21 @@ fragment Case on LandingCaseFlat {
   }
 }
 
-fragment MainFeatures on LandingMainFlatFeatures {
+fragment MainFeatures on LandingmainFlatFeatures {
   title
   items {
     ...Feature
   }
 }
 
-fragment MainCases on LandingMainFlatCases {
+fragment MainCases on LandingmainFlatCases {
   title
   items {
     ...Case
   }
 }
 
-fragment Code on LandingMainFlatCode {
+fragment Code on LandingmainFlatCode {
   docker {
     code
     title
