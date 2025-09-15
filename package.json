@@ -14,7 +14,9 @@
     "gql:codegen": "graphql-codegen",
     "gql:codegen:download": "graphql-codegen --download",
     "version:minor": "npm version minor --no-git-tag-version",
-    "version:patch": "npm version patch --no-git-tag-version"
+    "version:patch": "npm version patch --no-git-tag-version",
+    "revisium:save-migrations": "revisium migrate save -f ./data/migrations.json --organization revisium-io --project landing --url https://cloud.revisium.io",
+    "revisium:save-rows": "revisium rows save -f ./data/data --organization revisium-io --project landing --url https://cloud.revisium.io"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.16.1",
@@ -51,6 +53,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "prettier": "^3.2.5",
+    "revisium": "^1.0.0",
     "steiger": "^0.5.6",
     "typescript": "5.8.3",
     "vite": "^6.2.6",

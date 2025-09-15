@@ -2,8 +2,14 @@ schema {
   query: Query
 }
 
-scalar DataTime
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
 
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
 scalar JSON
 
 input LandingBoolFilter {
@@ -74,13 +80,13 @@ type LandingCaseFlatFile {
 }
 
 type LandingCaseNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingCase!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -131,13 +137,13 @@ type LandingCodeFlatEdge {
 }
 
 type LandingCodeNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingCode!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -178,13 +184,13 @@ type LandingConstantFlatEdge {
 }
 
 type LandingConstantNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: String!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -206,10 +212,10 @@ input LandingDateTimeFilter {
   equals: String
   gt: String
   gte: String
-  in: [String]
+  in: [String!]
   lt: String
   lte: String
-  notIn: [String]
+  notIn: [String!]
 }
 
 type LandingFeature {
@@ -275,13 +281,13 @@ type LandingFeatureFlatFile {
 }
 
 type LandingFeatureNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingFeature!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -312,100 +318,120 @@ enum LandingFilterStringMode {
 input LandingGetCasesInput {
   after: String
   first: Int
-  orderBy: [LandingGetCasesOrderByInput]
+  orderBy: [LandingGetCasesOrderByInput!]
   where: LandingCasesWhereInput
 }
 
 enum LandingGetCasesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetCasesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetCasesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetCodesInput {
   after: String
   first: Int
-  orderBy: [LandingGetCodesOrderByInput]
+  orderBy: [LandingGetCodesOrderByInput!]
   where: LandingCodesWhereInput
 }
 
 enum LandingGetCodesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetCodesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetCodesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetConstantsInput {
   after: String
   first: Int
-  orderBy: [LandingGetConstantsOrderByInput]
+  orderBy: [LandingGetConstantsOrderByInput!]
   where: LandingConstantsWhereInput
 }
 
 enum LandingGetConstantsOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetConstantsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetConstantsOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetFeaturesInput {
   after: String
   first: Int
-  orderBy: [LandingGetFeaturesOrderByInput]
+  orderBy: [LandingGetFeaturesOrderByInput!]
   where: LandingFeaturesWhereInput
 }
 
 enum LandingGetFeaturesOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetFeaturesOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetFeaturesOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingGetMainsInput {
   after: String
   first: Int
-  orderBy: [LandingGetMainsOrderByInput]
+  orderBy: [LandingGetMainsOrderByInput!]
   where: LandingMainsWhereInput
 }
 
 enum LandingGetMainsOrderByField {
   createdAt
+  data
   id
   publishedAt
   updatedAt
 }
 
 input LandingGetMainsOrderByInput {
+  aggregation: LandingOrderFieldAggregation
   direction: LandingSortOrder!
   field: LandingGetMainsOrderByField!
+  path: String
+  type: LandingOrderFieldType
 }
 
 input LandingJsonFilter {
-  array_contains: [JSON]
+  array_contains: [JSON!]
   array_ends_with: JSON
   array_starts_with: JSON
   equals: JSON
@@ -414,7 +440,7 @@ input LandingJsonFilter {
   lt: Float
   lte: Float
   mode: LandingFilterJsonMode
-  path: [String]
+  path: [String!]
   string_contains: String
   string_ends_with: String
   string_starts_with: String
@@ -533,13 +559,13 @@ type LandingMainFlatTexts {
 }
 
 type LandingMainNode {
-  createdAt: DataTime!
+  createdAt: DateTime!
   createdId: String!
   data: LandingMain!
   id: String!
-  json: JSON
-  publishedAt: DataTime!
-  updatedAt: DataTime!
+  json: JSON!
+  publishedAt: DateTime!
+  updatedAt: DateTime!
   versionId: String!
 }
 
@@ -575,6 +601,22 @@ input LandingMainsWhereInput {
   versionId: LandingStringFilter
 }
 
+enum LandingOrderFieldAggregation {
+  avg
+  first
+  last
+  max
+  min
+}
+
+enum LandingOrderFieldType {
+  boolean
+  float
+  int
+  text
+  timestamp
+}
+
 type LandingPageInfo {
   endCursor: String
   hasNextPage: Boolean!
@@ -593,17 +635,18 @@ input LandingStringFilter {
   equals: String
   gt: String
   gte: String
-  in: [String]
+  in: [String!]
   lt: String
   lte: String
   mode: LandingFilterStringMode
   not: String
-  notIn: [String]
+  notIn: [String!]
   startsWith: String
 }
 
 type Query {
-  _service: _Service
+  _entities(representations: [_Any!]!): [_Entity]!
+  _service: _Service!
   case(id: String!): LandingCaseNode!
   caseFlat(id: String!): LandingCaseFlat!
   cases(data: LandingGetCasesInput): LandingCaseConnection!
@@ -626,6 +669,13 @@ type Query {
   mainsFlat(data: LandingGetMainsInput): LandingMainFlatConnection!
 }
 
+scalar _Any
+
+union _Entity = LandingCaseFlat | LandingCaseNode | LandingCodeNode | LandingConstantNode | LandingFeatureFlat | LandingFeatureNode | LandingMainNode
+
 type _Service {
+  """
+  The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied
+  """
   sdl: String
 }

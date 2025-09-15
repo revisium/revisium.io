@@ -1,0 +1,13 @@
+{
+  "createdId": "LwfqbsLAT7BEro-9JEEtZ",
+  "id": "docker-compose",
+  "versionId": "JAYhqtit7bPB0VgFIIG3A",
+  "createdAt": "2025-09-15T05:50:31.879Z",
+  "updatedAt": "2025-09-15T06:04:51.766Z",
+  "publishedAt": "2025-09-15T05:50:31.879Z",
+  "readonly": true,
+  "data": {
+    "code": "version: '3.8'\nservices:\n  revisium:\n    image: revisium/revisium:{{ version }}\n    ports:\n      - \"8080:8080\"\n    environment:\n      DATABASE_URL: \"postgresql://user:pass@db:5432/revisium\"\n    depends_on:\n      - db\n  db:\n    image: postgres:17\n    environment:\n      POSTGRES_USER: user\n      POSTGRES_PASSWORD: {{ password }}\n      POSTGRES_DB: revisium",
+    "title": ""
+  }
+}
