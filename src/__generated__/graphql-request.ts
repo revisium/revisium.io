@@ -16,8 +16,9 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  DataTime: { input: any; output: any; }
+  DateTime: { input: number | string; output: number | string; }
   JSON: { input: any; output: any; }
+  _Any: { input: any; output: any; }
 };
 
 export type LandingBoolFilter = {
@@ -88,13 +89,13 @@ export type LandingCaseFlatFile = {
 };
 
 export type LandingCaseNode = {
-  createdAt: Scalars['DataTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   createdId: Scalars['String']['output'];
   data: LandingCase;
   id: Scalars['String']['output'];
-  json?: Maybe<Scalars['JSON']['output']>;
-  publishedAt: Scalars['DataTime']['output'];
-  updatedAt: Scalars['DataTime']['output'];
+  json: Scalars['JSON']['output'];
+  publishedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   versionId: Scalars['String']['output'];
 };
 
@@ -145,13 +146,13 @@ export type LandingCodeFlatEdge = {
 };
 
 export type LandingCodeNode = {
-  createdAt: Scalars['DataTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   createdId: Scalars['String']['output'];
   data: LandingCode;
   id: Scalars['String']['output'];
-  json?: Maybe<Scalars['JSON']['output']>;
-  publishedAt: Scalars['DataTime']['output'];
-  updatedAt: Scalars['DataTime']['output'];
+  json: Scalars['JSON']['output'];
+  publishedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   versionId: Scalars['String']['output'];
 };
 
@@ -192,13 +193,13 @@ export type LandingConstantFlatEdge = {
 };
 
 export type LandingConstantNode = {
-  createdAt: Scalars['DataTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   createdId: Scalars['String']['output'];
   data: Scalars['String']['output'];
   id: Scalars['String']['output'];
-  json?: Maybe<Scalars['JSON']['output']>;
-  publishedAt: Scalars['DataTime']['output'];
-  updatedAt: Scalars['DataTime']['output'];
+  json: Scalars['JSON']['output'];
+  publishedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   versionId: Scalars['String']['output'];
 };
 
@@ -220,10 +221,10 @@ export type LandingDateTimeFilter = {
   equals?: InputMaybe<Scalars['String']['input']>;
   gt?: InputMaybe<Scalars['String']['input']>;
   gte?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
   lt?: InputMaybe<Scalars['String']['input']>;
   lte?: InputMaybe<Scalars['String']['input']>;
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type LandingFeature = {
@@ -289,13 +290,13 @@ export type LandingFeatureFlatFile = {
 };
 
 export type LandingFeatureNode = {
-  createdAt: Scalars['DataTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   createdId: Scalars['String']['output'];
   data: LandingFeature;
   id: Scalars['String']['output'];
-  json?: Maybe<Scalars['JSON']['output']>;
-  publishedAt: Scalars['DataTime']['output'];
-  updatedAt: Scalars['DataTime']['output'];
+  json: Scalars['JSON']['output'];
+  publishedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   versionId: Scalars['String']['output'];
 };
 
@@ -326,100 +327,120 @@ export enum LandingFilterStringMode {
 export type LandingGetCasesInput = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<InputMaybe<LandingGetCasesOrderByInput>>>;
+  orderBy?: InputMaybe<Array<LandingGetCasesOrderByInput>>;
   where?: InputMaybe<LandingCasesWhereInput>;
 };
 
 export enum LandingGetCasesOrderByField {
   CreatedAt = 'createdAt',
+  Data = 'data',
   Id = 'id',
   PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
 export type LandingGetCasesOrderByInput = {
+  aggregation?: InputMaybe<LandingOrderFieldAggregation>;
   direction: LandingSortOrder;
   field: LandingGetCasesOrderByField;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<LandingOrderFieldType>;
 };
 
 export type LandingGetCodesInput = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<InputMaybe<LandingGetCodesOrderByInput>>>;
+  orderBy?: InputMaybe<Array<LandingGetCodesOrderByInput>>;
   where?: InputMaybe<LandingCodesWhereInput>;
 };
 
 export enum LandingGetCodesOrderByField {
   CreatedAt = 'createdAt',
+  Data = 'data',
   Id = 'id',
   PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
 export type LandingGetCodesOrderByInput = {
+  aggregation?: InputMaybe<LandingOrderFieldAggregation>;
   direction: LandingSortOrder;
   field: LandingGetCodesOrderByField;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<LandingOrderFieldType>;
 };
 
 export type LandingGetConstantsInput = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<InputMaybe<LandingGetConstantsOrderByInput>>>;
+  orderBy?: InputMaybe<Array<LandingGetConstantsOrderByInput>>;
   where?: InputMaybe<LandingConstantsWhereInput>;
 };
 
 export enum LandingGetConstantsOrderByField {
   CreatedAt = 'createdAt',
+  Data = 'data',
   Id = 'id',
   PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
 export type LandingGetConstantsOrderByInput = {
+  aggregation?: InputMaybe<LandingOrderFieldAggregation>;
   direction: LandingSortOrder;
   field: LandingGetConstantsOrderByField;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<LandingOrderFieldType>;
 };
 
 export type LandingGetFeaturesInput = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<InputMaybe<LandingGetFeaturesOrderByInput>>>;
+  orderBy?: InputMaybe<Array<LandingGetFeaturesOrderByInput>>;
   where?: InputMaybe<LandingFeaturesWhereInput>;
 };
 
 export enum LandingGetFeaturesOrderByField {
   CreatedAt = 'createdAt',
+  Data = 'data',
   Id = 'id',
   PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
 export type LandingGetFeaturesOrderByInput = {
+  aggregation?: InputMaybe<LandingOrderFieldAggregation>;
   direction: LandingSortOrder;
   field: LandingGetFeaturesOrderByField;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<LandingOrderFieldType>;
 };
 
 export type LandingGetMainsInput = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<InputMaybe<LandingGetMainsOrderByInput>>>;
+  orderBy?: InputMaybe<Array<LandingGetMainsOrderByInput>>;
   where?: InputMaybe<LandingMainsWhereInput>;
 };
 
 export enum LandingGetMainsOrderByField {
   CreatedAt = 'createdAt',
+  Data = 'data',
   Id = 'id',
   PublishedAt = 'publishedAt',
   UpdatedAt = 'updatedAt'
 }
 
 export type LandingGetMainsOrderByInput = {
+  aggregation?: InputMaybe<LandingOrderFieldAggregation>;
   direction: LandingSortOrder;
   field: LandingGetMainsOrderByField;
+  path?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<LandingOrderFieldType>;
 };
 
 export type LandingJsonFilter = {
-  array_contains?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  array_contains?: InputMaybe<Array<Scalars['JSON']['input']>>;
   array_ends_with?: InputMaybe<Scalars['JSON']['input']>;
   array_starts_with?: InputMaybe<Scalars['JSON']['input']>;
   equals?: InputMaybe<Scalars['JSON']['input']>;
@@ -428,7 +449,7 @@ export type LandingJsonFilter = {
   lt?: InputMaybe<Scalars['Float']['input']>;
   lte?: InputMaybe<Scalars['Float']['input']>;
   mode?: InputMaybe<LandingFilterJsonMode>;
-  path?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  path?: InputMaybe<Array<Scalars['String']['input']>>;
   string_contains?: InputMaybe<Scalars['String']['input']>;
   string_ends_with?: InputMaybe<Scalars['String']['input']>;
   string_starts_with?: InputMaybe<Scalars['String']['input']>;
@@ -547,13 +568,13 @@ export type LandingMainFlatTexts = {
 };
 
 export type LandingMainNode = {
-  createdAt: Scalars['DataTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   createdId: Scalars['String']['output'];
   data: LandingMain;
   id: Scalars['String']['output'];
-  json?: Maybe<Scalars['JSON']['output']>;
-  publishedAt: Scalars['DataTime']['output'];
-  updatedAt: Scalars['DataTime']['output'];
+  json: Scalars['JSON']['output'];
+  publishedAt: Scalars['DateTime']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   versionId: Scalars['String']['output'];
 };
 
@@ -589,6 +610,22 @@ export type LandingMainsWhereInput = {
   versionId?: InputMaybe<LandingStringFilter>;
 };
 
+export enum LandingOrderFieldAggregation {
+  Avg = 'avg',
+  First = 'first',
+  Last = 'last',
+  Max = 'max',
+  Min = 'min'
+}
+
+export enum LandingOrderFieldType {
+  Boolean = 'boolean',
+  Float = 'float',
+  Int = 'int',
+  Text = 'text',
+  Timestamp = 'timestamp'
+}
+
 export type LandingPageInfo = {
   endCursor?: Maybe<Scalars['String']['output']>;
   hasNextPage: Scalars['Boolean']['output'];
@@ -607,17 +644,18 @@ export type LandingStringFilter = {
   equals?: InputMaybe<Scalars['String']['input']>;
   gt?: InputMaybe<Scalars['String']['input']>;
   gte?: InputMaybe<Scalars['String']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  in?: InputMaybe<Array<Scalars['String']['input']>>;
   lt?: InputMaybe<Scalars['String']['input']>;
   lte?: InputMaybe<Scalars['String']['input']>;
   mode?: InputMaybe<LandingFilterStringMode>;
   not?: InputMaybe<Scalars['String']['input']>;
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Query = {
-  _service?: Maybe<_Service>;
+  _entities: Array<Maybe<_Entity>>;
+  _service: _Service;
   case: LandingCaseNode;
   caseFlat: LandingCaseFlat;
   cases: LandingCaseConnection;
@@ -638,6 +676,11 @@ export type Query = {
   mainFlat: LandingMainFlat;
   mains: LandingMainConnection;
   mainsFlat: LandingMainFlatConnection;
+};
+
+
+export type Query_EntitiesArgs = {
+  representations: Array<Scalars['_Any']['input']>;
 };
 
 
@@ -740,7 +783,10 @@ export type QueryMainsFlatArgs = {
   data?: InputMaybe<LandingGetMainsInput>;
 };
 
+export type _Entity = LandingCaseFlat | LandingCaseNode | LandingCodeNode | LandingConstantNode | LandingFeatureFlat | LandingFeatureNode | LandingMainNode;
+
 export type _Service = {
+  /** The sdl representing the federated service capabilities. Includes federation directives, removes federation types, and includes rest of full schema after schema directives have been applied */
   sdl?: Maybe<Scalars['String']['output']>;
 };
 

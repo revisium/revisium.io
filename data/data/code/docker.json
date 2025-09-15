@@ -1,0 +1,13 @@
+{
+  "createdId": "ZbfcGsmUudY67kqznrPuI",
+  "id": "docker",
+  "versionId": "fUGiTf4FXvobWjGTB5km8",
+  "createdAt": "2025-09-15T05:50:20.693Z",
+  "updatedAt": "2025-09-15T06:03:55.227Z",
+  "publishedAt": "2025-09-15T05:50:20.693Z",
+  "readonly": true,
+  "data": {
+    "code": "docker run -d \\\n  --name revisium \\\n  --env DATABASE_URL=\"postgresql://user:pass@host:5432/db\" \\\n  -p 8080:8080 \\\n  revisium/revisium:{{ version }}",
+    "title": "Docker"
+  }
+}
