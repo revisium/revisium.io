@@ -1,25 +1,46 @@
 fragment Feature on LandingFeatureFlat {
-  featureId
   title
   description
-  file {
-    width
-    height
-    url
-    mimeType
-  }
+  link
 }
 
-fragment Case on LandingCaseFlat {
-  caseId
+fragment UseCase on LandingUse_caseFlat {
   title
   description
-  file {
-    width
-    height
-    url
-    mimeType
-  }
+  link
+  linkLabel
+}
+
+fragment CodeStep on LandingCode_stepFlat {
+  label
+  description
+  title
+  code
+  extraLabel
+  extraCode
+}
+
+fragment MainHero on LandingMainFlatHero {
+  title
+  subtitle
+  description
+  ctaLabel
+  ctaLink
+}
+
+fragment MainHeader on LandingMainFlatHeader {
+  docsLink
+  docsLabel
+  githubLink
+  githubLabel
+}
+
+fragment MainImage on LandingMainFlatImage {
+  url
+  fileId
+  fileName
+  mimeType
+  status
 }
 
 fragment MainFeatures on LandingMainFlatFeatures {
@@ -29,58 +50,104 @@ fragment MainFeatures on LandingMainFlatFeatures {
   }
 }
 
-fragment MainCases on LandingMainFlatCases {
+fragment MainCodeSection on LandingMainFlatCodeSection {
   title
+  subtitle
+  footerText
+  footerLink
+  footerLinkLabel
   items {
-    ...Case
+    ...CodeStep
   }
 }
 
-fragment Code on LandingMainFlatCode {
-  docker {
-    code
-    title
+fragment MainUseCases on LandingMainFlatUseCases {
+  title
+  items {
+    ...UseCase
   }
-  dockerCompose {
-    title
-    code
+}
+
+fragment MainQuickStart on LandingMainFlatQuickStart {
+  title
+  standaloneLabel
+  standaloneCmd
+  cloudLabel
+  cloudText
+  cloudLink
+  cloudLinkLabel
+  deployLink
+  deployLinkLabel
+}
+
+fragment MainOpenSource on LandingMainFlatOpenSource {
+  badge
+  title
+  description
+  link
+  linkLabel
+}
+
+fragment MainPoweredBy on LandingMainFlatPoweredBy {
+  title
+  description
+  link
+  linkLabel
+}
+
+fragment MainCta on LandingMainFlatCta {
+  title
+  description
+  ctaLabel
+  ctaLink
+}
+
+fragment MainFooterLink on LandingMainFlatFooterLinksItems {
+  label
+  url
+}
+
+fragment MainFooter on LandingMainFlatFooter {
+  copyright
+  links {
+    ...MainFooterLink
   }
 }
 
 query mainPage {
-  version: constantFlat(id: "version")
   mainFlat(id: "main") {
-    texts {
-      title
-      description
+    hero {
+      ...MainHero
     }
-    github
-    cloud {
-      label
-      link
+    image {
+      ...MainImage
     }
-    docs {
-      link
-      label
-    }
-    preview {
-      url
-    }
-    code {
-      docker {
-        code
-        title
-      }
-      dockerCompose {
-        title
-        code
-      }
+    header {
+      ...MainHeader
     }
     features {
       ...MainFeatures
     }
-    cases {
-      ...MainCases
+    codeSection {
+      ...MainCodeSection
+    }
+    useCases {
+      ...MainUseCases
+    }
+    quickStart {
+      ...MainQuickStart
+    }
+    openSource {
+      ...MainOpenSource
+    }
+    poweredBy {
+      ...MainPoweredBy
+    }
+    cta {
+      ...MainCta
+    }
+    footer {
+      ...MainFooter
     }
   }
 }

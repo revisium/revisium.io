@@ -1,96 +1,75 @@
-import { Button, Center, Flex, Link, Spinner } from '@chakra-ui/react'
+import { Center, Flex, Spinner, Text } from '@chakra-ui/react'
 import { observer } from 'mobx-react-lite'
-import { useCallback } from 'react'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
-import { CloudButton } from 'src/pages/Main/ui/CloudButton/CloudButton.tsx'
-import { HeaderSection } from 'src/pages/Main/ui/HeaderSection/HeaderSection.tsx'
-import { DeploymentTabs } from 'src/pages/Main/ui/DeploymentTabs/DeploymentTabs.tsx'
+import { Header } from 'src/pages/Main/ui/Header/Header.tsx'
+import { HeroSection } from 'src/pages/Main/ui/HeroSection/HeroSection.tsx'
+import { DemoImage } from 'src/pages/Main/ui/DemoVideo/DemoImage.tsx'
+import { FeaturesGrid } from 'src/pages/Main/ui/FeaturesGrid/FeaturesGrid.tsx'
+import { CodeExample } from 'src/pages/Main/ui/CodeExample/CodeExample.tsx'
+import { UseCases } from 'src/pages/Main/ui/UseCases/UseCases.tsx'
+import { QuickStart } from 'src/pages/Main/ui/QuickStart/QuickStart.tsx'
+import { OpenSource } from 'src/pages/Main/ui/OpenSource/OpenSource.tsx'
+import { PoweredBy } from 'src/pages/Main/ui/PoweredBy/PoweredBy.tsx'
+import { CtaSection } from 'src/pages/Main/ui/CtaSection/CtaSection.tsx'
+import { FooterSection } from 'src/pages/Main/ui/FooterSection/FooterSection.tsx'
+import { AnimatedSection } from 'src/pages/Main/ui/shared/AnimatedSection.tsx'
+import { useColorModeValue } from 'src/shared/ui'
 import { useViewModel } from 'src/shared/lib'
-import { IconGit, IconLogo } from 'src/shared/ui/icons'
-import { SchemaEditorDemo } from 'src/pages/Main/ui/SchemaEditorDemo/SchemaEditorDemo.tsx'
-import { FeatureHighlights } from 'src/pages/Main/ui/FeatureHighlights/FeatureHighlights.tsx'
-import { LuExternalLink } from 'react-icons/lu'
 
 export const MainPage = observer(() => {
   const model = useViewModel(MainPageModel)
+  const bg = useColorModeValue('#FFFFFF', '#0a0a0a')
+  const textColor = useColorModeValue('#525252', '#a3a3a3')
 
-  const handleGit = useCallback(() => {
-    window.open(model.github, '_blank', 'noopener')
-  }, [model])
+  if (model.hasError) {
+    return (
+      <Center height="100vh" bg={bg} flexDirection="column" gap="16px">
+        <Text color={textColor}>Failed to load content. Please try again later.</Text>
+      </Center>
+    )
+  }
 
   if (model.isLoading || !model.isAvailableData) {
     return (
-      <Center height="100%">
+      <Center height="100vh" bg={bg}>
         <Spinner />
       </Center>
     )
   }
 
   return (
-    <Flex position="relative" flexDirection="column" h="100%" pb="48px">
-      <Flex
-        position="sticky"
-        top={0}
-        w="100%"
-        bgColor="#FFFFFF"
-        justifyContent="space-between"
-        alignItems="center"
-        p={{ base: '16px', md: '16px 32px', xl: '16px' }}
-      >
-        <IconLogo />
-        <Flex gap="24px" align="center">
-          <Flex align="center" gap="4px">
-            <Link fontSize="18px" fontStyle="normal" lineHeight="normal" href={model.docsLink} target="_blank">
-              {model.docsLabel}
-              <LuExternalLink />
-            </Link>
-          </Flex>
-          <Button bgColor="#FFFFFF" onClick={handleGit} borderRadius="100%" p={0}>
-            <IconGit />
-          </Button>
-        </Flex>
+    <Flex direction="column" minH="100vh" bg={bg}>
+      <Header model={model} />
+      <Flex direction="column" gap={{ base: '48px', md: '80px', xl: '100px' }} flex={1}>
+        <AnimatedSection>
+          <HeroSection model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <DemoImage model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <FeaturesGrid model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <CodeExample model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <UseCases model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <QuickStart model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <OpenSource model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <PoweredBy model={model} />
+        </AnimatedSection>
+        <AnimatedSection>
+          <CtaSection model={model} />
+        </AnimatedSection>
       </Flex>
-      <Flex
-        w="100%"
-        h="100%"
-        flexDirection="column"
-        gap={{ base: '16px', md: '32px', xl: '48px' }}
-        mt={{ base: '24px', xl: '48px' }}
-        overflowY="auto"
-        css={{
-          '&::-webkit-scrollbar': { display: 'none' },
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        }}
-      >
-        <HeaderSection model={model} />
-        <Flex
-          flexDirection={{ base: 'column', xl: 'row' }}
-          gap={{ base: '16px', md: '32px', xl: '24px' }}
-          justify={{ xl: 'center' }}
-          align="flex-start"
-          p={{ base: '0 16px', md: '0 32px', xl: '0 64px' }}
-        >
-          <SchemaEditorDemo previewUrl={model.previewUrl} />
-          <DeploymentTabs model={model.code} />
-        </Flex>
-        <Flex
-          w="100%"
-          minH="108px"
-          p={{ base: '0 16px', md: '0 32px', xl: '0' }}
-          display={{ base: 'flex', xl: 'none' }}
-          alignItems="center"
-          bgColor="#FFFFFF"
-        >
-          <CloudButton link={model.cloudLink} label={model.cloudLabel} />
-        </Flex>
-        <Flex direction="column" gap={{ base: '48px', md: '64px', xl: '96px' }}>
-          {model.features.isAvailable && (
-            <FeatureHighlights title={model.features.title} variations={model.features.items} />
-          )}
-          {model.cases.isAvailable && <FeatureHighlights title={model.cases.title} variations={model.cases.items} />}
-        </Flex>
-      </Flex>
+      <FooterSection model={model} />
     </Flex>
   )
 })
