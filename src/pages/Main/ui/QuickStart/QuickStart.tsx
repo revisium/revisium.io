@@ -5,8 +5,7 @@ import { LuArrowRight, LuCopy } from 'react-icons/lu'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
 import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
 import { SectionWrapper } from 'src/pages/Main/ui/shared/SectionWrapper.tsx'
-import { useColorModeValue } from 'src/shared/ui'
-import { toaster } from 'src/shared/ui'
+import { toaster, useColorModeValue } from 'src/shared/ui'
 
 interface QuickStartProps {
   model: MainPageModel

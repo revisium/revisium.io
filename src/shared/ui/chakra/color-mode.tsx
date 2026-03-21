@@ -12,20 +12,20 @@ const COOKIE_DOMAIN = '.revisium.io'
 const COOKIE_MAX_AGE = 31536000 // 1 year in seconds
 
 function getThemeFromCookie(): string | undefined {
-  const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`))
+  const match = new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`).exec(document.cookie)
 
   return match ? match[1] : undefined
 }
 
 function setThemeCookie(theme: string) {
-  const isLocalhost = window.location.hostname === 'localhost'
+  const isLocalhost = globalThis.location.hostname === 'localhost'
   const domain = isLocalhost ? '' : `; domain=${COOKIE_DOMAIN}`
 
   document.cookie = `${COOKIE_NAME}=${theme}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax${domain}`
 }
 
-export function ColorModeProvider(props: ColorModeProviderProps) {
-  const defaultTheme = typeof document !== 'undefined' ? getThemeFromCookie() : undefined
+export function ColorModeProvider(props: Readonly<ColorModeProviderProps>) {
+  const defaultTheme = typeof document === 'undefined' ? undefined : getThemeFromCookie()
 
   return <ThemeProvider attribute="class" disableTransitionOnChange defaultTheme={defaultTheme} {...props} />
 }

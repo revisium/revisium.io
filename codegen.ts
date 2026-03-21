@@ -32,8 +32,9 @@ const config: CodegenConfig = {
         includeDirectives: true,
       },
     },
-    ...(!isDownload
-      ? {
+    ...(isDownload
+      ? {}
+      : {
           [`./src/__generated__/graphql-request.ts`]: {
             plugins: [disablePlugin, 'typescript', 'typescript-operations', 'typescript-graphql-request'],
             config: {
@@ -42,8 +43,7 @@ const config: CodegenConfig = {
               scalars,
             },
           },
-        }
-      : {}),
+        }),
   },
 }
 

@@ -3,8 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
 import { SectionWrapper } from 'src/pages/Main/ui/shared/SectionWrapper.tsx'
-import { useColorModeValue } from 'src/shared/ui'
-import { Button } from 'src/shared/ui'
+import { Button, useColorModeValue } from 'src/shared/ui'
 
 interface CtaSectionProps {
   model: MainPageModel

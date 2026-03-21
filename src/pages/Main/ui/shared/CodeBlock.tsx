@@ -5,8 +5,7 @@ import { Extension } from '@codemirror/state'
 import { FC, useCallback } from 'react'
 import { LuCopy } from 'react-icons/lu'
 import { copyToClipboard } from 'src/pages/Main/lib/copyToClipboard.ts'
-import { useColorMode } from 'src/shared/ui'
-import { toaster } from 'src/shared/ui'
+import { toaster, useColorMode } from 'src/shared/ui'
 
 interface CodeBlockProps {
   value: string

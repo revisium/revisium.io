@@ -4,8 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { LuChevronDown } from 'react-icons/lu'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
-import { useColorModeValue } from 'src/shared/ui'
-import { Button } from 'src/shared/ui'
+import { Button, useColorModeValue } from 'src/shared/ui'
 
 interface HeroSectionProps {
   model: MainPageModel
