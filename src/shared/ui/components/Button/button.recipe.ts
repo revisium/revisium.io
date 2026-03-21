@@ -7,7 +7,7 @@ export const buttonRecipe = defineRecipe({
     justifyContent: 'center',
     borderRadius: '14px',
     padding: '16px 24px',
-    bg: 'blue.5',
+    bg: '#171717',
     color: '#FFFFFF',
     fontSize: '16px',
     fontStyle: 'normal',
@@ -15,9 +15,16 @@ export const buttonRecipe = defineRecipe({
     lineHeight: 'normal',
     cursor: 'pointer',
 
-    _hover: { boxShadow: '0px 0px 0px 2px rgba(27, 110, 224, 0.40)' },
-    _focus: { boxShadow: '0px 0px 0px 2px rgba(27, 110, 224, 0.40)' },
+    _hover: { bg: '#333333' },
+    _focus: { bg: '#333333' },
     _disabled: { opacity: 0.6, cursor: 'not-allowed' },
+
+    _dark: {
+      bg: '#e5e5e5',
+      color: '#0a0a0a',
+      _hover: { bg: '#ffffff' },
+      _focus: { bg: '#ffffff' },
+    },
   },
   variants: {
     visual: {

@@ -1,13 +1,11 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
-import { loadEnv } from 'vite'
+import dotenv from 'dotenv'
+import path from 'node:path'
 
-const ENV_DIR = '.env'
-const ENV_PREFIX = 'REACT_APP_'
+dotenv.config({ path: path.resolve(__dirname, '.env/.env.development') })
 
-const env = loadEnv('DEVELOPMENT', ENV_DIR, ENV_PREFIX)
-
-const START_INDEX = 2
-const args = process.argv.slice(START_INDEX)
+const ARGS_START = 2
+const args = process.argv.slice(ARGS_START)
 const isDownload = args.includes('--download')
 
 const disablePlugin = {
@@ -24,9 +22,9 @@ const scalars = {
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: `${env.REACT_APP_GRAPHQL_SERVER_PROTOCOL}://${env.REACT_APP_GRAPHQL_SERVER_HOST}:${env.REACT_APP_GRAPHQL_SERVER_PORT}${env.REACT_APP_GRAPHQL_SERVER_PATHNAME}`,
+  schema: `${process.env.REACT_APP_GRAPHQL_SERVER_PROTOCOL}://${process.env.REACT_APP_GRAPHQL_SERVER_HOST}:${process.env.REACT_APP_GRAPHQL_SERVER_PORT}${process.env.REACT_APP_GRAPHQL_SERVER_PATHNAME}`,
   documents: ['src/**/*.graphql'],
-  ignoreNoDocuments: true, // for better experience with the watcher
+  ignoreNoDocuments: true,
   generates: {
     [`./src/__generated__/schema.graphql`]: {
       plugins: ['schema-ast'],
@@ -34,8 +32,9 @@ const config: CodegenConfig = {
         includeDirectives: true,
       },
     },
-    ...(!isDownload
-      ? {
+    ...(isDownload
+      ? {}
+      : {
           [`./src/__generated__/graphql-request.ts`]: {
             plugins: [disablePlugin, 'typescript', 'typescript-operations', 'typescript-graphql-request'],
             config: {
@@ -44,8 +43,7 @@ const config: CodegenConfig = {
               scalars,
             },
           },
-        }
-      : {}),
+        }),
   },
 }
 

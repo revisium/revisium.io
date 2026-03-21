@@ -7,8 +7,27 @@ import { LuMoon, LuSun } from 'react-icons/lu'
 
 export interface ColorModeProviderProps extends ThemeProviderProps {}
 
-export function ColorModeProvider(props: ColorModeProviderProps) {
-  return <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
+const COOKIE_NAME = 'revisium-theme'
+const COOKIE_DOMAIN = '.revisium.io'
+const COOKIE_MAX_AGE = 31536000 // 1 year in seconds
+
+function getThemeFromCookie(): string | undefined {
+  const match = new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`).exec(document.cookie)
+
+  return match ? match[1] : undefined
+}
+
+function setThemeCookie(theme: string) {
+  const isLocalhost = globalThis.location.hostname === 'localhost'
+  const domain = isLocalhost ? '' : `; domain=${COOKIE_DOMAIN}`
+
+  document.cookie = `${COOKIE_NAME}=${theme}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax${domain}`
+}
+
+export function ColorModeProvider(props: Readonly<ColorModeProviderProps>) {
+  const defaultTheme = typeof document === 'undefined' ? undefined : getThemeFromCookie()
+
+  return <ThemeProvider attribute="class" disableTransitionOnChange defaultTheme={defaultTheme} {...props} />
 }
 
 export type ColorMode = 'light' | 'dark'
@@ -23,13 +42,21 @@ export interface UseColorModeReturn {
 export function useColorMode(): UseColorModeReturn {
   const { resolvedTheme, setTheme } = useTheme()
 
+  const setColorModeWithCookie = (theme: ColorMode) => {
+    setTheme(theme)
+    setThemeCookie(theme)
+  }
+
   const toggleColorMode = () => {
-    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+    const next = resolvedTheme === 'dark' ? 'light' : 'dark'
+
+    setTheme(next)
+    setThemeCookie(next)
   }
 
   return {
     colorMode: resolvedTheme as ColorMode,
-    setColorMode: setTheme,
+    setColorMode: setColorModeWithCookie,
     toggleColorMode,
   }
 }
