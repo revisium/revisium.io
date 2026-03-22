@@ -25,7 +25,7 @@ export const CtaSection: FC<CtaSectionProps> = observer(({ model }) => {
         </Text>
         <Button
           onClick={() => {
-            window.location.href = cta.ctaLink
+            globalThis.location.href = cta.ctaLink
           }}
           mt="8px"
           px="32px"

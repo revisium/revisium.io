@@ -50,7 +50,7 @@ export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
       </Text>
       <Button
         onClick={() => {
-          window.location.href = model.hero.ctaLink
+          globalThis.location.href = model.hero.ctaLink
         }}
         mt="8px"
         px="32px"
