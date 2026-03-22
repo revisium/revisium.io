@@ -49,7 +49,9 @@ export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
         {model.hero.description}
       </Text>
       <Button
-        onClick={() => window.open(model.hero.ctaLink, '_blank', 'noopener')}
+        onClick={() => {
+          globalThis.location.href = model.hero.ctaLink
+        }}
         mt="8px"
         px="32px"
         py="14px"

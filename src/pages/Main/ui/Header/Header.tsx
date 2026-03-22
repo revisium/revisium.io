@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { LuExternalLink } from 'react-icons/lu'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
-import { ColorModeButton, useColorModeValue } from 'src/shared/ui'
+import { useColorModeValue } from 'src/shared/ui'
 
 interface HeaderProps {
   model: MainPageModel
@@ -61,7 +61,6 @@ export const Header: FC<HeaderProps> = observer(({ model }) => {
           {model.header.githubLabel}
           <LuExternalLink size={16} />
         </Link>
-        <ColorModeButton />
       </Flex>
     </Flex>
   )

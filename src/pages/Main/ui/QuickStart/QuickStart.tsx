@@ -125,8 +125,6 @@ export const QuickStart: FC<QuickStartProps> = observer(({ model }) => {
       <Flex justify="center" mt="24px">
         <Link
           href={qs.deployLink}
-          target="_blank"
-          rel="noopener noreferrer"
           display="flex"
           alignItems="center"
           gap="6px"
