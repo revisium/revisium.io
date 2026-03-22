@@ -35,7 +35,6 @@ export const UseCases: FC<UseCasesProps> = observer(({ model }) => {
             title={useCase.title}
             description={useCase.description}
             link={useCase.link}
-            linkLabel={useCase.linkLabel}
           />
         ))}
       </Grid>
