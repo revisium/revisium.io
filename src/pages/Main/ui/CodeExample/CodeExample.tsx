@@ -155,8 +155,6 @@ export const CodeExample: FC<CodeExampleProps> = observer(({ model }) => {
         </Text>
         <Link
           href={model.codeSectionFooterLink}
-          target="_blank"
-          rel="noopener noreferrer"
           display="flex"
           alignItems="center"
           gap="6px"

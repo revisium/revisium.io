@@ -5,9 +5,8 @@ interface UseCaseCardProps {
   title: string
   description: string
   link: string
-  linkLabel: string
 }
 
-export const UseCaseCard: FC<UseCaseCardProps> = ({ title, description, link, linkLabel }) => {
-  return <ContentCard title={title} description={description} link={link} linkLabel={linkLabel} />
+export const UseCaseCard: FC<UseCaseCardProps> = ({ title, description, link }) => {
+  return <ContentCard title={title} description={description} link={link} />
 }

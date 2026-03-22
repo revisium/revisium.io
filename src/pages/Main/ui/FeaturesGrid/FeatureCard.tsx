@@ -8,5 +8,5 @@ interface FeatureCardProps {
 }
 
 export const FeatureCard: FC<FeatureCardProps> = ({ title, description, link }) => {
-  return <ContentCard title={title} description={description} link={link} linkLabel={link ? 'Learn more' : undefined} />
+  return <ContentCard title={title} description={description} link={link} />
 }
