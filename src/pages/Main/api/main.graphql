@@ -20,12 +20,20 @@ fragment CodeStep on LandingCode_stepFlat {
   extraCode
 }
 
+fragment MainHeroMetric on LandingMainFlatHeroMetricsItems {
+  value
+  label
+}
+
 fragment MainHero on LandingMainFlatHero {
   title
   subtitle
   description
   ctaLabel
   ctaLink
+  metrics {
+    ...MainHeroMetric
+  }
 }
 
 fragment MainHeader on LandingMainFlatHeader {

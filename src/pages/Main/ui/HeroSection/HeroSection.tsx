@@ -13,6 +13,8 @@ interface HeroSectionProps {
 export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
   const textColor = useColorModeValue('#171717', '#e5e5e5')
   const descColor = useColorModeValue('#525252', '#a3a3a3')
+  const mutedColor = useColorModeValue('#737373', '#525252')
+  const borderColor = useColorModeValue('#e5e5e5', '#262626')
   const chevronColor = useColorModeValue('#a3a3a3', '#525252')
 
   const BOUNCE_DISTANCE = 6
@@ -59,6 +61,28 @@ export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
       >
         {model.hero.ctaLabel}
       </Button>
+
+      <Flex
+        gap={{ base: '24px', md: '48px' }}
+        mt={{ base: '24px', md: '32px' }}
+        pt={{ base: '24px', md: '32px' }}
+        borderTop="1px solid"
+        borderColor={borderColor}
+        flexDirection={{ base: 'column', md: 'row' }}
+        alignItems={{ base: 'center', md: 'flex-start' }}
+      >
+        {model.hero.metrics.map((metric) => (
+          <Flex key={metric.label} flexDirection="column" alignItems="center" gap="4px">
+            <Text fontSize={{ base: '28px', md: '32px' }} fontWeight={700} color={textColor} lineHeight={1.2}>
+              {metric.value}
+            </Text>
+            <Text fontSize={{ base: '13px', md: '14px' }} color={mutedColor} fontWeight={400}>
+              {metric.label}
+            </Text>
+          </Flex>
+        ))}
+      </Flex>
+
       <motion.div
         aria-hidden="true"
         initial={{ opacity: 0 }}
