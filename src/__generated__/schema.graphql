@@ -385,8 +385,14 @@ type LandingMainFlatHero {
   ctaLabel: String!
   ctaLink: String!
   description: String!
+  metrics: [LandingMainFlatHeroMetricsItems!]!
   subtitle: String!
   title: String!
+}
+
+type LandingMainFlatHeroMetricsItems {
+  label: String!
+  value: String!
 }
 
 type LandingMainFlatImage {
@@ -455,8 +461,14 @@ type LandingMainHero {
   ctaLabel: String!
   ctaLink: String!
   description: String!
+  metrics: [LandingMainHeroMetricsItems!]!
   subtitle: String!
   title: String!
+}
+
+type LandingMainHeroMetricsItems {
+  label: String!
+  value: String!
 }
 
 type LandingMainImage {

@@ -394,8 +394,14 @@ export type LandingMainFlatHero = {
   ctaLabel: Scalars['String']['output'];
   ctaLink: Scalars['String']['output'];
   description: Scalars['String']['output'];
+  metrics: Array<LandingMainFlatHeroMetricsItems>;
   subtitle: Scalars['String']['output'];
   title: Scalars['String']['output'];
+};
+
+export type LandingMainFlatHeroMetricsItems = {
+  label: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type LandingMainFlatImage = {
@@ -464,8 +470,14 @@ export type LandingMainHero = {
   ctaLabel: Scalars['String']['output'];
   ctaLink: Scalars['String']['output'];
   description: Scalars['String']['output'];
+  metrics: Array<LandingMainHeroMetricsItems>;
   subtitle: Scalars['String']['output'];
   title: Scalars['String']['output'];
+};
+
+export type LandingMainHeroMetricsItems = {
+  label: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type LandingMainImage = {
@@ -800,7 +812,9 @@ export type UseCaseFragment = { title: string, description: string, link: string
 
 export type CodeStepFragment = { label: string, description: string, title: string, code: string, extraLabel: string, extraCode: string };
 
-export type MainHeroFragment = { title: string, subtitle: string, description: string, ctaLabel: string, ctaLink: string };
+export type MainHeroMetricFragment = { value: string, label: string };
+
+export type MainHeroFragment = { title: string, subtitle: string, description: string, ctaLabel: string, ctaLink: string, metrics: Array<{ value: string, label: string }> };
 
 export type MainHeaderFragment = { docsLink: string, docsLabel: string, githubLink: string, githubLabel: string };
 
@@ -827,8 +841,14 @@ export type MainFooterFragment = { copyright: string, links: Array<{ label: stri
 export type MainPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MainPageQuery = { mainFlat: { hero: { title: string, subtitle: string, description: string, ctaLabel: string, ctaLink: string }, image: { url: string, fileId: string, fileName: string, mimeType: string, status: string }, header: { docsLink: string, docsLabel: string, githubLink: string, githubLabel: string }, features: { title: string, items: Array<{ title: string, description: string, link: string }> }, codeSection: { title: string, subtitle: string, footerText: string, footerLink: string, footerLinkLabel: string, items: Array<{ label: string, description: string, title: string, code: string, extraLabel: string, extraCode: string }> }, useCases: { title: string, items: Array<{ title: string, description: string, link: string, linkLabel: string }> }, quickStart: { title: string, standaloneLabel: string, standaloneCmd: string, cloudLabel: string, cloudText: string, cloudLink: string, cloudLinkLabel: string, deployLink: string, deployLinkLabel: string }, openSource: { badge: string, title: string, description: string, link: string, linkLabel: string }, poweredBy: { title: string, description: string, link: string, linkLabel: string }, cta: { title: string, description: string, ctaLabel: string, ctaLink: string }, footer: { copyright: string, links: Array<{ label: string, url: string }> } } };
+export type MainPageQuery = { mainFlat: { hero: { title: string, subtitle: string, description: string, ctaLabel: string, ctaLink: string, metrics: Array<{ value: string, label: string }> }, image: { url: string, fileId: string, fileName: string, mimeType: string, status: string }, header: { docsLink: string, docsLabel: string, githubLink: string, githubLabel: string }, features: { title: string, items: Array<{ title: string, description: string, link: string }> }, codeSection: { title: string, subtitle: string, footerText: string, footerLink: string, footerLinkLabel: string, items: Array<{ label: string, description: string, title: string, code: string, extraLabel: string, extraCode: string }> }, useCases: { title: string, items: Array<{ title: string, description: string, link: string, linkLabel: string }> }, quickStart: { title: string, standaloneLabel: string, standaloneCmd: string, cloudLabel: string, cloudText: string, cloudLink: string, cloudLinkLabel: string, deployLink: string, deployLinkLabel: string }, openSource: { badge: string, title: string, description: string, link: string, linkLabel: string }, poweredBy: { title: string, description: string, link: string, linkLabel: string }, cta: { title: string, description: string, ctaLabel: string, ctaLink: string }, footer: { copyright: string, links: Array<{ label: string, url: string }> } } };
 
+export const MainHeroMetricFragmentDoc = gql`
+    fragment MainHeroMetric on LandingMainFlatHeroMetricsItems {
+  value
+  label
+}
+    `;
 export const MainHeroFragmentDoc = gql`
     fragment MainHero on LandingMainFlatHero {
   title
@@ -836,8 +856,11 @@ export const MainHeroFragmentDoc = gql`
   description
   ctaLabel
   ctaLink
+  metrics {
+    ...MainHeroMetric
+  }
 }
-    `;
+    ${MainHeroMetricFragmentDoc}`;
 export const MainHeaderFragmentDoc = gql`
     fragment MainHeader on LandingMainFlatHeader {
   docsLink
