@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { LuExternalLink } from 'react-icons/lu'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
+import { CLOUD_URL } from 'src/shared/configs'
 import { useColorModeValue } from 'src/shared/ui'
 
 interface HeaderProps {
@@ -46,7 +47,10 @@ export const Header: FC<HeaderProps> = observer(({ model }) => {
           {model.header.docsLabel}
         </Link>
       </Flex>
-      <Flex align="center" gap="1rem">
+      <Flex align="center" gap={{ base: '0.5rem', md: '1rem' }}>
+        <Link href={CLOUD_URL} fontSize="1rem" color={linkColor} _hover={{ color: linkHover, textDecoration: 'none' }}>
+          Log in
+        </Link>
         <Link
           href={model.header.githubLink}
           target="_blank"
