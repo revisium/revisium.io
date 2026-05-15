@@ -46,7 +46,15 @@ export const Header: FC<HeaderProps> = observer(({ model }) => {
           {model.header.docsLabel}
         </Link>
       </Flex>
-      <Flex align="center" gap="1rem">
+      <Flex align="center" gap={{ base: '0.5rem', md: '1rem' }}>
+        <Link
+          href={model.quickStart.cloudLink}
+          fontSize="1rem"
+          color={linkColor}
+          _hover={{ color: linkHover, textDecoration: 'none' }}
+        >
+          Log in
+        </Link>
         <Link
           href={model.header.githubLink}
           target="_blank"

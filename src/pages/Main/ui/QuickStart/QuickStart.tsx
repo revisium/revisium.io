@@ -61,6 +61,38 @@ export const QuickStart: FC<QuickStartProps> = observer(({ model }) => {
           bg={cardBg}
         >
           <Text fontSize="13px" fontWeight={600} textTransform="uppercase" letterSpacing="0.05em" color={labelColor}>
+            {qs.cloudLabel}
+          </Text>
+          <Text fontSize="15px" color={descColor} lineHeight={1.5}>
+            {qs.cloudText}
+          </Text>
+          <Link
+            href={qs.cloudLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            display="flex"
+            alignItems="center"
+            gap="6px"
+            fontSize="15px"
+            fontWeight={500}
+            color={linkColor}
+            _hover={{ textDecoration: 'none', gap: '10px' }}
+            transition="gap 0.2s"
+          >
+            {qs.cloudLinkLabel} <LuArrowRight size={14} />
+          </Link>
+        </Flex>
+        <Flex
+          w={{ base: '100%', md: '50%' }}
+          direction="column"
+          gap="16px"
+          p={{ base: '20px', md: '24px' }}
+          borderRadius="12px"
+          border="1px solid"
+          borderColor={borderColor}
+          bg={cardBg}
+        >
+          <Text fontSize="13px" fontWeight={600} textTransform="uppercase" letterSpacing="0.05em" color={labelColor}>
             {qs.standaloneLabel}
           </Text>
           <Flex
@@ -88,38 +120,6 @@ export const QuickStart: FC<QuickStartProps> = observer(({ model }) => {
               <LuCopy />
             </IconButton>
           </Flex>
-        </Flex>
-        <Flex
-          w={{ base: '100%', md: '50%' }}
-          direction="column"
-          gap="16px"
-          p={{ base: '20px', md: '24px' }}
-          borderRadius="12px"
-          border="1px solid"
-          borderColor={borderColor}
-          bg={cardBg}
-        >
-          <Text fontSize="13px" fontWeight={600} textTransform="uppercase" letterSpacing="0.05em" color={labelColor}>
-            {qs.cloudLabel}
-          </Text>
-          <Text fontSize="15px" color={descColor} lineHeight={1.5}>
-            {qs.cloudText}
-          </Text>
-          <Link
-            href={qs.cloudLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            display="flex"
-            alignItems="center"
-            gap="6px"
-            fontSize="15px"
-            fontWeight={500}
-            color={linkColor}
-            _hover={{ textDecoration: 'none', gap: '10px' }}
-            transition="gap 0.2s"
-          >
-            {qs.cloudLinkLabel} <LuArrowRight size={14} />
-          </Link>
         </Flex>
       </Flex>
       <Flex justify="center" mt="24px">

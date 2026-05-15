@@ -1,8 +1,8 @@
-import { Flex, Heading, Text } from '@chakra-ui/react'
+import { Flex, Heading, Link, Text } from '@chakra-ui/react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
-import { LuChevronDown } from 'react-icons/lu'
+import { LuArrowRight, LuChevronDown } from 'react-icons/lu'
 import { MainPageModel } from 'src/pages/Main/model/MainPageModel.ts'
 import { Button, useColorModeValue } from 'src/shared/ui'
 
@@ -16,6 +16,8 @@ export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
   const mutedColor = useColorModeValue('#737373', '#525252')
   const borderColor = useColorModeValue('#e5e5e5', '#262626')
   const chevronColor = useColorModeValue('#a3a3a3', '#525252')
+  const secondaryButtonBg = useColorModeValue('#ffffff', '#0a0a0a')
+  const secondaryButtonColor = useColorModeValue('#171717', '#e5e5e5')
 
   const BOUNCE_DISTANCE = 6
   const SCROLL_FADE_END = 100
@@ -50,17 +52,53 @@ export const HeroSection: FC<HeroSectionProps> = observer(({ model }) => {
       <Text fontSize={{ base: '15px', md: '17px' }} color={descColor} lineHeight={1.6} maxW="640px">
         {model.hero.description}
       </Text>
-      <Button
-        onClick={() => {
-          globalThis.location.href = model.hero.ctaLink
-        }}
+      <Flex
+        align="center"
+        justify="center"
+        gap="12px"
         mt="8px"
-        px="32px"
-        py="14px"
-        fontSize="16px"
+        flexDirection={{ base: 'column', sm: 'row' }}
+        w={{ base: '100%', sm: 'auto' }}
       >
-        {model.hero.ctaLabel}
-      </Button>
+        <Button
+          onClick={() => {
+            globalThis.location.href = model.hero.ctaLink
+          }}
+          px="32px"
+          py="14px"
+          borderRadius="8px"
+          fontSize="16px"
+          w={{ base: '100%', sm: 'auto' }}
+          maxW="260px"
+        >
+          {model.hero.ctaLabel}
+        </Button>
+        <Link
+          href={model.header.docsLink}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap="6px"
+          px="24px"
+          py="13px"
+          borderRadius="8px"
+          border="1px solid"
+          borderColor={borderColor}
+          bg={secondaryButtonBg}
+          color={secondaryButtonColor}
+          fontSize="16px"
+          fontWeight={700}
+          lineHeight="normal"
+          w={{ base: '100%', sm: 'auto' }}
+          maxW="260px"
+          _hover={{ textDecoration: 'none', borderColor: mutedColor }}
+        >
+          Read Docs <LuArrowRight size={16} />
+        </Link>
+      </Flex>
+      <Text fontSize={{ base: '13px', md: '14px' }} color={mutedColor} lineHeight={1.5} maxW="560px">
+        Revisium Cloud is in Early Access: hosted sandbox for evaluation and early projects.
+      </Text>
 
       <Flex
         gap={{ base: '24px', md: '48px' }}
