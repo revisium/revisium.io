@@ -1,0 +1,51 @@
+name: Release Train
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Release train transition to run.
+        required: true
+        default: start-minor-alpha
+        type: choice
+        options:
+          - start-minor-alpha
+          - start-major-alpha
+          - start-minor-rc
+          - start-major-rc
+          - start-minor-stable
+          - start-major-stable
+          - alpha-bump
+          - promote-rc
+          - rc-bump
+          - stable
+          - patch
+          - patch-alpha-start
+          - patch-rc-start
+      dry_run:
+        description: Plan only without pushing the release branch and tag.
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  release-train:
+    name: Release train
+    uses: revisium/revisium-actions/.github/workflows/release-train.yml@763f2746000f15842e642130dba3acf09c5d00ac # v0.3.2
+    with:
+      action: ${{ inputs.action }}
+      dry_run: ${{ inputs.dry_run }}
+      base_branch: master
+      node_version: 22.11.0
+      install_command: npm ci
+      validate_command: |
+        npm run ts:check
+        npm run fsd:check
+        npm run lint:ci
+        npm run build
+    secrets:
+      RELEASE_BOT_PRIVATE_KEY: ${{ secrets.RELEASE_BOT_PRIVATE_KEY }}

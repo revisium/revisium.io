@@ -7,34 +7,31 @@ on:
   pull_request:
     branches: [master]
 
+permissions:
+  contents: read
+
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    uses: revisium/revisium-actions/.github/workflows/node-build.yml@763f2746000f15842e642130dba3acf09c5d00ac # v0.3.2
+    with:
+      node_version: 22.11.0
+      install_command: npm ci
+      run_commands: |
+        npm run ts:check
+        npm run fsd:check
+        npm run lint:ci
 
-    defaults:
-      run:
-        shell: bash
+  sonar:
+    needs: checks
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.11.0
-          cache: 'npm'
-          cache-dependency-path: ./package-lock.json
-
-      - run: npm ci
-      - run: npm run ts:check
-      - run: npm run fsd:check
-      - run: npm run lint:ci
-
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602
+        uses: SonarSource/sonarqube-scan-action@299e4b793aaa83bf2aba7c9c14bedbb485688ec4 # v7.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
