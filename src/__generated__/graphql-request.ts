@@ -1,13 +1,12 @@
 // @ts-ignore
+/** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import { GraphQLClient, RequestOptions } from 'graphql-request';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders'];
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -18,12 +17,17 @@ export type Scalars = {
   Float: { input: number; output: number; }
   DateTime: { input: number | string; output: number | string; }
   JSON: { input: any; output: any; }
-  _Any: { input: any; output: any; }
+  _Any: { input: unknown; output: unknown; }
 };
 
 export type LandingBoolFilter = {
   equals?: InputMaybe<Scalars['Boolean']['input']>;
   not?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type LandingBulkMutationResult = {
+  count: Scalars['Int']['output'];
+  success: Scalars['Boolean']['output'];
 };
 
 export type LandingCode_Step = {
@@ -91,6 +95,62 @@ export type LandingCode_StepsWhereInput = {
   versionId?: InputMaybe<LandingStringFilter>;
 };
 
+export type LandingCreateCode_StepInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateCode_StepsInput = {
+  rows: Array<LandingCreateCode_StepsRowInput>;
+};
+
+export type LandingCreateCode_StepsRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateFeatureInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateFeaturesInput = {
+  rows: Array<LandingCreateFeaturesRowInput>;
+};
+
+export type LandingCreateFeaturesRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateMainInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateMainsInput = {
+  rows: Array<LandingCreateMainsRowInput>;
+};
+
+export type LandingCreateMainsRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateUse_CaseInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingCreateUse_CasesInput = {
+  rows: Array<LandingCreateUse_CasesRowInput>;
+};
+
+export type LandingCreateUse_CasesRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
 export type LandingDateTimeFilter = {
   equals?: InputMaybe<Scalars['String']['input']>;
   gt?: InputMaybe<Scalars['String']['input']>;
@@ -99,6 +159,27 @@ export type LandingDateTimeFilter = {
   lt?: InputMaybe<Scalars['String']['input']>;
   lte?: InputMaybe<Scalars['String']['input']>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type LandingDeleteCode_StepsInput = {
+  rowIds: Array<Scalars['String']['input']>;
+};
+
+export type LandingDeleteFeaturesInput = {
+  rowIds: Array<Scalars['String']['input']>;
+};
+
+export type LandingDeleteMainsInput = {
+  rowIds: Array<Scalars['String']['input']>;
+};
+
+export type LandingDeleteResult = {
+  id: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
+export type LandingDeleteUse_CasesInput = {
+  rowIds: Array<Scalars['String']['input']>;
 };
 
 export type LandingFeature = {
@@ -573,6 +654,72 @@ export type LandingPageInfo = {
   startCursor?: Maybe<Scalars['String']['output']>;
 };
 
+export type LandingPatchCode_StepInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchCode_StepsInput = {
+  rows: Array<LandingPatchCode_StepsRowInput>;
+};
+
+export type LandingPatchCode_StepsRowInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchFeatureInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchFeaturesInput = {
+  rows: Array<LandingPatchFeaturesRowInput>;
+};
+
+export type LandingPatchFeaturesRowInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchMainInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchMainsInput = {
+  rows: Array<LandingPatchMainsRowInput>;
+};
+
+export type LandingPatchMainsRowInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export enum LandingPatchOp {
+  Replace = 'replace'
+}
+
+export type LandingPatchOperation = {
+  op: LandingPatchOp;
+  path: Scalars['String']['input'];
+  value: Scalars['JSON']['input'];
+};
+
+export type LandingPatchUse_CaseInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
+export type LandingPatchUse_CasesInput = {
+  rows: Array<LandingPatchUse_CasesRowInput>;
+};
+
+export type LandingPatchUse_CasesRowInput = {
+  id: Scalars['String']['input'];
+  patches: Array<LandingPatchOperation>;
+};
+
 export enum LandingSearchLanguage {
   Arabic = 'arabic',
   Armenian = 'armenian',
@@ -630,6 +777,62 @@ export type LandingStringFilter = {
   not?: InputMaybe<Scalars['String']['input']>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type LandingUpdateCode_StepInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateCode_StepsInput = {
+  rows: Array<LandingUpdateCode_StepsRowInput>;
+};
+
+export type LandingUpdateCode_StepsRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateFeatureInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateFeaturesInput = {
+  rows: Array<LandingUpdateFeaturesRowInput>;
+};
+
+export type LandingUpdateFeaturesRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateMainInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateMainsInput = {
+  rows: Array<LandingUpdateMainsRowInput>;
+};
+
+export type LandingUpdateMainsRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateUse_CaseInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
+};
+
+export type LandingUpdateUse_CasesInput = {
+  rows: Array<LandingUpdateUse_CasesRowInput>;
+};
+
+export type LandingUpdateUse_CasesRowInput = {
+  data: Scalars['JSON']['input'];
+  id: Scalars['String']['input'];
 };
 
 export type LandingUse_Case = {
@@ -691,6 +894,201 @@ export type LandingUse_CasesWhereInput = {
   readonly?: InputMaybe<LandingBoolFilter>;
   updatedAt?: InputMaybe<LandingDateTimeFilter>;
   versionId?: InputMaybe<LandingStringFilter>;
+};
+
+export type Mutation = {
+  createCode_step: LandingCode_StepNode;
+  createCode_steps: LandingBulkMutationResult;
+  createFeature: LandingFeatureNode;
+  createFeatures: LandingBulkMutationResult;
+  createMain: LandingMainNode;
+  createMains: LandingBulkMutationResult;
+  createUse_case: LandingUse_CaseNode;
+  createUse_cases: LandingBulkMutationResult;
+  deleteCode_step: LandingDeleteResult;
+  deleteCode_steps: LandingBulkMutationResult;
+  deleteFeature: LandingDeleteResult;
+  deleteFeatures: LandingBulkMutationResult;
+  deleteMain: LandingDeleteResult;
+  deleteMains: LandingBulkMutationResult;
+  deleteUse_case: LandingDeleteResult;
+  deleteUse_cases: LandingBulkMutationResult;
+  patchCode_step: LandingCode_StepNode;
+  patchCode_steps: LandingBulkMutationResult;
+  patchFeature: LandingFeatureNode;
+  patchFeatures: LandingBulkMutationResult;
+  patchMain: LandingMainNode;
+  patchMains: LandingBulkMutationResult;
+  patchUse_case: LandingUse_CaseNode;
+  patchUse_cases: LandingBulkMutationResult;
+  updateCode_step: LandingCode_StepNode;
+  updateCode_steps: LandingBulkMutationResult;
+  updateFeature: LandingFeatureNode;
+  updateFeatures: LandingBulkMutationResult;
+  updateMain: LandingMainNode;
+  updateMains: LandingBulkMutationResult;
+  updateUse_case: LandingUse_CaseNode;
+  updateUse_cases: LandingBulkMutationResult;
+};
+
+
+export type MutationCreateCode_StepArgs = {
+  data: LandingCreateCode_StepInput;
+};
+
+
+export type MutationCreateCode_StepsArgs = {
+  data: LandingCreateCode_StepsInput;
+};
+
+
+export type MutationCreateFeatureArgs = {
+  data: LandingCreateFeatureInput;
+};
+
+
+export type MutationCreateFeaturesArgs = {
+  data: LandingCreateFeaturesInput;
+};
+
+
+export type MutationCreateMainArgs = {
+  data: LandingCreateMainInput;
+};
+
+
+export type MutationCreateMainsArgs = {
+  data: LandingCreateMainsInput;
+};
+
+
+export type MutationCreateUse_CaseArgs = {
+  data: LandingCreateUse_CaseInput;
+};
+
+
+export type MutationCreateUse_CasesArgs = {
+  data: LandingCreateUse_CasesInput;
+};
+
+
+export type MutationDeleteCode_StepArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteCode_StepsArgs = {
+  data: LandingDeleteCode_StepsInput;
+};
+
+
+export type MutationDeleteFeatureArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteFeaturesArgs = {
+  data: LandingDeleteFeaturesInput;
+};
+
+
+export type MutationDeleteMainArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteMainsArgs = {
+  data: LandingDeleteMainsInput;
+};
+
+
+export type MutationDeleteUse_CaseArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteUse_CasesArgs = {
+  data: LandingDeleteUse_CasesInput;
+};
+
+
+export type MutationPatchCode_StepArgs = {
+  data: LandingPatchCode_StepInput;
+};
+
+
+export type MutationPatchCode_StepsArgs = {
+  data: LandingPatchCode_StepsInput;
+};
+
+
+export type MutationPatchFeatureArgs = {
+  data: LandingPatchFeatureInput;
+};
+
+
+export type MutationPatchFeaturesArgs = {
+  data: LandingPatchFeaturesInput;
+};
+
+
+export type MutationPatchMainArgs = {
+  data: LandingPatchMainInput;
+};
+
+
+export type MutationPatchMainsArgs = {
+  data: LandingPatchMainsInput;
+};
+
+
+export type MutationPatchUse_CaseArgs = {
+  data: LandingPatchUse_CaseInput;
+};
+
+
+export type MutationPatchUse_CasesArgs = {
+  data: LandingPatchUse_CasesInput;
+};
+
+
+export type MutationUpdateCode_StepArgs = {
+  data: LandingUpdateCode_StepInput;
+};
+
+
+export type MutationUpdateCode_StepsArgs = {
+  data: LandingUpdateCode_StepsInput;
+};
+
+
+export type MutationUpdateFeatureArgs = {
+  data: LandingUpdateFeatureInput;
+};
+
+
+export type MutationUpdateFeaturesArgs = {
+  data: LandingUpdateFeaturesInput;
+};
+
+
+export type MutationUpdateMainArgs = {
+  data: LandingUpdateMainInput;
+};
+
+
+export type MutationUpdateMainsArgs = {
+  data: LandingUpdateMainsInput;
+};
+
+
+export type MutationUpdateUse_CaseArgs = {
+  data: LandingUpdateUse_CaseInput;
+};
+
+
+export type MutationUpdateUse_CasesArgs = {
+  data: LandingUpdateUse_CasesInput;
 };
 
 export type Query = {
