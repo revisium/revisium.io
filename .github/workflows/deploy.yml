@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Build"
+    types:
+      - completed
+    branches:
+      - master
+
+jobs:
+  deploy:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: read
+      deployments: write
+    uses: revisium/revisium-actions/.github/workflows/deploy.yml@f5b3410a99b36a4c41b1cc2d5e625dd6d2e087dc # v0.3.3
+    with:
+      ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      environment: development
+      deployment_description: Deploy to Kubernetes
+      kube_namespace: ${{ vars.KUBE_NAMESPACE }}
+      kube_service_name: ${{ vars.KUBE_SERVICE_NAME }}
+      kube_app_url: ${{ vars.KUBE_APP_URL }}
+    secrets:
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      KUBE_NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+      KUBE_SERVICE_NAME: ${{ secrets.KUBE_SERVICE_NAME }}
+      KUBE_APP_URL: ${{ secrets.KUBE_APP_URL }}
