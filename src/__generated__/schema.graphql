@@ -1,5 +1,6 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 """
@@ -15,6 +16,11 @@ scalar JSON
 input LandingBoolFilter {
   equals: Boolean
   not: Boolean
+}
+
+type LandingBulkMutationResult {
+  count: Int!
+  success: Boolean!
 }
 
 type LandingCode_step {
@@ -82,6 +88,62 @@ input LandingCode_stepsWhereInput {
   versionId: LandingStringFilter
 }
 
+input LandingCreateCode_stepInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateCode_stepsInput {
+  rows: [LandingCreateCode_stepsRowInput!]!
+}
+
+input LandingCreateCode_stepsRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateFeatureInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateFeaturesInput {
+  rows: [LandingCreateFeaturesRowInput!]!
+}
+
+input LandingCreateFeaturesRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateMainInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateMainsInput {
+  rows: [LandingCreateMainsRowInput!]!
+}
+
+input LandingCreateMainsRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateUse_caseInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingCreateUse_casesInput {
+  rows: [LandingCreateUse_casesRowInput!]!
+}
+
+input LandingCreateUse_casesRowInput {
+  data: JSON!
+  id: String!
+}
+
 input LandingDateTimeFilter {
   equals: String
   gt: String
@@ -90,6 +152,27 @@ input LandingDateTimeFilter {
   lt: String
   lte: String
   notIn: [String!]
+}
+
+input LandingDeleteCode_stepsInput {
+  rowIds: [String!]!
+}
+
+input LandingDeleteFeaturesInput {
+  rowIds: [String!]!
+}
+
+input LandingDeleteMainsInput {
+  rowIds: [String!]!
+}
+
+type LandingDeleteResult {
+  id: String!
+  success: Boolean!
+}
+
+input LandingDeleteUse_casesInput {
+  rowIds: [String!]!
 }
 
 type LandingFeature {
@@ -564,6 +647,72 @@ type LandingPageInfo {
   startCursor: String
 }
 
+input LandingPatchCode_stepInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchCode_stepsInput {
+  rows: [LandingPatchCode_stepsRowInput!]!
+}
+
+input LandingPatchCode_stepsRowInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchFeatureInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchFeaturesInput {
+  rows: [LandingPatchFeaturesRowInput!]!
+}
+
+input LandingPatchFeaturesRowInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchMainInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchMainsInput {
+  rows: [LandingPatchMainsRowInput!]!
+}
+
+input LandingPatchMainsRowInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+enum LandingPatchOp {
+  replace
+}
+
+input LandingPatchOperation {
+  op: LandingPatchOp!
+  path: String!
+  value: JSON!
+}
+
+input LandingPatchUse_caseInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
+input LandingPatchUse_casesInput {
+  rows: [LandingPatchUse_casesRowInput!]!
+}
+
+input LandingPatchUse_casesRowInput {
+  id: String!
+  patches: [LandingPatchOperation!]!
+}
+
 enum LandingSearchLanguage {
   arabic
   armenian
@@ -621,6 +770,62 @@ input LandingStringFilter {
   not: String
   notIn: [String!]
   startsWith: String
+}
+
+input LandingUpdateCode_stepInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateCode_stepsInput {
+  rows: [LandingUpdateCode_stepsRowInput!]!
+}
+
+input LandingUpdateCode_stepsRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateFeatureInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateFeaturesInput {
+  rows: [LandingUpdateFeaturesRowInput!]!
+}
+
+input LandingUpdateFeaturesRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateMainInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateMainsInput {
+  rows: [LandingUpdateMainsRowInput!]!
+}
+
+input LandingUpdateMainsRowInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateUse_caseInput {
+  data: JSON!
+  id: String!
+}
+
+input LandingUpdateUse_casesInput {
+  rows: [LandingUpdateUse_casesRowInput!]!
+}
+
+input LandingUpdateUse_casesRowInput {
+  data: JSON!
+  id: String!
 }
 
 type LandingUse_case {
@@ -682,6 +887,41 @@ input LandingUse_casesWhereInput {
   readonly: LandingBoolFilter
   updatedAt: LandingDateTimeFilter
   versionId: LandingStringFilter
+}
+
+type Mutation {
+  createCode_step(data: LandingCreateCode_stepInput!): LandingCode_stepNode!
+  createCode_steps(data: LandingCreateCode_stepsInput!): LandingBulkMutationResult!
+  createFeature(data: LandingCreateFeatureInput!): LandingFeatureNode!
+  createFeatures(data: LandingCreateFeaturesInput!): LandingBulkMutationResult!
+  createMain(data: LandingCreateMainInput!): LandingMainNode!
+  createMains(data: LandingCreateMainsInput!): LandingBulkMutationResult!
+  createUse_case(data: LandingCreateUse_caseInput!): LandingUse_caseNode!
+  createUse_cases(data: LandingCreateUse_casesInput!): LandingBulkMutationResult!
+  deleteCode_step(id: String!): LandingDeleteResult!
+  deleteCode_steps(data: LandingDeleteCode_stepsInput!): LandingBulkMutationResult!
+  deleteFeature(id: String!): LandingDeleteResult!
+  deleteFeatures(data: LandingDeleteFeaturesInput!): LandingBulkMutationResult!
+  deleteMain(id: String!): LandingDeleteResult!
+  deleteMains(data: LandingDeleteMainsInput!): LandingBulkMutationResult!
+  deleteUse_case(id: String!): LandingDeleteResult!
+  deleteUse_cases(data: LandingDeleteUse_casesInput!): LandingBulkMutationResult!
+  patchCode_step(data: LandingPatchCode_stepInput!): LandingCode_stepNode!
+  patchCode_steps(data: LandingPatchCode_stepsInput!): LandingBulkMutationResult!
+  patchFeature(data: LandingPatchFeatureInput!): LandingFeatureNode!
+  patchFeatures(data: LandingPatchFeaturesInput!): LandingBulkMutationResult!
+  patchMain(data: LandingPatchMainInput!): LandingMainNode!
+  patchMains(data: LandingPatchMainsInput!): LandingBulkMutationResult!
+  patchUse_case(data: LandingPatchUse_caseInput!): LandingUse_caseNode!
+  patchUse_cases(data: LandingPatchUse_casesInput!): LandingBulkMutationResult!
+  updateCode_step(data: LandingUpdateCode_stepInput!): LandingCode_stepNode!
+  updateCode_steps(data: LandingUpdateCode_stepsInput!): LandingBulkMutationResult!
+  updateFeature(data: LandingUpdateFeatureInput!): LandingFeatureNode!
+  updateFeatures(data: LandingUpdateFeaturesInput!): LandingBulkMutationResult!
+  updateMain(data: LandingUpdateMainInput!): LandingMainNode!
+  updateMains(data: LandingUpdateMainsInput!): LandingBulkMutationResult!
+  updateUse_case(data: LandingUpdateUse_caseInput!): LandingUse_caseNode!
+  updateUse_cases(data: LandingUpdateUse_casesInput!): LandingBulkMutationResult!
 }
 
 type Query {
